@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard with Popup</title>
+    <style>
+        .blur-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(8px);
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 10;
+        }
+
+        .header {
+            background-color: #490648;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 20;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 750px;
+            max-height: 90vh;
+            z-index: 30;
+            padding: 2.5rem;
+            overflow: hidden;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .btn-primary {
+            background-color: #490648;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(73, 6, 72, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #5c075a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(73, 6, 72, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #e9ecef;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -48%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sign-out-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .sign-out-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #490648;
+            font-weight: 500;
+        }
+
+        .popup-header {
+            position: relative;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .popup-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #490648;
+            margin-bottom: 8px;
+        }
+
+        .popup-subtitle {
+            font-size: 16px;
+            color: #6c757d;
+            font-weight: 400;
+        }
+
+        .popup-content {
+            line-height: 1.6;
+            color: #444;
+            font-size: 15px;
+        }
+
+        .popup-content p {
+            margin-bottom: 14px;
+        }
+
+        .popup-content strong {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .button-container {
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+.button-container a{
+    text-decoration: none;
+}
+        .popup-inner {
+            max-height: calc(90vh - 5rem);
+            overflow-y: auto;
+            padding-right: 5px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .popup-inner::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Main Content (Blurred when popup shows) -->
+    <main class="p-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-3">Your Reports</h2>
+                <p class="text-gray-600">This is sample content that will be blurred when the popup appears.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="border p-4 rounded-md">Report 1</div>
+                    <div class="border p-4 rounded-md">Report 2</div>
+                    <div class="border p-4 rounded-md">Report 3</div>
+                    <div class="border p-4 rounded-md">Report 4</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Blur Background -->
+    <div class="blur-bg"></div>
+
+    <!-- Popup -->
+    <div class="popup">
+        <div class="popup-inner">
+            <div class="popup-header">
+                <div class="popup-title">Important Information</div>
+                <div class="popup-subtitle">Key points to consider while reading your report</div>
+            </div>
+            <div class="popup-content">
+                <p>A few points you should keep in mind while reading this report.</p>
+                <p><strong>First</strong>, the results in this report are based on leadership research conducted for over 20 years with working adults and leaders. The implications discussed here are intended for professionals and leaders.</p>
+                <p><strong>Next</strong>, there is no such thing as a "good" score. There are positive and negative implications for both high and low scores, although certain scores are more important for some competencies than others.</p>
+                <p>When under pressure, most people will display certain counterproductive tendencies. We refer to these as "risk factors." Under normal conditions these characteristics may actually be strengths. However, when you are tired, pressured, bored, or otherwise distracted, these risk factors may impede your effectiveness and erode the quality of your working relationships. Others may be aware of these tendencies but may not give you any feedback about them.</p>
+                <p><strong>Finally</strong>, you can change your typical behavior, but change depends on three things. First, you need to know what you want to change. Second, you must decide to change it. And third, you need to know how to change it.</p>
+                <p>The information in this report will be important for any effort toward change and development.</p>
+            </div>
+            <div class="button-container">
+                <a href="summary.html" class="btn-primary" id="summaryBtn">Go to My Summary Report</a>
+                <a href="Home.html" class="btn-secondary" id="">Back to Home Screen</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('summaryBtn').addEventListener('click', function() {
+            alert('Navigating to Summary Report...');
+            // Implement navigation logic here
+        });
+
+        document.getElementById('homeBtn').addEventListener('click', function() {
+            document.querySelector('.popup').style.display = 'none';
+            document.querySelector('.blur-bg').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

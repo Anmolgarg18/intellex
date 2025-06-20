@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Assessment Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --accent-color: #490648;
+            --secondary-color: #7b1fa2;
+            --tertiary-color: #9c27b0;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .accent-color {
+            color: var(--accent-color);
+        }
+        .accent-bg {
+            background-color: var(--accent-color);
+        }
+        .accent-border {
+            border-color: var(--accent-color);
+        }
+        .trait-card {
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .trait-card:last-child {
+            border-bottom: none;
+        }
+        .btn {
+            transition: all 0.3s ease;
+        }
+        .btn-accent {
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+        .btn-accent:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        .btn-accent-filled {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        .btn-accent-filled:hover {
+            background-color: white;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+        .score-bar {
+            height: 10px;
+            background-color: #e5e5e5;
+            border-radius: 5px;
+            overflow: visible;
+            width: 300px;
+            position: relative;
+            margin: 30px 0;
+        }
+        .score-fill {
+            height: 100%;
+            background-color: var(--accent-color);
+            border-radius: 5px 0 0 5px;
+        }
+        .score-pointer {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px var(--accent-color);
+            z-index: 10;
+        }
+        .score-value {
+            position: absolute;
+            top: -25px;
+            transform: translateX(-50%);
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--accent-color);
+        }
+        .score-label {
+            position: absolute;
+            bottom: -25px;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #666;
+            width: auto;
+        }
+        .trait-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(73, 6, 72, 0.1);
+            color: var(--accent-color);
+        }
+        .bullet-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .bullet-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+        }
+        .implications-section {
+            margin-top: 1.5rem;
+        }
+        .implications-title {
+            font-weight: 500;
+            color: var(--accent-color);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+        .top-ribbon {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.75rem 0;
+        }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            border: 2px solid white;
+        }
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .logout-btn {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .navigation-btn {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .navigation-btn:hover {
+            background-color: rgba(73, 6, 72, 0.1);
+        }
+        .back-btn {
+            display: flex;
+            align-items: center;
+            color: var(--accent-color);
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .back-btn:hover {
+            opacity: 0.8;
+        }
+        .top-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 1rem 2rem;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .score-marker {
+            position: absolute;
+            top: -5px;
+            height: 20px;
+            width: 1px;
+            background-color: #999;
+        }
+        .sidebar {
+            background-color: #f8f8f8;
+            border-right: 1px solid #e5e5e5;
+            height: calc(100vh - 110px);
+            position: sticky;
+            top: 110px;
+            overflow-y: auto;
+        }
+        .sidebar-title {
+            font-weight: 600;
+            color: var(--accent-color);
+            padding: 1.5rem 1rem 1rem;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-menu li {
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-menu a:hover {
+            background-color: rgba(73, 6, 72, 0.05);
+        }
+        .sidebar-menu a.active {
+            background-color: rgba(73, 6, 72, 0.1);
+            border-left: 3px solid var(--accent-color);
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+        .main-content {
+            padding: 2rem;
+        }
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(73, 6, 72, 0.1);
+            color: var(--accent-color);
+            margin-right: 1rem;
+        }
+        .main-header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 2rem;
+        }
+        .see-more-btn {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        .see-more-btn:hover {
+            opacity: 0.8;
+        }
+        .hidden-bullets {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    <!-- Top Ribbon -->
+    <div class="top-ribbon">
+        <div class="container mx-auto px-4 max-w-6xl flex justify-between items-center">
+            <!-- Profile -->
+            <div></div>
+            
+            <!-- Center: Empty -->
+            <div></div>
+            
+            <!-- Right: Profile -->
+            <div class="flex items-center">
+                <div class="profile-pic mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <span class="font-medium">Pravesh Mehra</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="top-navigation">
+        <a href="Home.html" class="navigation-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Summary
+        </a>
+        
+        <button class="navigation-btn">
+            Next Attribute
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="flex">
+        <!-- Left Sidebar Menu -->
+        <div class="sidebar w-64">
+            <div class="sidebar-title" id="sidebarTitle">Personal Attributes</div>
+            
+            <!-- Personal Attributes Menu (default) -->
+            <ul class="sidebar-menu" id="personalAttributesMenu">
+                <li>
+                    <a href="#drive-energy" class="active">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        Drive and Energy
+                    </a>
+                </li>
+                <li>
+                    <a href="#social-intelligence">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        Social Intelligence
+                    </a>
+                </li>
+                <li>
+                    <a href="#problem-solving">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                        Problem Solving
+                    </a>
+                </li>
+                <li>
+                    <a href="#change-orientation">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                        </div>
+                        Change Orientation
+                    </a>
+                </li>
+                <li>
+                    <a href="#risk-taking">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        Risk Taking
+                    </a>
+                </li>
+                <li>
+                    <a href="#collaborative-learning">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                        </div>
+                        Collaborative Learning
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Work Proficiencies Menu (hidden by default) -->
+            <ul class="sidebar-menu hidden" id="workProficienciesMenu">
+                <li>
+                    <a href="#executing">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                            </svg>
+                        </div>
+                        Executing
+                    </a>
+                </li>
+                <li>
+                    <a href="#influencing">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                            </svg>
+                        </div>
+                        Influencing
+                    </a>
+                </li>
+                <li>
+                    <a href="#relationship-building">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        Relationship Building
+                    </a>
+                </li>
+                <li>
+                    <a href="#strategic-thinking">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        Strategic Thinking
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Values and Motives Menu (hidden by default) -->
+            <ul class="sidebar-menu hidden" id="valuesMotivesMenu">
+                <li>
+                    <a href="#status-interest">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        Status Interest
+                    </a>
+                </li>
+                <li>
+                    <a href="#social-interest">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        Social Interest
+                    </a>
+                </li>
+                <li>
+                    <a href="#practical-interest">
+                        <div class="trait-icon mr-3" style="width: 30px; height: 30px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        Practical Interest
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1">
+            <div class="container mx-auto px-4 py-8 max-w-4xl">
+                <!-- Tab Navigation -->
+                <div class="border-b border-gray-200 mb-8">
+                    <div class="flex">
+                        <button class="tab-button active" data-tab="personalAttributes" data-menu="personalAttributesMenu">
+                            Personal Attributes
+                        </button>
+                        <button class="tab-button" data-tab="workProficiencies" data-menu="workProficienciesMenu">
+                            Work Proficiencies
+                        </button>
+                        <button class="tab-button" data-tab="valuesMotives" data-menu="valuesMotivesMenu">
+                            Values & Motives
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tab Content: Personal Attributes -->
+                <div id="personalAttributes" class="tab-content active">
+                    <!-- Main Header -->
+                    <div class="main-header">
+                        <div class="flex items-center justify-start">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <h1 class="text-3xl font-bold accent-color text-start">Drive and Energy</h1>
+                        </div>
+                    </div>
+
+                    <!-- Trait Cards -->
+                    <div class="space-y-12">
+                        <!-- Trait 1: AMBITION -->
+                        <div id="ambition" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">AMBITION</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                               Level of self-confidence,competitiveness and energy level
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 75%"></div>
+                                    <div class="score-pointer" style="left: 75%"></div>
+                                    <div class="score-value" style="left: 75%">75%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                    
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                    
+                                    <div class="score-label" style="left: 76%;white-space: nowrap;">Above Average</div>
+                                   
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Demonstrates high standards and seeks challenging goals to achieve results.</li>
+                                        <li>Shows persistence in overcoming obstacles and maintains focus on long-term objectives.</li>
+                                        <li class="hidden-bullets">Actively seeks feedback to improve performance and reach higher levels of achievement.</li>
+                                        <li class="hidden-bullets">Takes initiative on projects that offer opportunities for growth and advancement.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-ambition">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Creates a performance-oriented culture with clear expectations for excellence.</li>
+                                        <li>Sets stretch goals for the team and models dedication to continuous improvement.</li>
+                                        <li class="hidden-bullets">Recognizes and rewards high achievement, fostering a competitive yet collaborative environment.</li>
+                                        <li class="hidden-bullets">Drives organizational growth through strategic vision and execution.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-ambition">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May set unrealistic expectations for self and others, leading to burnout.</li>
+                                        <li>Could prioritize achievement over work-life balance or team well-being.</li>
+                                        <li class="hidden-bullets">Might become frustrated when progress is slower than anticipated.</li>
+                                        <li class="hidden-bullets">Could potentially overlook the importance of process in pursuit of results.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-ambition">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trait 2: ADJUSTMENT -->
+                        <div id="adjustment" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">ADJUSTMENT</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                                Level of Confidence, Self acceptance and stability underpressure
+
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 60%"></div>
+                                    <div class="score-pointer" style="left: 60%"></div>
+                                    <div class="score-value" style="left: 60%">60%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                  
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                   
+                                   <div class="score-label" style="left: 76%;white-space: nowrap;">Above Average</div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Maintains emotional stability during challenges and unexpected situations.</li>
+                                        <li>Recovers quickly from setbacks and approaches problems with a level head.</li>
+                                        <li class="hidden-bullets">Demonstrates resilience when facing criticism or negative feedback.</li>
+                                        <li class="hidden-bullets">Manages personal reactions effectively in high-pressure environments.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-adjustment">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Creates psychological safety for the team during uncertainty and change.</li>
+                                        <li>Makes rational decisions under pressure and provides stability during organizational transitions.</li>
+                                        <li class="hidden-bullets">Models emotional intelligence and helps team members manage stress effectively.</li>
+                                        <li class="hidden-bullets">Maintains perspective during crises, helping teams navigate challenges constructively.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-adjustment">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May occasionally struggle with sustained high-pressure situations.</li>
+                                        <li>Could benefit from developing additional stress management techniques.</li>
+                                        <li class="hidden-bullets">Might need to be mindful of how personal stress impacts communication style.</li>
+                                        <li class="hidden-bullets">Could occasionally underestimate the emotional impact of changes on team members.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-adjustment">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trait 3: BOLD -->
+                        <div id="bold" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">BOLD</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                               a tendency to seem unusually self-confident, with an inflated view of oneself, unwilling to admit mistakes or listen to advice
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 85%"></div>
+                                    <div class="score-pointer" style="left: 85%"></div>
+                                    <div class="score-value" style="left: 85%">85%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                    
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                    
+                                    <div class="score-label" style="left: 76%;white-space: nowrap;">Above Average</div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Comfortable taking calculated risks and expressing opinions directly.</li>
+                                        <li>Shows self-assurance in challenging situations and advocates for ideas with conviction.</li>
+                                        <li class="hidden-bullets">Readily steps forward to lead initiatives and tackle difficult problems.</li>
+                                        <li class="hidden-bullets">Demonstrates confidence when presenting to senior stakeholders or large groups.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Inspires confidence in others and champions new ideas with enthusiasm.</li>
+                                        <li>Takes decisive action when needed and creates momentum for important initiatives.</li>
+                                        <li class="hidden-bullets">Effectively represents the team's interests in cross-functional settings.</li>
+                                        <li class="hidden-bullets">Provides clear direction during ambiguous or uncertain situations.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May come across as dominating in group settings or discussions.</li>
+                                        <li>Could potentially overlook input from quieter or less assertive team members.</li>
+                                        <li class="hidden-bullets">Might need to balance confidence with humility to maintain team cohesion.</li>
+                                        <li class="hidden-bullets">Could benefit from developing more inclusive decision-making approaches.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="bold" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">EXCITABLE</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                              A tendency to work with passion and enthusiasm, but potential for being easily frustrated, irritable and inclined to give up on projects and people.
+
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 85%"></div>
+                                    <div class="score-pointer" style="left: 85%"></div>
+                                    <div class="score-value" style="left: 85%">85%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                    
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                    
+                                    <div class="score-label" style="left: 76%;white-space: nowrap;">Above Average</div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Comfortable taking calculated risks and expressing opinions directly.</li>
+                                        <li>Shows self-assurance in challenging situations and advocates for ideas with conviction.</li>
+                                        <li class="hidden-bullets">Readily steps forward to lead initiatives and tackle difficult problems.</li>
+                                        <li class="hidden-bullets">Demonstrates confidence when presenting to senior stakeholders or large groups.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Inspires confidence in others and champions new ideas with enthusiasm.</li>
+                                        <li>Takes decisive action when needed and creates momentum for important initiatives.</li>
+                                        <li class="hidden-bullets">Effectively represents the team's interests in cross-functional settings.</li>
+                                        <li class="hidden-bullets">Provides clear direction during ambiguous or uncertain situations.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May come across as dominating in group settings or discussions.</li>
+                                        <li>Could potentially overlook input from quieter or less assertive team members.</li>
+                                        <li class="hidden-bullets">Might need to balance confidence with humility to maintain team cohesion.</li>
+                                        <li class="hidden-bullets">Could benefit from developing more inclusive decision-making approaches.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="bold" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">CAUTION</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                              A tendency for some resistance to change, reluctance to take risks or chances due to unusual fear of criticism or failure
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 85%"></div>
+                                    <div class="score-pointer" style="left: 85%"></div>
+                                    <div class="score-value" style="left: 85%">85%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                    
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                    
+                                    <div class="score-label" style="left: 76%;white-space: nowrap;">Above Average</div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Comfortable taking calculated risks and expressing opinions directly.</li>
+                                        <li>Shows self-assurance in challenging situations and advocates for ideas with conviction.</li>
+                                        <li class="hidden-bullets">Readily steps forward to lead initiatives and tackle difficult problems.</li>
+                                        <li class="hidden-bullets">Demonstrates confidence when presenting to senior stakeholders or large groups.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Inspires confidence in others and champions new ideas with enthusiasm.</li>
+                                        <li>Takes decisive action when needed and creates momentum for important initiatives.</li>
+                                        <li class="hidden-bullets">Effectively represents the team's interests in cross-functional settings.</li>
+                                        <li class="hidden-bullets">Provides clear direction during ambiguous or uncertain situations.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May come across as dominating in group settings or discussions.</li>
+                                        <li>Could potentially overlook input from quieter or less assertive team members.</li>
+                                        <li class="hidden-bullets">Might need to balance confidence with humility to maintain team cohesion.</li>
+                                        <li class="hidden-bullets">Could benefit from developing more inclusive decision-making approaches.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-bold">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Content: Work Proficiencies -->
+                <div id="workProficiencies" class="tab-content">
+                    <!-- Main Header -->
+                    <div class="main-header">
+                        <div class="flex items-center justify-center">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                </svg>
+                            </div>
+                            <h1 class="text-3xl font-bold accent-color">Work Proficiencies</h1>
+                        </div>
+                    </div>
+
+                    <!-- Trait Cards -->
+                    <div class="space-y-12">
+                        <!-- Trait 1: DISCIPLINE -->
+                        <div id="executing" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">DISCIPLINE</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                                The ability to maintain order, structure, and follow-through on commitments.
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 80%"></div>
+                                    <div class="score-pointer" style="left: 80%"></div>
+                                    <div class="score-value" style="left: 80%">80%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                    <div class="score-label" style="left: 0%">Low</div>
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                    <div class="score-label" style="left: 50%">Average</div>
+                                   <div class="score-label" style="left: 76%;white-space: nowrap;">Above Average</div>
+                                    <div class="score-label" style="left: 100%">High</div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Consistently delivers on commitments and maintains high standards of organization.</li>
+                                        <li>Creates and follows structured processes to ensure quality and timeliness.</li>
+                                        <li class="hidden-bullets">Effectively manages time and resources to meet deadlines and objectives.</li>
+                                        <li class="hidden-bullets">Demonstrates attention to detail and thoroughness in work products.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-discipline">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Establishes clear expectations and accountability systems for team performance.</li>
+                                        <li>Models reliability and consistency in work habits and deliverables.</li>
+                                        <li class="hidden-bullets">Creates efficient workflows and processes that enhance team productivity.</li>
+                                        <li class="hidden-bullets">Builds trust through consistent follow-through and dependability.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-discipline">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May occasionally be perceived as inflexible when processes need to adapt quickly.</li>
+                                        <li>Could benefit from balancing structure with adaptability in rapidly changing situations.</li>
+                                        <li class="hidden-bullets">Might need to be mindful of over-planning in highly dynamic environments.</li>
+                                        <li class="hidden-bullets">Could occasionally focus too much on process adherence at the expense of innovation.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-discipline">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trait 2: FOCUS -->
+                        <div id="focus" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">FOCUS</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                                The ability to concentrate on priorities and maintain attention on key objectives.
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 75%"></div>
+                                    <div class="score-pointer" style="left: 75%"></div>
+                                    <div class="score-value" style="left: 75%">75%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                    <div class="score-label" style="left: 0%">Low</div>
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                    <div class="score-label" style="left: 50%">Average</div>
+                                    <div class="score-label" style="left: 75%">Above Average</div>
+                                    <div class="score-label" style="left: 100%">High</div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Effectively filters out distractions to concentrate on high-priority tasks.</li>
+                                        <li>Maintains attention to detail even during complex or lengthy projects.</li>
+                                        <li class="hidden-bullets">Consistently allocates time and energy to the most important objectives.</li>
+                                        <li class="hidden-bullets">Demonstrates persistence when working through challenging problems.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-focus">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Helps teams prioritize effectively and stay aligned with strategic objectives.</li>
+                                        <li>Creates clarity around goals and prevents scope creep in projects.</li>
+                                        <li class="hidden-bullets">Shields team from unnecessary distractions that could derail progress.</li>
+                                        <li class="hidden-bullets">Maintains strategic direction even when faced with competing priorities.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-focus">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May need to consciously balance deep focus with broader awareness of emerging issues.</li>
+                                        <li>Could occasionally miss peripheral opportunities while concentrating on primary objectives.</li>
+                                        <li class="hidden-bullets">Might need to develop strategies for managing multiple priorities simultaneously.</li>
+                                        <li class="hidden-bullets">Could benefit from more regularly stepping back to reassess priorities.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-focus">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Content: Values & Motives -->
+                <div id="valuesMotives" class="tab-content">
+                    <!-- Main Header -->
+                    <div class="main-header">
+                        <div class="flex items-center justify-center">
+                            <div class="category-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                            </div>
+                            <h1 class="text-3xl font-bold accent-color">Values & Motives</h1>
+                        </div>
+                    </div>
+
+                    <!-- Trait Cards -->
+                    <div class="space-y-12">
+                        <!-- Trait 1: RECOGNITION -->
+                        <div id="status-interest" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">RECOGNITION</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                                The desire to be acknowledged and appreciated for contributions and achievements.
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 68%"></div>
+                                    <div class="score-pointer" style="left: 68%"></div>
+                                    <div class="score-value" style="left: 68%">68%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                    <div class="score-label" style="left: 0%">Low</div>
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                    <div class="score-label" style="left: 50%">Average</div>
+                                    <div class="score-label" style="left: 75%">Above Average</div>
+                                    <div class="score-label" style="left: 100%">High</div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Values acknowledgment for achievements and contributions to projects.</li>
+                                        <li>May be motivated by opportunities for visibility and professional advancement.</li>
+                                        <li class="hidden-bullets">Likely to put extra effort into work that will be recognized by others.</li>
+                                        <li class="hidden-bullets">Appreciates formal recognition programs and public acknowledgment.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-recognition">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Understands the importance of recognition as a motivational tool for team members.</li>
+                                        <li>Likely to create systems that acknowledge and celebrate individual and team accomplishments.</li>
+                                        <li class="hidden-bullets">Effectively uses praise and recognition to reinforce desired behaviors.</li>
+                                        <li class="hidden-bullets">Creates opportunities for team members to showcase their work to senior leaders.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-recognition">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May occasionally place too much emphasis on external validation.</li>
+                                        <li>Could benefit from balancing desire for recognition with intrinsic motivation.</li>
+                                        <li class="hidden-bullets">Might experience frustration when contributions go unacknowledged.</li>
+                                        <li class="hidden-bullets">Could occasionally prioritize visible work over equally important behind-the-scenes tasks.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-recognition">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trait 2: POWER -->
+                        <div id="power" class="trait-card pb-12">
+                            <div class="flex items-center mb-4">
+                                <div class="trait-icon mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">POWER</h2>
+                            </div>
+                            
+                            <p class="text-gray-800 mb-6 text-lg font-light">
+                                The desire to influence others and have impact through leadership positions.
+                            </p>
+                            
+                            <div class="mb-8 relative">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width: 72%"></div>
+                                    <div class="score-pointer" style="left: 72%"></div>
+                                    <div class="score-value" style="left: 72%">72%</div>
+                                    
+                                    <!-- Score markers -->
+                                    <div class="score-marker" style="left: 25%"></div>
+                                    <div class="score-marker" style="left: 50%"></div>
+                                    <div class="score-marker" style="left: 75%"></div>
+                                    
+                                    <!-- Score labels -->
+                                    <div class="score-label" style="left: 0%">Low</div>
+                                    <div class="score-label" style="left: 25%">Below Average</div>
+                                    <div class="score-label" style="left: 50%">Average</div>
+                                    <div class="score-label" style="left: 75%">Above Average</div>
+                                    <div class="score-label" style="left: 100%">High</div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Behavioral Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Comfortable taking charge and making decisions that affect others.</li>
+                                        <li>Seeks opportunities to lead initiatives and shape organizational direction.</li>
+                                        <li class="hidden-bullets">Motivated by positions that offer authority and decision-making responsibility.</li>
+                                        <li class="hidden-bullets">Actively works to expand sphere of influence within the organization.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="behavioral-power">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Leadership Implications</h3>
+                                    <ul class="bullet-list">
+                                        <li>Naturally steps into leadership roles and takes responsibility for outcomes.</li>
+                                        <li>Effectively uses influence to align teams around common goals and objectives.</li>
+                                        <li class="hidden-bullets">Comfortable making difficult decisions and standing by them.</li>
+                                        <li class="hidden-bullets">Builds networks and relationships that enhance organizational impact.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="leadership-power">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="implications-section">
+                                    <h3 class="implications-title">Potential Challenges</h3>
+                                    <ul class="bullet-list">
+                                        <li>May need to balance assertiveness with collaborative approaches.</li>
+                                        <li>Could benefit from developing more participative leadership styles in certain contexts.</li>
+                                        <li class="hidden-bullets">Might occasionally struggle with situations requiring a supporting rather than leading role.</li>
+                                        <li class="hidden-bullets">Could benefit from increased awareness of how power dynamics affect team interactions.</li>
+                                    </ul>
+                                    <div class="see-more-btn" data-target="challenges-power">
+                                        See more...
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between mt-12">
+                    <button class="btn btn-accent px-8 py-3 rounded-md font-medium">
+                        Back
+                    </button>
+                    <button class="btn btn-accent-filled px-8 py-3 rounded-md font-medium">
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const sidebarTitle = document.getElementById('sidebarTitle');
+        const personalAttributesMenu = document.getElementById('personalAttributesMenu');
+        const workProficienciesMenu = document.getElementById('workProficienciesMenu');
+        const valuesMotivesMenu = document.getElementById('valuesMotivesMenu');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Update sidebar menu
+                const menuId = button.getAttribute('data-menu');
+                sidebarTitle.textContent = button.textContent.trim();
+                
+                // Hide all menus
+                personalAttributesMenu.classList.add('hidden');
+                workProficienciesMenu.classList.add('hidden');
+                valuesMotivesMenu.classList.add('hidden');
+                
+                // Show selected menu
+                document.getElementById(menuId).classList.remove('hidden');
+            });
+        });
+
+        // Sidebar menu functionality
+        document.querySelectorAll('.sidebar-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Remove active class from all links
+                document.querySelectorAll('.sidebar-menu a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Smooth scroll to the section
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // See more functionality for bullet points
+        document.querySelectorAll('.see-more-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const parentSection = this.parentElement;
+                const hiddenBullets = parentSection.querySelectorAll('.hidden-bullets');
+            }})  
+            </script>
+               
+     </body>
+     </html>
+     </html>
