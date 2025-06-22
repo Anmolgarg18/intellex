@@ -1,451 +1,1256 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leadership Summary Report</title>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Feather Icons -->
-  <script src="https://unpkg.com/feather-icons"></script>
-
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .tab-button.active {
-      border-bottom: 2px solid #490648;
-      color: #490648;
-      font-weight: 600;
-    }
-
-    .bar-container {
-      position: relative;
-      display: flex;
-      height: 8px;
-      background-color: #e5e7eb;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 6px;
-    }
-
-    .bar-segment {
-      flex: 1;
-    }
-
-    .bar-marker {
-      position: absolute;
-      top: -4px;
-      width: 10px;
-      height: 16px;
-      background-color: #490648;
-      border-radius: 2px;
-    }
-
-    .bar-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: #6b7280;
-      margin-top: 4px;
-    }
-
-    .risk-indicator {
-      width: 10px;
-      height: 10px;
-      border-radius: 9999px;
-      margin-right: 6px;
-    }
-
-    .risk-low {
-      background-color: #0bb783;
-    }
-
-    .risk-medium {
-      background-color: #f6c343;
-    }
-
-    .risk-high {
-      background-color: #f64e60;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leadership Summary Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#490648',
+                        'deep-purple': '#490648',
+                        'light-purple': '#6d1a6d',
+                        'risk-low': '#10B981',
+                        'risk-medium': '#F59E0B',
+                        'risk-high': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #000000;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .tab-button {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            width: 100%;
+            text-align: left;
+        }
+        .tab-button.active {
+            color: white;
+            background-color: #490648;
+            font-weight: 600;
+        }
+        .attribute-row {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .attribute-row:hover {
+            background-color: #f9f9f9;
+        }
+        .attribute-row:last-child {
+            border-bottom: none;
+        }
+        .attribute-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #000000;
+        }
+        .attribute-description {
+            line-height: 1.5;
+            color: #333333;
+            font-size: 0.9rem;
+        }
+        
+        
+        .bar-container {
+            height: 10px;
+            background-color: #F3F3F3;
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+        }
+        .bar-fill {
+            height: 100%;
+            background-color: #490648;
+            border-radius: 5px 0 0 5px;
+        }
+        .bar-divider {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: #fff;
+            z-index: 2;
+        }
+       
+        .bar-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 4px;
+            position: relative;
+        }
+        .bar-label {
+            position: absolute;
+            transform: translateX(-50%);
+        }
+        .bar-label-0 {
+            left: 0;
+            transform: translateX(0);
+        }
+        .bar-label-50 {
+            left: 50%;
+        }
+        .bar-label-100 {
+            left: 100%;
+            transform: translateX(-100%);
+        }
+        .risk-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .risk-high {
+            background-color: #e53e3e;
+        }
+        .risk-medium {
+            background-color: #ed8936;
+        }
+        .risk-low {
+            background-color: #38a169;
+        }
+        .risk-label {
+            font-size: 0.75rem;
+            color: #555;
+        }
+        .top-ribbon {
+            background-color: #490648;
+            color: white;
+        }
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #490648;
+            border: 2px solid white;
+        }
+        .btn {
+            transition: all 0.2s ease;
+            background-color: #490648;
+            color: white;
+            font-medium: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+            background-color: #3d0539;
+        }
+        .btn-secondary {
+            background-color: #f9f9f9;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+        .btn-secondary:hover {
+            background-color: #f0f0f0;
+        }
+        .tab-instructions {
+            background-color: #f9f9f9;
+            border-left: 3px solid #490648;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .attribute-definition {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .left-panel {
+            background-color: #f9f9f9;
+            border-right: 1px solid #e0e0e0;
+            height: calc(100vh - 60px);
+            position: sticky;
+            top: 60px;
+        }
+        .main-content {
+            min-height: calc(100vh - 60px);
+            transition: all 0.3s ease;
+        }
+        .main-content.shrink {
+            width: calc(100% - 320px);
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 240px;
+            background-color: rgba(0,0,0,0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            top: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.75rem;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(0,0,0,0.8) transparent transparent transparent;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .visited-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #38a169;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+        .tab-button.visited .visited-indicator {
+            display: block;
+        }
+        .info-button {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: 8px;
+        }
+        .info-button:hover {
+            background-color: #e0e0e0;
+        }
+        .side-panel {
+            position: fixed;
+            top: 60px;
+            right: -320px;
+            width: 320px;
+            height: calc(100vh - 60px);
+            background-color: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .side-panel.open {
+            right: 0;
+        }
+        .side-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .close-panel {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .close-panel:hover {
+            transform: scale(1.1);
+        }
+        .insight-item {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .insight-item:last-child {
+            border-bottom: none;
+        }
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #490648;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            z-index: 90;
+            display: none;
+        }
+        .overlay.active {
+            display: block;
+        }
+    </style>
 </head>
+<body class="h-full overflow-auto">
+    <!-- Top Ribbon -->
+      <header class="fixed top-0 left-0 right-0 h-12 bg-deep-purple text-white px-6 flex justify-between items-center shadow-sm z-20">
 
-<body class="bg-gray-50 text-gray-800">
-  <!-- Top Bar -->
-  <div class="flex items-center px-4 py-3 bg-[#490648] text-white">
-    <a href="Home.html" class="text-sm font-medium flex items-center mr-4">
-      <i data-feather="arrow-left" class="w-4 h-4 mr-1"></i> Back
-    </a>
-    <span class="font-bold text-lg">IntelleX.ai</span>
-  </div>
-
-  <!-- Content -->
-  <div class="container mx-auto max-w-6xl px-4 py-6">
-    <header class="mb-6">
-      <h1 class="text-3xl font-bold text-black mb-2">Leadership Summary Report</h1>
-      <div class="text-sm text-gray-700 flex items-center">
-        <i data-feather="info" class="w-4 h-4 mr-2 text-[#490648]"></i>
-        Toggle between the three tabs below to explore different aspects of your leadership profile.
-      </div>
+        <div class="flex items-center">
+            <h1 class="text-lg font-bold">Intellex.ai</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="index.html" class="text-white hover:text-gray-200 transition-colors text-sm" aria-label="Logout">
+                <i class="fas fa-sign-out-alt mr-1"></i> Logout
+            </a>
+            <div class="flex items-center">
+                <span class="mr-2 text-sm">Pravesh Mehra</span>
+                <div class="w-7 h-7 rounded-full bg-light-purple flex items-center justify-center">
+                    <span class="text-xs font-medium">PM</span>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <!-- Tabs -->
-    <div class="flex space-x-8 border-b border-gray-200 mb-8">
-      <button class="tab-button active py-2 px-1 text-sm" data-tab="personal">
-        <i data-feather="user" class="h-4 w-4 mr-1 inline"></i> Personal Attributes
+    <div class="container mx-auto max-w-full pe-4 bg-[#F9FAFB] min-h-screen">
+       
+
+       
+        <div class="flex pt-12 h-[calc(100vh-3rem)] overflow-hidden">
+
+  <!-- ✅ Fixed Left Sidebar -->
+  <div class="w-64 fixed top-12 left-0 h-[calc(100vh-3rem)] p-4 bg-white shadow-sm z-10 overflow-y-auto">
+    <h3 class="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">Report Sections</h3>
+    <div class="space-y-2">
+      <button class="tab-button active flex items-center relative" data-tab="personal">
+        <i data-feather="user" class="h-4 w-4 mr-2"></i>
+        Personal Attributes
+        <span class="visited-indicator"></span>
       </button>
-      <button class="tab-button py-2 px-1 text-sm" data-tab="work">
-        <i data-feather="briefcase" class="h-4 w-4 mr-1 inline"></i> Work Proficiencies
+      <button class="tab-button flex items-center relative" data-tab="work">
+        <i data-feather="briefcase" class="h-4 w-4 mr-2"></i>
+        Work Proficiencies
+        <span class="visited-indicator"></span>
       </button>
-      <button class="tab-button py-2 px-1 text-sm" data-tab="values">
-        <i data-feather="heart" class="h-4 w-4 mr-1 inline"></i> Values & Motives
+      <button class="tab-button flex items-center relative" data-tab="values">
+        <i data-feather="heart" class="h-4 w-4 mr-2"></i>
+        Values & Motives
+        <span class="visited-indicator"></span>
       </button>
     </div>
-
-    <!-- Tab Content: Personal Attributes -->
-    <div id="personal" class="tab-content active">
-      <h2 class="text-xl font-semibold mb-4">Personal Attributes</h2>
-
-      <!-- Attribute Sections -->
-      <!-- Repeat this block for each attribute -->
-
-      <!-- 1. Drive and Energy -->
-      <div class="bg-white shadow-sm rounded-md p-6 border mb-6">
-        <h3 class="text-lg font-semibold text-black mb-1">Drive and Energy</h3>
-        <p class="text-sm text-gray-500 mb-3">The motivation and stamina to pursue goals with enthusiasm and persistence.</p>
-        <div class="grid grid-cols-12 gap-6">
-          <div class="col-span-3">
-            <div class="bar-container">
-              <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-              <div class="bar-marker" style="left: 85%"></div>
-            </div>
-            <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-          </div>
-          <div class="col-span-8">
-            <p class="text-sm">You demonstrate exceptional drive and energy, consistently pushing projects forward with enthusiasm. This is a significant strength that enables you to maintain momentum even when facing obstacles.</p>
-          </div>
-          <div class="col-span-1 flex items-start">
-            <div class="flex items-center"><div class="risk-indicator risk-low"></div><span class="text-sm text-gray-700">Low Risk</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. Collaborative Learning -->
-      <div class="bg-white shadow-sm rounded-md p-6 border mb-6">
-        <h3 class="text-lg font-semibold text-black mb-1">Collaborative Learning</h3>
-        <p class="text-sm text-gray-500 mb-3">The ability to learn from others and contribute to collective knowledge.</p>
-        <div class="grid grid-cols-12 gap-6">
-          <div class="col-span-3">
-            <div class="bar-container">
-              <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-              <div class="bar-marker" style="left: 78%"></div>
-            </div>
-            <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-          </div>
-          <div class="col-span-8">
-            <p class="text-sm">You thrive in collaborative learning environments, readily sharing knowledge and building on others' ideas. This openness to collective wisdom enhances team performance and creates a positive learning culture.</p>
-          </div>
-          <div class="col-span-1 flex items-start">
-            <div class="flex items-center"><div class="risk-indicator risk-low"></div><span class="text-sm text-gray-700">Low Risk</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. Social Intelligence -->
-      <div class="bg-white shadow-sm rounded-md p-6 border mb-6">
-        <h3 class="text-lg font-semibold text-black mb-1">Social Intelligence</h3>
-        <p class="text-sm text-gray-500 mb-3">The ability to understand and navigate social dynamics effectively.</p>
-        <div class="grid grid-cols-12 gap-6">
-          <div class="col-span-3">
-            <div class="bar-container">
-              <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-              <div class="bar-marker" style="left: 62%"></div>
-            </div>
-            <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-          </div>
-          <div class="col-span-8">
-            <p class="text-sm">Your social intelligence is solid, allowing you to navigate most interpersonal situations effectively. There's room for growth in reading subtle social cues and adapting your communication style to different audiences.</p>
-          </div>
-          <div class="col-span-1 flex items-start">
-            <div class="flex items-center"><div class="risk-indicator risk-medium"></div><span class="text-sm text-gray-700">Medium Risk</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Risk Taking -->
-      <div class="bg-white shadow-sm rounded-md p-6 border mb-6">
-        <h3 class="text-lg font-semibold text-black mb-1">Risk Taking</h3>
-        <p class="text-sm text-gray-500 mb-3">The willingness to take calculated risks in pursuit of opportunities.</p>
-        <div class="grid grid-cols-12 gap-6">
-          <div class="col-span-3">
-            <div class="bar-container">
-              <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-              <div class="bar-marker" style="left: 55%"></div>
-            </div>
-            <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-          </div>
-          <div class="col-span-8">
-            <p class="text-sm">You demonstrate a balanced approach to risk, weighing options carefully. While you're not overly cautious, you could benefit from more calculated risk-taking in situations with high potential rewards.</p>
-          </div>
-          <div class="col-span-1 flex items-start">
-            <div class="flex items-center"><div class="risk-indicator risk-medium"></div><span class="text-sm text-gray-700">Medium Risk</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. Change Orientation -->
-      <div class="bg-white shadow-sm rounded-md p-6 border mb-6">
-        <h3 class="text-lg font-semibold text-black mb-1">Change Orientation</h3>
-        <p class="text-sm text-gray-500 mb-3">The ability to adapt to and drive change in dynamic environments.</p>
-        <div class="grid grid-cols-12 gap-6">
-          <div class="col-span-3">
-            <div class="bar-container">
-              <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-              <div class="bar-marker" style="left: 40%"></div>
-            </div>
-            <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-          </div>
-          <div class="col-span-8">
-            <p class="text-sm">You may find adapting to change challenging. This could limit your effectiveness in rapidly evolving environments. Consider developing more flexibility and openness to new approaches and perspectives.</p>
-          </div>
-          <div class="col-span-1 flex items-start">
-            <div class="flex items-center"><div class="risk-indicator risk-high"></div><span class="text-sm text-gray-700">High Risk</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab Content: Work Proficiencies -->
- <div id="work" class="tab-content">
-  <h2 class="text-xl font-semibold mb-4">Work Proficiencies</h2>
-  <div >
-
-    <!-- Executing -->
-    <div class="bg-white shadow-sm rounded-md p-6 border mb-8">
-      <h3 class="text-lg font-semibold text-black mb-1">Executing</h3>
-      <p class="text-sm text-gray-500 mb-3">The ability to turn ideas into action and deliver results.</p>
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-3">
-          <div class="bar-container">
-            <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-            <div class="bar-marker" style="left: 85%"></div>
-          </div>
-          <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-        </div>
-        <div class="col-span-8">
-          <p class="text-sm">You excel at turning ideas into action, consistently delivering results. Your ability to organize resources, manage timelines, and drive projects to completion is a significant asset to any team.</p>
-        </div>
-        <div class="col-span-1 flex items-start">
-          <div class="flex items-center"><div class="risk-indicator risk-low"></div><span class="text-sm text-gray-700">Low Risk</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Relationship Building -->
-    <div class="bg-white shadow-sm rounded-md p-6 border mb-8">
-      <h3 class="text-lg font-semibold text-black mb-1">Relationship Building</h3>
-      <p class="text-sm text-gray-500 mb-3">The ability to establish and maintain effective professional relationships.</p>
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-3">
-          <div class="bar-container">
-            <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-            <div class="bar-marker" style="left: 78%"></div>
-          </div>
-          <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-        </div>
-        <div class="col-span-8">
-          <p class="text-sm">You excel at building and maintaining professional relationships. Your ability to connect with others, establish trust, and foster collaboration creates a positive work environment and strengthens team cohesion.</p>
-        </div>
-        <div class="col-span-1 flex items-start">
-          <div class="flex items-center"><div class="risk-indicator risk-low"></div><span class="text-sm text-gray-700">Low Risk</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Influencing -->
-    <div class="bg-white shadow-sm rounded-md p-6 border mb-8">
-      <h3 class="text-lg font-semibold text-black mb-1">Influencing</h3>
-      <p class="text-sm text-gray-500 mb-3">The ability to persuade others and gain buy-in for ideas.</p>
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-3">
-          <div class="bar-container">
-            <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-            <div class="bar-marker" style="left: 55%"></div>
-          </div>
-          <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-        </div>
-        <div class="col-span-8">
-          <p class="text-sm">You have moderate influence skills, able to persuade others in many situations. Developing more advanced persuasion techniques and emotional intelligence could enhance your leadership impact.</p>
-        </div>
-        <div class="col-span-1 flex items-start">
-          <div class="flex items-center"><div class="risk-indicator risk-medium"></div><span class="text-sm text-gray-700">Medium Risk</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Strategic Thinking -->
-    <div class="bg-white shadow-sm rounded-md p-6 border mb-8">
-      <h3 class="text-lg font-semibold text-black mb-1">Strategic Thinking</h3>
-      <p class="text-sm text-gray-500 mb-3">The ability to think long-term and connect actions to broader goals.</p>
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-3">
-          <div class="bar-container">
-            <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-            <div class="bar-marker" style="left: 40%"></div>
-          </div>
-          <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-        </div>
-        <div class="col-span-8">
-          <p class="text-sm">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
-        </div>
-        <div class="col-span-1 flex items-start">
-          <div class="flex items-center"><div class="risk-indicator risk-high"></div><span class="text-sm text-gray-700">High Risk</span></div>
-        </div>
-      </div>
-    </div>
-
   </div>
+            <!-- Main Content Area -->
+            <div id="main-content" class="flex-1 ml-64 overflow-y-auto p-6 bg-[#F9FAFB] max-h-[calc(100vh-3rem)]">
+                <!-- Personal Attributes Section -->
+                <div class="flex justify-between items-center w-full  mb-6">
+    <!-- Header (left side) -->
+    <header class="flex-1">
+        <h1 class="text-3xl font-bold text-black mb-2 whitespace-nowrap">Leadership Summary Report</h1>
+        <div class="h-1 w-16 bg-accent"></div>
+    </header>
+
+    <!-- Buttons (right side) -->
+    <div class="flex items-center gap-4">
+        <a href="Home.html" id="back-arrow-button" class="btn btn-secondary flex items-center py-2 px-4 rounded-md text-sm font-medium">
+            <i data-feather="arrow-left" class="h-4 w-4 mr-2 text-accent"></i>
+            Back
+        </a>
+        <div class="tooltip">
+            <button id="detailed-report-btn" class="btn flex items-center text-sm">
+                <i data-feather="file-text" class="h-4 w-4 mr-2"></i>
+                Go to Detailed Report
+            </button>
+            <span class="tooltiptext">Please visit all sections in the summary report before accessing the detailed report</span>
+        </div>
+    </div>
 </div>
 
+                <div id="personal" class="tab-content active">
+                    <div class="mb-8 bg-white p-3 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-semibold text-deeppurple section-title">Personal Attributes</h2>
+                        <p class="text-gray-600 text-sm">Deep insight into personality and learning agility that provides a realistic picture of performance potential.</p>
+                    </div>
+                    
+                    <!-- Attributes List -->
+                    <div class="bg-white rounded-md shadow-sm border border-gray-100">
+                        <!-- Drive and Energy -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Drive and Energy</h3>
+                                <div class="info-button" data-attribute="drive-and-energy">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The motivation and stamina to pursue goals with enthusiasm and persistence.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 80%"></div>
+                                        <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                        <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You demonstrate exceptional drive and energy, consistently pushing projects forward with enthusiasm. This is a significant strength that enables you to maintain momentum even when facing obstacles.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-low"></div>
+                                        <span class="risk-label">Low Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Intelligence -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Social Intelligence</h3>
+                                <div class="info-button" data-attribute="social-intelligence">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The ability to understand and navigate social dynamics effectively.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 55%"></div>
+                                       <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">Your social intelligence is solid, allowing you to navigate most interpersonal situations effectively. There's room for growth in reading subtle social cues and adapting your communication style to different audiences.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-medium"></div>
+                                        <span class="risk-label">Medium Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Problem Solving -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Problem Solving</h3>
+                                <div class="info-button" data-attribute="problem-solving">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The ability to analyze complex situations and develop effective solutions.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 85%"></div>
+                                        <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You excel at problem solving, approaching challenges with creativity and analytical rigor. Your ability to break down complex issues and find innovative solutions is a standout quality that serves you well in leadership roles.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-low"></div>
+                                        <span class="risk-label">Low Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Change Orientation -->
+                        <div class="attribute-row p-6 pb-10">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Change Orientation</h3>
+                                <div class="info-button" data-attribute="change-orientation">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The ability to adapt to and drive change in dynamic environments.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 25%"></div>
+                                        <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                       <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You may find adapting to change challenging. This could limit your effectiveness in rapidly evolving environments. Consider developing more flexibility and openness to new approaches and perspectives.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Risk Taking -->
+                     
+                        
+                        <!-- Collaborative Learning -->
+                      
+                    </div>
+                </div>
 
+                <!-- Work Proficiencies Section -->
+                <div id="work" class="tab-content">
+                    <div class="mb-8 bg-white p-3 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-semibold text-black section-title">Work Proficiencies</h2>
+                        <p class="text-gray-600 mb-6 text-sm">Understanding individual strengths and preferences in making things happen at work.</p>
+                    </div>
+                    
+                    <!-- Attributes List -->
+                    <div class="bg-white rounded-md shadow-sm border border-gray-100">
+                        <!-- Executing -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Executing</h3>
+                                <div class="info-button" data-attribute="executing">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The ability to turn ideas into action and deliver results.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 85%"></div>
+                                        <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                        <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You excel at turning ideas into action, consistently delivering results. Your ability to organize resources, manage timelines, and drive projects to completion is a significant asset to any team.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-low"></div>
+                                        <span class="risk-label">Low Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Relationship Building -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Relationship Building</h3>
+                                <div class="info-button" data-attribute="relationship-building">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The ability to establish and maintain effective professional relationships.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 80%"></div>
+                                       <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                        <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You excel at building and maintaining professional relationships. Your ability to connect with others, establish trust, and foster collaboration creates a positive work environment and strengthens team cohesion.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-low"></div>
+                                        <span class="risk-label">Low Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Influencing -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Influencing</h3>
+                                <div class="info-button" data-attribute="influencing">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The ability to persuade others and gain buy-in for ideas.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 55%"></div>
+                                       <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+ <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You have moderate influence skills, able to persuade others in many situations. Developing more advanced persuasion techniques and emotional intelligence could enhance your leadership impact.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-medium"></div>
+                                        <span class="risk-label">Medium Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Strategic Thinking -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Strategic Thinking</h3>
+                                <div class="info-button" data-attribute="strategic-thinking">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The ability to think long-term and connect actions to broader goals.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Tab Content: Values & Motives -->
-   <div id="values" class="tab-content">
-  <h2 class="text-xl font-semibold mb-4">Values & Motives</h2>
-  <div>
+                <!-- Values and Motives Section -->
+                <div id="values" class="tab-content">
+                    <div class="mb-8 bg-white p-3 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-semibold text-black section-title">Values and Motives</h2>
+                        <p class="text-gray-600 mb-6 text-sm">The motivations and core values that drive workplace behavior and the culture they align with.</p>
+                    </div>
+                    
+                    <!-- Attributes List -->
+                    <div class="bg-white rounded-md shadow-sm border border-gray-100">
+                        <!-- Social Interest -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Social Interest</h3>
+                                <div class="info-button" data-attribute="social-interest">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The drive to help others and contribute to society.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 85%"></div>
+                                        <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                        <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You have a strong drive to help others and contribute to society. This altruistic orientation aligns well with mission-driven organizations and creates authentic connections with colleagues who share similar values.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-low"></div>
+                                        <span class="risk-label">Low Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Practical Interest -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Practical Interest</h3>
+                                <div class="info-button" data-attribute="practical-interest">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The focus on tangible outcomes and practical applications.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 75%"></div>
+                                        <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You value practical outcomes and tangible results in your work. This pragmatic approach helps you focus on efficiency and effectiveness, ensuring that initiatives deliver real value rather than just theoretical benefits.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-low"></div>
+                                        <span class="risk-label">Low Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Status Interest -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                <h3 class="attribute-title">Status Interest</h3>
+                                <div class="info-button" data-attribute="status-interest">
+                                    <i data-feather="info" class="h-3 w-3 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="attribute-definition mb-4">The desire for recognition, prestige, and advancement.</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 50%"></div>
+                                        <div class="bar-divider left-[25%]"></div>
+                                        <div class="bar-divider left-[70%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                        <span class="bar-label left-[27%]">Below Average</span>
+                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You have a moderate interest in status and recognition. While you appreciate acknowledgment for your contributions, you're not solely motivated by titles or external validation. This balanced approach serves you well in most organizational cultures.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center">
+                                        <div class="risk-indicator risk-medium"></div>
+                                        <span class="risk-label">Medium Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Social Interest -->
-    <div class="bg-white shadow-sm rounded-md p-6 border mb-8">
-      <h3 class="text-lg font-semibold text-black mb-1">Social Interest</h3>
-      <p class="text-sm text-gray-500 mb-3">The drive to help others and contribute to society.</p>
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-3">
-          <div class="bar-container">
-            <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-            <div class="bar-marker" style="left: 80%"></div>
-          </div>
-          <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
+                <!-- Development Focus -->
+               
+            </div>
         </div>
-        <div class="col-span-8">
-          <p class="text-sm">You have a strong drive to help others and contribute to society. This altruistic orientation aligns well with mission-driven organizations and creates authentic connections with colleagues who share similar values.</p>
-        </div>
-        <div class="col-span-1 flex items-start">
-          <div class="flex items-center"><div class="risk-indicator risk-low"></div><span class="text-sm text-gray-700">Low Risk</span></div>
-        </div>
-      </div>
     </div>
 
-    <!-- Practical Interest -->
-    <div class="bg-white shadow-sm rounded-md p-6 border mb-8">
-      <h3 class="text-lg font-semibold text-black mb-1">Practical Interest</h3>
-      <p class="text-sm text-gray-500 mb-3">The focus on tangible outcomes and practical applications.</p>
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-3">
-          <div class="bar-container">
-            <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-            <div class="bar-marker" style="left: 75%"></div>
-          </div>
-          <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
+    <!-- Side Panel for Attribute Insights -->
+    <div id="side-panel" class="side-panel">
+        <div class="side-panel-header">
+            <h3 id="side-panel-title" class="text-lg font-semibold text-accent">Attribute Insights</h3>
+            <div class="close-panel" id="close-panel">
+                <i data-feather="x" class="h-5 w-5 text-gray-500"></i>
+            </div>
         </div>
-        <div class="col-span-8">
-          <p class="text-sm">You value practical outcomes and tangible results in your work. This pragmatic approach helps you focus on efficiency and effectiveness, ensuring that initiatives deliver real value rather than just theoretical benefits.</p>
+        <div id="side-panel-content">
+            <!-- Content will be dynamically inserted here -->
         </div>
-        <div class="col-span-1 flex items-start">
-          <div class="flex items-center"><div class="risk-indicator risk-low"></div><span class="text-sm text-gray-700">Low Risk</span></div>
-        </div>
-      </div>
     </div>
 
-    <!-- Status Interest -->
-    <div class="bg-white shadow-sm rounded-md p-6 border mb-8">
-      <h3 class="text-lg font-semibold text-black mb-1">Status Interest</h3>
-      <p class="text-sm text-gray-500 mb-3">The desire for recognition, prestige, and advancement.</p>
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-3">
-          <div class="bar-container">
-            <div class="bar-segment"></div><div class="bar-segment"></div><div class="bar-segment"></div>
-            <div class="bar-marker" style="left: 55%"></div>
-          </div>
-          <div class="bar-labels"><span>Below Average</span><span>Average</span><span>Above Average</span></div>
-        </div>
-        <div class="col-span-8">
-          <p class="text-sm">You have a moderate interest in status and recognition. While you appreciate acknowledgment for your contributions, you're not solely motivated by titles or external validation. This balanced approach serves you well in most organizational cultures.</p>
-        </div>
-        <div class="col-span-1 flex items-start">
-          <div class="flex items-center"><div class="risk-indicator risk-medium"></div><span class="text-sm text-gray-700">Medium Risk</span></div>
-        </div>
-      </div>
-    </div>
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
 
-  </div>
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Feather icons
+            feather.replace();
+            
+            // Track visited tabs
+            const visitedTabs = {
+                personal: true, // Set to true since it's active by default
+                work: false,
+                values: false
+            };
+            
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const detailedReportBtn = document.getElementById('detailed-report-btn');
+            const mainContent = document.getElementById('main-content');
+            const sidePanel = document.getElementById('side-panel');
+            const overlay = document.getElementById('overlay');
+            const closePanel = document.getElementById('close-panel');
+            const sidePanelTitle = document.getElementById('side-panel-title');
+            const sidePanelContent = document.getElementById('side-panel-content');
+            
+            // Mark the first tab as visited
+            document.querySelector('.tab-button[data-tab="personal"]').classList.add('visited');
+            
+            // Function to check if all tabs have been visited
+            function checkAllTabsVisited() {
+                const allVisited = Object.values(visitedTabs).every(visited => visited === true);
+                if (allVisited) {
+                    detailedReportBtn.classList.remove('disabled');
+                    detailedReportBtn.querySelector('.tooltiptext').textContent = "Click to view the detailed leadership report";
+                }
+                return allVisited;
+            }
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Mark this tab as visited
+                    visitedTabs[tabId] = true;
+                    button.classList.add('visited');
+                    
+                    // Check if all tabs have been visited
+                    checkAllTabsVisited();
+                });
+            });
 
-    <!-- Development Focus Section -->
-<div class="bg-white border rounded-md p-6 shadow-sm mb-12">
-  <div class="flex justify-between items-start">
-    <div class="flex space-x-4">
-      <!-- Icon -->
-      <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#490648]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 4.354a8.002 8.002 0 00-4.292 14.66M15.53 15.53A8.001 8.001 0 0112 4.354m4.292 14.66a8.001 8.001 0 01-4.292-14.66" />
-        </svg>
-      </div>
+            // Attribute insights data
+            const attributeInsights = {
+                'drive-and-energy': {
+                    title: 'Drive and Energy',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your high drive and energy allows you to maintain momentum on projects, inspire others through your enthusiasm, and push through obstacles that might deter others.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Be mindful of potential burnout. Even with high energy, sustainable pacing is important for long-term leadership effectiveness.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Leaders with high drive and energy often create dynamic, high-performing teams that accomplish ambitious goals. Your energy is contagious and motivates others.'
+                        }
+                    ]
+                },
+                'social-intelligence': {
+                    title: 'Social Intelligence',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'You navigate most social situations effectively and can build rapport with different types of people.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Practice reading subtle emotional cues and adapting your communication style to different audiences. Consider seeking feedback on how your messages are received.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Enhancing your social intelligence will improve team cohesion, conflict resolution, and your ability to influence stakeholders across the organization.'
+                        }
+                    ]
+                },
+                'problem-solving': {
+                    title: 'Problem Solving',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your exceptional problem-solving ability allows you to tackle complex challenges with creativity and analytical rigor.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Consider involving others more in your problem-solving process to build organizational capability and gain diverse perspectives.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Your problem-solving skills position you as a go-to resource during crises and complex situations, enhancing your leadership credibility.'
+                        }
+                    ]
+                },
+                'change-orientation': {
+                    title: 'Change Orientation',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'You provide stability and consistency in your approach, which can be valuable in certain contexts.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'This is a significant development area. Practice embracing new approaches, technologies, and ways of working. Start with small changes to build your adaptability muscle.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'In today\'s rapidly evolving business environment, limited change orientation can significantly impact your leadership effectiveness and career progression.'
+                        }
+                    ]
+                },
+                'risk-taking': {
+                    title: 'Risk Taking',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your balanced approach to risk means you\'re neither reckless nor overly cautious, which serves well in many business contexts.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Practice taking more calculated risks in situations with high potential rewards. Develop a framework for evaluating risk vs. reward to build confidence.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Appropriate risk-taking is essential for innovation and growth. Developing this skill will enhance your strategic leadership capabilities.'
+                        }
+                    ]
+                },
+                'collaborative-learning': {
+                    title: 'Collaborative Learning',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your openness to learning from others and sharing knowledge creates a positive team culture and accelerates collective growth.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Consider formalizing knowledge-sharing practices within your team to maximize the benefits of your collaborative approach.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Leaders who excel at collaborative learning build resilient, adaptable teams with distributed expertise and strong problem-solving capabilities.'
+                        }
+                    ]
+                },
+                'executing': {
+                    title: 'Executing',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your exceptional ability to execute plans and deliver results is a cornerstone of your leadership effectiveness.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Ensure your focus on execution doesn\'t come at the expense of strategic thinking or team development.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Your execution skills build credibility and trust with both team members and senior leaders, positioning you as a reliable performer.'
+                        }
+                    ]
+                },
+                'relationship-building': {
+                    title: 'Relationship Building',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your ability to build strong professional relationships creates a foundation of trust that enhances team performance and collaboration.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Consider expanding your relationship-building beyond your immediate team to create a broader network across the organization.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Strong relationship skills enable effective influence, conflict resolution, and the creation of psychologically safe team environments.'
+                        }
+                    ]
+                },
+                'influencing': {
+                    title: 'Influencing',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'You have moderate influence skills that serve you well in many situations, particularly with those who already trust you.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Develop more advanced persuasion techniques, particularly for influencing senior stakeholders or those with different communication styles.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Enhanced influence skills will improve your ability to drive change, secure resources, and advocate for your team\'s priorities.'
+                        }
+                    ]
+                },
+                'strategic-thinking': {
+                    title: 'Strategic Thinking',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your tactical focus can be valuable for immediate problem-solving and short-term execution.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'This is a critical development area. Practice thinking beyond immediate tasks to consider long-term implications, market trends, and organizational positioning.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Limited strategic thinking can significantly constrain your leadership impact and advancement potential, particularly at senior levels.'
+                        }
+                    ]
+                },
+                'social-interest': {
+                    title: 'Social Interest',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your strong drive to help others and contribute to society creates authentic connections and aligns well with purpose-driven organizations.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Ensure your social interest is balanced with business priorities to maintain organizational effectiveness alongside social impact.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Leaders with high social interest often excel at creating meaningful work environments and connecting team efforts to broader purpose.'
+                        }
+                    ]
+                },
+                'practical-interest': {
+                    title: 'Practical Interest',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your focus on practical outcomes ensures that initiatives deliver tangible value rather than just theoretical benefits.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Balance your practical focus with openness to innovation and experimentation that may not have immediate practical applications.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Your practical orientation helps teams stay grounded and focused on delivering real-world results that matter to the organization.'
+                        }
+                    ]
+                },
+                'status-interest': {
+                    title: 'Status Interest',
+                    insights: [
+                        {
+                            title: 'Strengths',
+                            content: 'Your balanced approach to status and recognition allows you to work effectively in various organizational cultures.'
+                        },
+                        {
+                            title: 'Development Areas',
+                            content: 'Consider how strategic visibility for your work and accomplishments can advance your career goals and team objectives.'
+                        },
+                        {
+                            title: 'Leadership Impact',
+                            content: 'Understanding the role of status and recognition in motivating team members can enhance your ability to provide appropriate acknowledgment.'
+                        }
+                    ]
+                }
+            };
 
-      <!-- Text Content -->
-      <div>
-        <h3 class="text-lg font-semibold text-black mb-1">Development Focus</h3>
-        <p class="text-sm text-gray-700 mb-3">
-          Based on your profile, we recommend focusing on <span class="font-semibold text-[#490648]">Strategic Thinking</span> as your primary development area.
-        </p>
-        <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1 marker:text-[#490648]">
-          <li>Participate in strategic planning sessions to observe how senior leaders approach long-term thinking</li>
-          <li>Practice scenario planning to develop your ability to anticipate future challenges and opportunities</li>
-          <li>Seek a mentor who excels at strategic thinking to provide guidance and feedback</li>
-        </ul>
-      </div>
-    </div>
+            // Info button functionality
+            const infoButtons = document.querySelectorAll('.info-button');
+            infoButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const attributeId = button.getAttribute('data-attribute');
+                    const attributeData = attributeInsights[attributeId];
+                    
+                    if (attributeData) {
+                        // Set the title
+                        sidePanelTitle.textContent = attributeData.title + ' Insights';
+                        
+                        // Clear previous content
+                        sidePanelContent.innerHTML = '';
+                        
+                        // Add new content
+                        attributeData.insights.forEach(insight => {
+                            const insightElement = document.createElement('div');
+                            insightElement.className = 'insight-item';
+                            insightElement.innerHTML = `
+                                <h4 class="insight-title">${insight.title}</h4>
+                                <p class="text-sm text-gray-600">${insight.content}</p>
+                            `;
+                            sidePanelContent.appendChild(insightElement);
+                        });
+                        
+                        // Show the side panel and overlay
+                        sidePanel.classList.add('open');
+                        overlay.classList.add('active');
+                        mainContent.classList.add('shrink');
+                    }
+                });
+            });
+            
+            // Close panel functionality
+            closePanel.addEventListener('click', () => {
+                sidePanel.classList.remove('open');
+                overlay.classList.remove('active');
+                mainContent.classList.remove('shrink');
+            });
+            
+            overlay.addEventListener('click', () => {
+                sidePanel.classList.remove('open');
+                overlay.classList.remove('active');
+                mainContent.classList.remove('shrink');
+            });
 
-    <!-- Export Button -->
-    <div class="mt-1">
-      <button class="flex items-center space-x-1 bg-[#490648] text-white text-sm px-4 py-2 rounded shadow hover:bg-[#3d0546] transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-        </svg>
-        <span>Export Report</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-  </div>
-  
-
-  <!-- JS for Tabs -->
-  <script>
-    feather.replace();
-    const tabs = document.querySelectorAll(".tab-button");
-    const contents = document.querySelectorAll(".tab-content");
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        contents.forEach(c => c.classList.remove("active"));
-        tab.classList.add("active");
-        const target = tab.getAttribute("data-tab");
-        document.getElementById(target).classList.add("active");
-      });
-    });
-  </script>
+            // Detailed Report button functionality
+            detailedReportBtn.addEventListener('click', function() {
+                if (checkAllTabsVisited()) {
+                    alert('Navigating to detailed leadership report...');
+                    // In a real implementation, this would navigate to the detailed report
+                }
+            });
+            
+            // Export PDF functionality
+            document.getElementById('export-pdf').addEventListener('click', function() {
+                alert('Your leadership insights report is being prepared for download.');
+                // In a real implementation, this would trigger PDF generation
+            });
+            
+            // Back button functionality
+            document.getElementById('back-button').addEventListener('click', function() {
+                alert('Navigating back to previous page...');
+                // In a real implementation, this would navigate back
+            });
+            
+            // Back arrow button functionality
+            document.getElementById('back-arrow-button').addEventListener('click', function() {
+                alert('Navigating back...');
+                // In a real implementation, this would navigate back
+            });
+            
+            // Logout button functionality
+            document.getElementById('logout-button').addEventListener('click', function() {
+                alert('Logging out...');
+                // In a real implementation, this would trigger logout
+            });
+        });
+    </script>
 </body>
 </html>
