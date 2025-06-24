@@ -6,6 +6,9 @@
     <title>Leadership Summary Report</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
         tailwind.config = {
@@ -25,7 +28,7 @@
     </script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+             font-family: "Roboto", sans-serif;
             background-color: #FFFFFF;
             color: #000000;
         }
@@ -355,12 +358,32 @@
             position: relative;
         }
         
-      
+       .tabssection {
+            margin-top: 50px;
+      background-color: #ffffff;
+      width: 100%;
+      display: flex;
+      cursor: pointer;
+    }
+
+    .tabsection-button {
+        margin-top: 10px;
+      padding: 5px 20px;
+      background: #f0f0f0;
+      margin-bottom: 0px;
+    }
+
+    .tabsection-button.active {
+      background: #f9fafb;
+      border-top: 5px solid #490648;
+      color: #490648;
+      font-weight: bold;
+    }
     </style>
 </head>
 <body class="h-full overflow-auto">
     <!-- Top Ribbon -->
-      <header class="fixed top-0 left-0 right-0 h-12 bg-deeppurple text-white px-6 flex justify-between items-center shadow-sm z-20">
+      <header class="fixed top-0 left-0 right-0 h-12 bg-deeppurple text-white px-6 flex justify-between items-center shadow-sm z-20 mb-[15px]">
 
         <div class="flex items-center">
             <h1 class="text-lg font-bold">Intellex.ai</h1>
@@ -377,15 +400,39 @@
             </div>
         </div>
     </header>
+<div class="tabssection fixed z-50 mt-12 flex items-center justify-between">
+    <div class="flex">
+  <div class="tabsection-button active" onclick="showTab()">Summary Report</div>
 
-    <div class="container mx-auto max-w-full pe-4 bg-[#F9FAFB] min-h-screen">
-       
+  <a
+    id="detailedReportBtn"
+    data-disabled="true"
+    href="detail.html"
+    onclick="handleDetailedClick(event)"
+    class="tabsection-button  text-gray-500 pointer-events-none group relative"
+  >
+    Detailed Report
+    <span class="tooltiptext absolute left-1/2 top-full mt-2 transform -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 whitespace-nowrap">
+      Visit all sections to unlock
+    </span>
+  </a>
 
+  <div class="tabsection-button text-gray-500" onclick="showTab()">Development Plan</div>
+</div>
+<a href="Home.html" class="bg-white text-accent text-md px-4 border border-accent py-1 rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 mr-5">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+       class="bi bi-arrow-left" viewBox="0 0 16 16">
+    <path fill-rule="evenodd"
+          d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+  </svg>
+  Back
+</a> 
+</div>
        
-        <div class="flex pt-12 h-[calc(100vh-3rem)] overflow-hidden">
+        <div class="flex pt-12 h-[calc(100vh-1rem)] overflow-hidden">
 
   <!-- ✅ Fixed Left Sidebar -->
-  <div class="w-64 fixed top-12 left-0 h-[calc(100vh-3rem)] pt-4 bg-white shadow-sm z-10 overflow-y-auto">
+  <div class="w-64 fixed top-[15%] left-0 h-[calc(100vh-3rem)] pt-4 bg-white shadow-sm z-10 overflow-y-auto">
     <h3 class="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider px-4">Report Sections</h3>
     <div class="space-y-2">
       <button class="tab-button active flex items-center relative" data-tab="personal">
@@ -406,7 +453,7 @@
     </div>
   </div>
             <!-- Main Content Area -->
-            <div id="main-content" class="flex-1 ml-64 overflow-y-auto p-6 bg-[#F9FAFB] max-h-[calc(100vh-3rem)]">
+            <div id="main-content" class="flex-1 ml-64 mt-[40px] overflow-y-auto p-6 bg-[#F9FAFB] max-h-[calc(100vh-3rem)]">
                 <!-- Personal Attributes Section -->
                 <div class="flex justify-between items-center w-full  mb-6">
     <!-- Header (left side) -->
@@ -416,13 +463,13 @@
     </header>
 
     <!-- Buttons (right side) -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 hidden">
         <a href="Home.html" id="back-arrow-button" class="btn btn-secondary flex items-center py-2 px-4 rounded-md text-sm font-medium">
             <i data-feather="arrow-left" class="h-4 w-4 mr-2 text-accent"></i>
             Back
         </a>
  <a href='detail.html' id="detailedReportBtn"
-  data-disabled="true"
+  
   class="group flex items-center bg-gray-400 text-white py-2 px-4 rounded cursor-not-allowed relative whitespace-nowrap text-sm font-medium">
   Go to Detailed Report
   <i data-feather="arrow-right" class="h-4 w-4 ml-2 text-white"></i>
@@ -1160,10 +1207,9 @@ const visitedTabs = {
 function checkAllTabsVisited() {
   const allVisited = Object.values(visitedTabs).every(visited => visited === true);
   if (allVisited) {
-    detailedReportBtn.classList.remove('disabled', 'bg-gray-400', 'cursor-not-allowed');
-    detailedReportBtn.classList.add('bg-deeppurple','text-white', ) ;
+    detailedReportBtn.classList.remove('disabled', 'bg-gray-400', 'cursor-not-allowed','text-gray-500','pointer-events-none');
+    detailedReportBtn.classList.add('text-black', ) ;
     detailedReportBtn.disabled = false;
-    detailedReportBtn.querySelector('.tooltiptext').textContent = "Click to view the detailed leadership report";
     const tooltip = detailedReportBtn.querySelector('.tooltiptext');
     tooltip.style.display = 'none'; // hides it completely
   }
