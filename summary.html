@@ -79,14 +79,26 @@
             color: #333333;
             font-size: 0.9rem;
         }
-        
+        .score-pointer {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #490648;
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px #490648;
+            z-index: 10;
+        }
         
         .bar-container {
             height: 10px;
             background-color: #F3F3F3;
+            border: 1px solid grey;
             position: relative;
             border-radius: 5px;
-            overflow: hidden;
+           
             display: flex;
         }
         .bar-fill {
@@ -96,16 +108,16 @@
         }
         .bar-divider {
             position: absolute;
-            width: 2px;
+            width: 1px;
             height: 100%;
-            background-color: #fff;
+            background-color: grey;
             z-index: 2;
         }
        
         .bar-labels {
             display: flex;
             justify-content: space-between;
-            font-size: 0.7rem;
+            font-size: 9px;
             color: #888;
             margin-top: 4px;
             position: relative;
@@ -420,12 +432,10 @@
   <div class="tabsection-button text-gray-500" onclick="showTab()">Development Plan</div>
 </div>
 <a href="Home.html" class="bg-white text-accent text-md px-4 border border-accent py-1 rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 mr-5">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-       class="bi bi-arrow-left" viewBox="0 0 16 16">
-    <path fill-rule="evenodd"
-          d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-  </svg>
-  Back
+   Home
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" class="bi bi-arrow-left" viewBox="0 0 16 16">
+  <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+</svg>
 </a> 
 </div>
        
@@ -465,8 +475,8 @@
     <!-- Buttons (right side) -->
     <div class="flex items-center gap-4 hidden">
         <a href="Home.html" id="back-arrow-button" class="btn btn-secondary flex items-center py-2 px-4 rounded-md text-sm font-medium">
-            <i data-feather="arrow-left" class="h-4 w-4 mr-2 text-accent"></i>
-            Back
+           <i data-feather="home" class="h-4 w-4 mr-2 text-accent"></i>
+            Home
         </a>
  <a href='detail.html' id="detailedReportBtn"
   
@@ -517,12 +527,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 55%"></div>
-                                       <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                       <div class="score-pointer left-[55%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                         <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -563,12 +575,15 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 55%"></div>
-                                       <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[55%]"></div>
+                                      
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                         <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -610,12 +625,15 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 85%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                         
+                                        <div class="score-pointer left-[85%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                         <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -658,12 +676,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 25%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[25%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                       <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                       <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -706,12 +726,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 25%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[25%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                       <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                       <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -754,12 +776,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 25%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[25%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                       <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                       <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -812,12 +836,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 85%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[85%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                        <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                        <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -858,12 +884,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 55%"></div>
-                                       <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                       <div class="score-pointer left-[55%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
- <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+ <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -905,12 +933,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 80%"></div>
-                                       <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                       <div class="score-pointer left-[80%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                        <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                        <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -954,12 +984,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 20%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                         <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -1014,12 +1046,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 50%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[50%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                        <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                        <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -1061,12 +1095,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 85%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[85%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                        <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                        <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
@@ -1108,12 +1144,14 @@
                                 <div class="col-span-3">
                                     <div class="bar-container">
                                         <div class="bar-fill" style="width: 75%"></div>
-                                        <div class="bar-divider left-[25%]"></div>
-                                        <div class="bar-divider left-[70%]"></div>
+                                        <div class="score-pointer left-[75%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
                                     </div>
                                     <div class="bar-labels">
-                                         <span class="bar-label left-[27%]">Below Average</span>
-                                        <span class="bar-label left-[72%] whitespace-nowrap">Above Average</span>
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
                                     </div>
                                 </div>
                                 
