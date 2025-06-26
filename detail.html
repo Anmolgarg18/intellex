@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
+<script src="https://unpkg.com/feather-icons"></script>
 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
  <script src="https://unpkg.com/feather-icons"></script>
@@ -570,6 +570,37 @@
   </div>
   </div>
   </div>
+ <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black bg-opacity-30 hidden z-40"></div>
+
+  <!-- rightSidebar -->
+<div id="sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+  <div class="flex justify-between items-center p-4 border-b">
+    <h3 id="sidebar-title" class="text-lg font-bold text-[#490648]">Title</h3>
+    <button id="close-btn" class="text-gray-600 hover:text-red-500">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <div class="p-4 space-y-4 text-sm text-gray-700">
+    <div>
+      <h4 class="font-semibold text-[#490648]">Strengths</h4>
+      <p id="sidebar-strengths"></p>
+    </div>
+    <div>
+      <h4 class="font-semibold text-[#490648]">Development Areas</h4>
+      <p id="sidebar-development"></p>
+    </div>
+    <div>
+      <h4 class="font-semibold text-[#490648]">Leadership Impact</h4>
+      <p id="sidebar-impact"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-30 hidden z-40"></div>
 
     <!-- Main Content Area -->
    <div id="mainContent" class="ml-64 mt-32 px-6 relative z-10 w-full">
@@ -579,177 +610,204 @@
 
   <!-- JS -->
 <script>
+
   let selectedIndexes = { 1: 0 };
 
   const contentMap = {
     '1-0': {
-      title: "Energy and Drive",
-      competencies: [
-        {
-          name: "Ambition",
-          description: "Level of self-confidence, competitiveness and energy level ",
-          score: 75
-        },
-        {
-          name: "ADJUSTMENT",
-          description: "Level of Confidence, Self acceptance and stability under pressure",
-          score: 80
-        },
-        {
-          name: "BOLD",
-          description: "a tendency to seem unusually self-confident, with an inflated view of oneself, unwilling to admit mistakes or listen to advice",
-          score: 90
-        },
-        {
-          name: "EXCITABLE",
-          description: "A tendency to work with passion and enthusiasm, but potential for being easily frustrated, irritable and inclined to give up on projects and people. ",
-          score: 85
-        },
-        {
-          name: "CAUTION",
-          description: "A tendency for some resistance to change, reluctance to take risks or chances due to unusual fear of criticism or failure ",
-          score: 70
-        }
-      ]
+  title: "Energy and Drive",
+  competencies: [
+    {
+      name: "Ambition",
+      id: "Ambition",
+      description: "Level of self-confidence, competitiveness and energy level ",
+      score: 75
     },
-    '1-1': {
-      title: "Social Acumen",
-      competencies: [
-        {
-          name: "SOCIABILITY ",
-          description: "Degree to which a person needs and/or enjoys social interaction ",
-          score: 70
-        },
-        {
-          name: "INTERPERSONAL SENSITIVITY ",
-          description: "Degree to which a person seems sensitive, perceptive or tactful",
-          score: 68
-        },
-        {
-          name: "COLORFUL",
-          description: "A tendency to seem expressive and attention seeking with a potential to be easily bored and come across as disorganized.",
-          score: 78
-        },
-        {
-          name: "LEISURELY",
-          description: "A tendency to be friendly and cooperative, but following one’s own agenda and quietly resisting those of others",
-          score: 68
-        },
-        {
-          name: "RESERVED",
-          description: "A tendency to keep to oneself, avoiding meeting new people and being indA tendency for a mistrust of people and institutions and potentially prone to negativity or suspicion of others intentions.",
-          score: 68
-        },
-        {
-          name: "SKEPTICAL",
-          description: "Degree to which a person seems sensitive, perceptive or tactful",
-          score: 68
-        }
-      ]
+    {
+      name: "ADJUSTMENT",
+      id: "ADJUSTMENT",
+      description: "Level of Confidence, Self acceptance and stability under pressure",
+      score: 80
     },
-    '1-2': {
-      title: "PROBLEM SOLVING",
-      competencies: [
-        {
-          name: "PRUDENCE ",
-          description: "Degree to which a person seems conscientious, rule abiding and dependable ",
-          score: 70
-        },
-        {
-          name: "INQUISITIVE",
-          description: "Degree to which a person seems big-pictured, visionary and innovative in problem-solving; good at synthesizing opinions.",
-          score: 68
-        },
-        {
-          name: "LEARNING APPROACH",
-          description: "Degree to which a person takes pleasure in learning and staying up-to-date on business and technical matters.",
-          score: 78
-        },
-        {
-          name: "DILIGENT",
-          description: "A tendency for hard work, high standards and detail orientation, but has the potential of being overly meticulous, controlling and unforgiving of mistakes ",
-          score: 68
-        },
-        {
-          name: "IMAGINATIVE",
-          description: "A tendency for acting and thinking in a creative way but has potential to be viewed as unfocused or over confident and lacking in follow through ",
-          score: 68
-        },
-        {
-          name: "MISCHEVIOUS",
-          description: "A tendency for being charming and risk taking, but has the potential to push the limits, being easily bored or maintain commitments",
-          score: 68
-        },
-         {
-          name: "DUTIFUL",
-          description: "A tendency fo being compliant, conforming and eager to please one’s superiors with tendency to rely on others for advice and a reluctance to act",
-          score: 68
-        }
-      ]
+    {
+      name: "BOLD",
+      id: "BOLD",
+      description: "a tendency to seem unusually self-confident, with an inflated view of oneself, unwilling to admit mistakes or listen to advice",
+      score: 90
     },
-    '1-3': {
-      title: "CHANGE ORIENTATION ",
-      competencies: [
-        {
-          name: "FLEXIBILITY ",
-          description: "Degree to which one is open to new ideas and proposing new solutions ",
-          score: 70
-        },
-        {
-          name: "SPEED",
-          description: "Degree to which one acts on ideas quickly, so those not working are discarded and other possibilities are accelerated ",
-          score: 68
-        },
-        {
-          name: "REFLECTION",
-          description: "Degree to which one evaluates one’s own performance in order to be more effective ",
-          score: 78
-        }
-       
-      ]
+    {
+      name: "EXCITABLE",
+      id: "EXCITABLE",
+      description: "A tendency to work with passion and enthusiasm, but potential for being easily frustrated, irritable and inclined to give up on projects and people. ",
+      score: 85
     },
-    '1-4': {
-      title: "RISK TAKING",
-      competencies: [
-        {
-          name: "EXPERIMENTING ",
-          description: "Try out new approaches and ideas to determine what is effective",
-          score: 70
-        },
-        {
-          name: "PERFORMANCE RISK TAKING",
-          description: "Seeking new assignments, roles that provide opportunities to be challenged ",
-          score: 68
-        },
-        {
-          name: "INTERPERSONAL RISK TAKING ",
-          description: "Confronting differences with others in ways that lead to learning and change",
-          score: 78
-        }
-       
-      ]
+    {
+      name: "CAUTION",
+      id: "CAUTION",
+      description: "A tendency for some resistance to change, reluctance to take risks or chances due to unusual fear of criticism or failure ",
+      score: 70
+    }
+  ]
+},
+
+   
+'1-1': {
+  title: "Social Acumen",
+  competencies: [
+    {
+      name: "SOCIABILITY ",
+          id: "SOCIABILITY",
+      description: "Degree to which a person needs and/or enjoys social interaction ",
+      score: 70
     },
-     '1-5': {
-      title: "COLLABORATIVE LEARNING",
-      competencies: [
-        {
-          name: "COLLABORATING",
-          description: "Finding ways to work with others that generate unique opportunities for learning",
-          score: 70
-        },
-        {
-          name: "FEEDBACK SEEKING",
-          description: "Asking others for feedback on one’s overall ideas and overall performance ",
-          score: 68
-        },
-        {
-          name: "INFORMATION GATHERING",
-          description: "Using various methods to remain current in one’s area of expertise ",
-          score: 78
-        }
-       
-      ]
+    {
+      name: "INTERPERSONAL SENSITIVITY ",
+          id: "INTERPERSONAL SENSITIVITY",
+      description: "Degree to which a person seems sensitive, perceptive or tactful",
+      score: 68
     },
+    {
+      name: "COLORFUL",
+          id: "COLORFUL",
+      description: "A tendency to seem expressive and attention seeking with a potential to be easily bored and come across as disorganized.",
+      score: 78
+    },
+    {
+      name: "LEISURELY",
+          id: "LEISURELY",
+      description: "A tendency to be friendly and cooperative, but following one’s own agenda and quietly resisting those of others",
+      score: 68
+    },
+    {
+      name: "RESERVED",
+          id: "RESERVED",
+      description: "A tendency to keep to oneself, avoiding meeting new people and being indA tendency for a mistrust of people and institutions and potentially prone to negativity or suspicion of others intentions.",
+      score: 68
+    },
+    {
+      name: "SKEPTICAL",
+          id: "SKEPTICAL",
+      description: "Degree to which a person seems sensitive, perceptive or tactful",
+      score: 68
+    }
+  ]
+},
+'1-2': {
+  title: "PROBLEM SOLVING",
+  competencies: [
+    {
+      name: "PRUDENCE ",
+          id: "PRUDENCE",
+      description: "Degree to which a person seems conscientious, rule abiding and dependable ",
+      score: 70
+    },
+    {
+      name: "INQUISITIVE",
+          id: "INQUISITIVE",
+      description: "Degree to which a person seems big-pictured, visionary and innovative in problem-solving; good at synthesizing opinions.",
+      score: 68
+    },
+    {
+      name: "LEARNING APPROACH",
+          id: "LEARNING APPROACH",
+      description: "Degree to which a person takes pleasure in learning and staying up-to-date on business and technical matters.",
+      score: 78
+    },
+    {
+      name: "DILIGENT",
+          id: "DILIGENT",
+      description: "A tendency for hard work, high standards and detail orientation, but has the potential of being overly meticulous, controlling and unforgiving of mistakes ",
+      score: 68
+    },
+    {
+      name: "IMAGINATIVE",
+          id: "IMAGINATIVE",
+      description: "A tendency for acting and thinking in a creative way but has potential to be viewed as unfocused or over confident and lacking in follow through ",
+      score: 68
+    },
+    {
+      name: "MISCHEVIOUS",
+          id: "MISCHEVIOUS",
+      description: "A tendency for being charming and risk taking, but has the potential to push the limits, being easily bored or maintain commitments",
+      score: 68
+    },
+    {
+      name: "DUTIFUL",
+          id: "DUTIFUL",
+      description: "A tendency fo being compliant, conforming and eager to please one’s superiors with tendency to rely on others for advice and a reluctance to act",
+      score: 68
+    }
+  ]
+},
+'1-3': {
+  title: "CHANGE ORIENTATION ",
+  competencies: [
+    {
+      name: "FLEXIBILITY ",
+          id: "FLEXIBILITY",
+      description: "Degree to which one is open to new ideas and proposing new solutions ",
+      score: 70
+    },
+    {
+      name: "SPEED",
+          id: "SPEED",
+      description: "Degree to which one acts on ideas quickly, so those not working are discarded and other possibilities are accelerated ",
+      score: 68
+    },
+    {
+      name: "REFLECTION",
+          id: "REFLECTION",
+      description: "Degree to which one evaluates one’s own performance in order to be more effective ",
+      score: 78
+    }
+  ]
+},
+'1-4': {
+  title: "RISK TAKING",
+  competencies: [
+    {
+      name: "EXPERIMENTING ",
+          id: "EXPERIMENTING",
+      description: "Try out new approaches and ideas to determine what is effective",
+      score: 70
+    },
+    {
+      name: "PERFORMANCE RISK TAKING",
+          id: "PERFORMANCE RISK TAKING",
+      description: "Seeking new assignments, roles that provide opportunities to be challenged ",
+      score: 68
+    },
+    {
+      name: "INTERPERSONAL RISK TAKING ",
+          id: "INTERPERSONAL RISK TAKING",
+      description: "Confronting differences with others in ways that lead to learning and change",
+      score: 78
+    }
+  ]
+},
+'1-5': {
+  title: "COLLABORATIVE LEARNING",
+  competencies: [
+    {
+      name: "COLLABORATING",
+          id: "COLLABORATING",
+      description: "Finding ways to work with others that generate unique opportunities for learning",
+      score: 70
+    },
+    {
+      name: "FEEDBACK SEEKING",
+          id: "FEEDBACK SEEKING",
+      description: "Asking others for feedback on one’s overall ideas and overall performance ",
+      score: 68
+    },
+    {
+      name: "INFORMATION GATHERING",
+          id: "INFORMATION GATHERING",
+      description: "Using various methods to remain current in one’s area of expertise ",
+      score: 78
+    }
+  ]
+},
     '2-0': {
       title: "Executing",
       competencies: [
@@ -824,7 +882,7 @@
           score: 82
         },
          {
-          name: "Self-Assurance",
+          name: "SELF-ASSURANCE",
           description: "People exceptionally talented in the Self-Assurance theme feel confident in their ability to take risks and manage their own lives. They have an inner compass that gives them certainty in their decisions.",
           score: 82
         },
@@ -949,7 +1007,7 @@
       title: "STATUS INTERESTS",
       competencies: [
         {
-          name: "RECOGNITION ",
+          name: "RECOGNITION",
           description: "Values fame, visibility and publicity, an interest in being recognized, visible and famous and a lifestyle organized around opportunities for self-display",
           score: 85
         },
@@ -969,7 +1027,7 @@
       title: "SOCIAL INTERESTS ",
       competencies: [
         {
-          name: "ALTRUISTIC ",
+          name: "ALTRUISTIC",
           description: "Values improving society and actively helping others, an interest in helping the less fortunate and a lifestyle organized around making the world a better place to live",
           score: 85
         },
@@ -989,7 +1047,7 @@
       title: "PRACTICAL INTERESTS ",
       competencies: [
         {
-          name: "SECURITY ",
+          name: "SECURITY",
           description: "Values certainty, predictability and risk free environments, an interest in structure and order, and a lifestyle organized around minimizing risk, uncertainty and criticism. ",
           score: 85
         },
@@ -1057,7 +1115,7 @@
       main.innerHTML = `<h2 class='text-xl font-bold text-accent mb-4'>Not Found</h2><p class='text-gray-700'>No content available.</p>`;
       return;
     }
-
+  
     let html = `
       <div class="main-header mb-4">
                         <div class="flex items-center justify-between">
@@ -1096,7 +1154,18 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                     </svg>
                                 </div>
+                                <div class="flex gap-2 items-center">
                                 <h2 class="text-xl font-bold">${c.name.toUpperCase()}</h2>
+                                <button class="info-btn text-purple-600 hover:text-purple-800" data-id="${c.name.toUpperCase().replace(/[\s-]+/g, '')}">
+  <div class="relative inline-flex items-center info-button group" data-attribute="drive-and-energy">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="text-[#490648] transition-transform duration-300 animate-bounce h-4 w-4 "></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+</button> </div>
                             </div>
                             
                             <p class="text-gray-800 mb-6 text-lg font-light">
@@ -1217,17 +1286,483 @@ function hideBox() {
       }
     });
 
+ const sectionData = {
+  AMBITION: { 
+    title: "Energy and Drive",
+    strengths: "Your high Energy and Drive allows you to maintain momentum on projects, inspire others through your enthusiasm, and push through obstacles.",
+    development: "Be mindful of potential burnout. Even with high energy, sustainable pacing is important for long-term leadership effectiveness.",
+    impact: "Leaders with high Energy and Drive often create dynamic, high-performing teams. Your energy is contagious and motivates others."
+  },
+  ADJUSTMENT: {
+    title: "Adjustment",
+    strengths: "You demonstrate emotional stability and resilience under pressure, which helps you stay calm and focused in challenging situations.",
+    development: "Continue developing strategies for maintaining balance during high-stress periods to avoid emotional fatigue.",
+    impact: "Leaders high in Adjustment create a sense of stability and confidence within teams, particularly in times of uncertainty."
+  },
+  BOLD: {
+    title: "Bold",
+    strengths: "Your self-confidence allows you to take initiative and lead decisively, even in ambiguous situations.",
+    development: "Balance confidence with humility—remain open to feedback and avoid disregarding valuable input from others.",
+    impact: "Bold leaders often take courageous action, which can inspire innovation and forward momentum when paired with good judgment."
+  },
+  EXCITABLE: {
+    title: "Excitable",
+    strengths: "You bring passion and high emotional engagement to your work, which can energize those around you.",
+    development: "Work on emotional regulation to avoid overreacting in stressful moments or disengaging too quickly when disappointed.",
+    impact: "When well-managed, emotional intensity can drive urgency and dedication in teams, especially in fast-paced environments."
+  },
+  CAUTION: {
+    title: "Caution",
+    strengths: "You are thoughtful and risk-aware, which helps prevent costly errors and promotes careful decision-making.",
+    development: "Ensure that caution doesn’t hinder innovation—build confidence in calculated risk-taking.",
+    impact: "Cautious leaders help establish secure, predictable environments where teams can rely on process and rigor."
+  },
+  SOCIABILITY: {
+    title: "Sociability",
+    strengths: "You enjoy engaging with others, creating a friendly and approachable leadership style that fosters strong relationships.",
+    development: "Be mindful of overextending socially—balance visibility with focused time for strategic thinking.",
+    impact: "Socially engaging leaders often excel at building cohesive teams and broad internal networks."
+  },
+  INTERPERSONAL_SENSITIVITY: {
+    title: "Interpersonal Sensitivity",
+    strengths: "You show empathy and tact, making you approachable and trustworthy in sensitive interpersonal situations.",
+    development: "Continue to set boundaries where needed and avoid over-accommodating at the expense of priorities.",
+    impact: "Sensitive leaders often create inclusive, respectful team cultures that foster psychological safety."
+  },
+  COLORFUL: {
+    title: "Colorful",
+    strengths: "Your expressiveness and charisma help capture attention and energize others during presentations or change initiatives.",
+    development: "Channel your expressiveness constructively—avoid being seen as unfocused or overly dramatic.",
+    impact: "Colorful leaders can bring energy and visibility to initiatives, making them memorable and motivating."
+  },
+  LEISURELY: {
+    title: "Leisurely",
+    strengths: "You maintain a relaxed and friendly demeanor, which can create an easygoing, low-conflict work environment.",
+    development: "Ensure your cooperative style doesn’t mask passive resistance—strive for transparency and accountability.",
+    impact: "Leaders with a leisurely style can offer calm stability, especially in high-pressure team dynamics."
+  },
+  RESERVED: {
+    title: "Reserved",
+    strengths: "Your independence and introspection allow for thoughtful analysis and strategic observation.",
+    development: "Work on proactively engaging with others to avoid misperceptions of detachment or unavailability.",
+    impact: "Reserved leaders can bring depth and focus, especially in complex problem-solving or strategic thinking roles."
+  },
+  SKEPTICAL: {
+    title: "Skeptical",
+    strengths: "You are discerning and alert to risks, which helps uncover flaws in plans and protect the team from blind spots.",
+    development: "Be mindful of fostering trust—express concerns constructively and remain open to collaboration.",
+    impact: "Skeptical leaders bring a healthy dose of realism that strengthens decision quality and risk management."
+  },
+  PRUDENCE: {
+    title: "Prudence",
+    strengths: "You are organized and dependable, consistently following through on commitments and managing details effectively.",
+    development: "Avoid becoming overly rigid or resistant to new approaches—embrace flexibility where needed.",
+    impact: "Prudent leaders provide reliability and structure that supports execution and accountability."
+  },
+  INQUISITIVE: {
+    title: "Inquisitive",
+    strengths: "You are intellectually curious and driven to explore new ideas and perspectives.",
+    development: "Ensure your curiosity remains grounded in relevance—avoid over-analyzing at the expense of action.",
+    impact: "Inquisitive leaders foster a culture of innovation, learning, and adaptive problem-solving."
+  },
+  LEARNING_APPROACH: {
+    title: "Learning Approach",
+    strengths: "You enjoy continuous learning and improvement, staying updated and relevant in your domain.",
+    development: "Focus learning efforts strategically to avoid spreading attention too thin across unrelated topics.",
+    impact: "Leaders with a strong learning mindset cultivate expertise and continuous development in their teams."
+  },
+  DILIGENT: {
+    title: "Diligent",
+    strengths: "You uphold high standards and meticulous attention to detail, ensuring quality and accuracy in delivery.",
+    development: "Manage perfectionism—recognize when ‘good enough’ enables progress without sacrificing quality.",
+    impact: "Diligent leaders instill discipline and rigor, often improving operational consistency and performance."
+  },
+  IMAGINATIVE: {
+    title: "Imaginative",
+    strengths: "You bring originality and creative thinking, offering new ways to approach challenges and envision the future.",
+    development: "Balance creativity with follow-through—ensure ideas are paired with execution.",
+    impact: "Imaginative leaders drive innovation and strategic foresight that can differentiate teams and organizations."
+  },
+  MISCHEVIOUS: {
+    title: "Mischevious",
+    strengths: "You are bold, playful, and comfortable with challenging the status quo to discover better ways of working.",
+    development: "Temper risk-taking with accountability to avoid unpredictability or overstepping boundaries.",
+    impact: "Mischevious leaders inspire agility and adaptability, particularly in entrepreneurial or change-driven settings."
+  },
+  DUTIFUL: {
+    title: "Dutiful",
+    strengths: "You are reliable and respectful of authority, often earning trust through consistency and humility.",
+    development: "Strengthen independent decision-making—ensure you’re not overly dependent on others’ direction.",
+    impact: "Dutiful leaders foster loyalty and cohesion through steady, values-driven leadership."
+  },
+    FLEXIBILITY: {
+    title: "Flexibility",
+    strengths: "You are open to new ideas and willing to adapt your thinking in response to changing circumstances.",
+    development: "Ensure flexibility does not lead to indecision—maintain a balance between openness and direction.",
+    impact: "Flexible leaders adapt quickly, helping teams stay resilient and innovative in evolving environments."
+  },
+  SPEED: {
+    title: "Speed",
+    strengths: "You act quickly on ideas and decisions, which helps maintain momentum and responsiveness.",
+    development: "Balance speed with thoroughness—avoid rushing into actions without adequate information.",
+    impact: "Leaders who value speed drive efficiency and rapid iteration, accelerating progress and learning."
+  },
+  REFLECTION: {
+    title: "Reflection",
+    strengths: "You regularly evaluate your own performance and seek ways to improve, fostering personal growth.",
+    development: "Pair reflection with timely action to avoid overthinking or delays in decision-making.",
+    impact: "Reflective leaders cultivate learning cultures and drive continuous improvement across teams."
+  },
+  EXPERIMENTING: {
+    title: "Experimenting",
+    strengths: "You are open to testing new approaches and learning from the outcomes to enhance effectiveness.",
+    development: "Be mindful of aligning experiments with strategic goals—avoid unnecessary trial-and-error.",
+    impact: "Experimenting leaders encourage innovation, helping teams evolve through discovery and feedback."
+  },
+  PERFORMANCE_RISK_TAKING: {
+    title: "Performance Risk Taking",
+    strengths: "You seek out challenging roles and stretch opportunities that promote growth and visibility.",
+    development: "Ensure risks are calculated and aligned with your capabilities and the organization’s readiness.",
+    impact: "Leaders who embrace performance risk build credibility and inspire others to take bold steps."
+  },
+  INTERPERSONAL_RISK_TAKING: {
+    title: "Interpersonal Risk Taking",
+    strengths: "You are willing to confront differences and engage in tough conversations to foster growth.",
+    development: "Balance honesty with empathy to ensure feedback and conflict are constructive.",
+    impact: "Interpersonal risk takers foster learning, trust, and meaningful collaboration within teams."
+  },
+  COLLABORATING: {
+    title: "Collaborating",
+    strengths: "You work well with others and find shared value in cooperative problem-solving.",
+    development: "Ensure collaboration includes accountability—avoid decision-making by consensus when clarity is needed.",
+    impact: "Collaborative leaders unite diverse perspectives, enabling innovation and collective ownership."
+  },
+  FEEDBACK_SEEKING: {
+    title: "Feedback Seeking",
+    strengths: "You actively seek input to improve your work and adapt based on others’ perspectives.",
+    development: "Apply feedback with discernment—prioritize what aligns with your goals and role.",
+    impact: "Leaders who seek feedback model humility and create open, learning-oriented team cultures."
+  },
+  INFORMATION_GATHERING: {
+    title: "Information Gathering",
+    strengths: "You stay current by gathering relevant data and insights from multiple sources.",
+    development: "Guard against analysis paralysis—balance input collection with timely execution.",
+    impact: "Well-informed leaders bring clarity, depth, and foresight to decision-making and planning."
+  },
+    FOCUS: {
+    title: "Focus",
+    strengths: "You demonstrate strengths associated with the Focus theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Focus talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Focus bring a distinctive influence to team dynamics, culture, and results."
+  },
+  ACHIEVER: {
+    title: "Achiever",
+    strengths: "You demonstrate strengths associated with the Achiever theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Achiever talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Achiever bring a distinctive influence to team dynamics, culture, and results."
+  },
+  RESPONSIBILITY: {
+    title: "Responsibility",
+    strengths: "You demonstrate strengths associated with the Responsibility theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Responsibility talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Responsibility bring a distinctive influence to team dynamics, culture, and results."
+  },
+  BELIEF: {
+    title: "Belief",
+    strengths: "You demonstrate strengths associated with the Belief theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Belief talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Belief bring a distinctive influence to team dynamics, culture, and results."
+  },
+  DISCIPLINE: {
+    title: "Discipline",
+    strengths: "You demonstrate strengths associated with the Discipline theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Discipline talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Discipline bring a distinctive influence to team dynamics, culture, and results."
+  },
+  ARRANGER: {
+    title: "Arranger",
+    strengths: "You demonstrate strengths associated with the Arranger theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Arranger talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Arranger bring a distinctive influence to team dynamics, culture, and results."
+  },
+  DELIBERATIVE: {
+    title: "Deliberative",
+    strengths: "You demonstrate strengths associated with the Deliberative theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Deliberative talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Deliberative bring a distinctive influence to team dynamics, culture, and results."
+  },
+  CONSISTENCY: {
+    title: "Consistency",
+    strengths: "You demonstrate strengths associated with the Consistency theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Consistency talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Consistency bring a distinctive influence to team dynamics, culture, and results."
+  },
+  RESTORATIVE: {
+    title: "Restorative",
+    strengths: "You demonstrate strengths associated with the Restorative theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Restorative talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Restorative bring a distinctive influence to team dynamics, culture, and results."
+  },
+  SIGNIFICANCE: {
+    title: "Significance",
+    strengths: "You demonstrate strengths associated with the Significance theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Significance talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Significance bring a distinctive influence to team dynamics, culture, and results."
+  },
+  MAXIMIZER: {
+    title: "Maximizer",
+    strengths: "You demonstrate strengths associated with the Maximizer theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Maximizer talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Maximizer bring a distinctive influence to team dynamics, culture, and results."
+  },
+  COMPETITION: {
+    title: "Competition",
+    strengths: "You demonstrate strengths associated with the Competition theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Competition talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Competition bring a distinctive influence to team dynamics, culture, and results."
+  },
+  ACTIVATOR: {
+    title: "Activator",
+    strengths: "You demonstrate strengths associated with the Activator theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Activator talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Activator bring a distinctive influence to team dynamics, culture, and results."
+  },
+  SELFASSURANCE: {
+    title: "Self-Assurance",
+    strengths: "You demonstrate strengths associated with the Self-Assurance theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Self-Assurance talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Self-Assurance bring a distinctive influence to team dynamics, culture, and results."
+  },
+  COMMUNICATION: {
+    title: "Communication",
+    strengths: "You demonstrate strengths associated with the Communication theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Communication talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Communication bring a distinctive influence to team dynamics, culture, and results."
+  },
+  WOO: {
+    title: "Woo",
+    strengths: "You demonstrate strengths associated with the Woo theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Woo talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Woo bring a distinctive influence to team dynamics, culture, and results."
+  },
+  COMMAND: {
+    title: "Command",
+    strengths: "You demonstrate strengths associated with the Command theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Command talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Command bring a distinctive influence to team dynamics, culture, and results."
+  },
+  INDIVIDUALIZATION: {
+    title: "Individualization",
+    strengths: "You demonstrate strengths associated with the Individualization theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Individualization talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Individualization bring a distinctive influence to team dynamics, culture, and results."
+  },
+  POSITIVITY: {
+    title: "Positivity",
+    strengths: "You demonstrate strengths associated with the Positivity theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Positivity talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Positivity bring a distinctive influence to team dynamics, culture, and results."
+  },
+  DEVELOPER: {
+    title: "Developer",
+    strengths: "You demonstrate strengths associated with the Developer theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Developer talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Developer bring a distinctive influence to team dynamics, culture, and results."
+  },
+  RELATOR: {
+    title: "Relator",
+    strengths: "You demonstrate strengths associated with the Relator theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Relator talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Relator bring a distinctive influence to team dynamics, culture, and results."
+  },
+  CONNECTEDNESS: {
+    title: "Connectedness",
+    strengths: "You demonstrate strengths associated with the Connectedness theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Connectedness talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Connectedness bring a distinctive influence to team dynamics, culture, and results."
+  },
+  EMPATHY: {
+    title: "Empathy",
+    strengths: "You demonstrate strengths associated with the Empathy theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Empathy talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Empathy bring a distinctive influence to team dynamics, culture, and results."
+  },
+  HARMONY: {
+    title: "Harmony",
+    strengths: "You demonstrate strengths associated with the Harmony theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Harmony talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Harmony bring a distinctive influence to team dynamics, culture, and results."
+  },
+  ADAPTABILITY: {
+    title: "Adaptability",
+    strengths: "You demonstrate strengths associated with the Adaptability theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Adaptability talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Adaptability bring a distinctive influence to team dynamics, culture, and results."
+  },
+  INCLUDER: {
+    title: "Includer",
+    strengths: "You demonstrate strengths associated with the Includer theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Includer talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Includer bring a distinctive influence to team dynamics, culture, and results."
+  },
+  FUTURISTIC: {
+    title: "Futuristic",
+    strengths: "You demonstrate strengths associated with the Futuristic theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Futuristic talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Futuristic bring a distinctive influence to team dynamics, culture, and results."
+  },
+  STRATEGIC: {
+    title: "Strategic",
+    strengths: "You demonstrate strengths associated with the Strategic theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Strategic talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Strategic bring a distinctive influence to team dynamics, culture, and results."
+  },
+  LEARNER: {
+    title: "Learner",
+    strengths: "You demonstrate strengths associated with the Learner theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Learner talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Learner bring a distinctive influence to team dynamics, culture, and results."
+  },
+  ANALYTICAL: {
+    title: "Analytical",
+    strengths: "You demonstrate strengths associated with the Analytical theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Analytical talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Analytical bring a distinctive influence to team dynamics, culture, and results."
+  },
+  INTELLECTION: {
+    title: "Intellection",
+    strengths: "You demonstrate strengths associated with the Intellection theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Intellection talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Intellection bring a distinctive influence to team dynamics, culture, and results."
+  },
+  IDEATION: {
+    title: "Ideation",
+    strengths: "You demonstrate strengths associated with the Ideation theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Ideation talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Ideation bring a distinctive influence to team dynamics, culture, and results."
+  },
+  INPUT: {
+    title: "Input",
+    strengths: "You demonstrate strengths associated with the Input theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Input talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Input bring a distinctive influence to team dynamics, culture, and results."
+  },
+  CONTEXT: {
+    title: "Context",
+    strengths: "You demonstrate strengths associated with the Context theme, contributing positively to your team and goals.",
+    development: "Focus on enhancing the balance and application of your Context talent to avoid overuse or blind spots.",
+    impact: "Leaders with strong Context bring a distinctive influence to team dynamics, culture, and results."
+  },
+   RECOGNITION: {
+    title: "Recognition",
+    strengths: "You value visibility and acknowledgment, which can drive motivation and a desire to perform at high standards.",
+    development: "Balance the need for recognition with intrinsic motivation and long-term impact.",
+    impact: "Leaders who seek recognition often bring energy and ambition, pushing teams to achieve standout results."
+  },
+  POWER: {
+    title: "Power",
+    strengths: "You strive to lead, influence, and achieve results, often taking initiative in high-impact environments.",
+    development: "Use power constructively—ensure it is balanced with empathy and responsibility.",
+    impact: "Power-driven leaders can shape bold visions and create strong momentum for transformation."
+  },
+  HEDONISM: {
+    title: "Hedonism",
+    strengths: "You bring joy, spontaneity, and energy to your environment, making work enjoyable and engaging.",
+    development: "Balance enjoyment with discipline to maintain focus on long-term goals.",
+    impact: "Leaders who value pleasure and excitement can create lively cultures that attract and retain talent."
+  },
+  ALTRUISTIC: {
+    title: "Altruistic",
+    strengths: "You are purpose-driven and care deeply about making a positive difference in people’s lives.",
+    development: "Ensure your drive to help doesn’t lead to overextension or neglect of personal boundaries.",
+    impact: "Altruistic leaders foster trust and loyalty, often uniting people around meaningful missions."
+  },
+  AFFILIATION: {
+    title: "Affiliation",
+    strengths: "You thrive in social settings and build strong, collaborative relationships.",
+    development: "Ensure your desire for connection doesn’t compromise difficult but necessary decisions.",
+    impact: "Leaders high in affiliation build team cohesion and create inclusive, people-centered environments."
+  },
+  TRADITION: {
+    title: "Tradition",
+    strengths: "You respect structure, continuity, and uphold time-tested practices and values.",
+    development: "Stay open to innovation and ensure traditionalism doesn’t hinder necessary change.",
+    impact: "Traditional leaders bring stability and a strong ethical foundation to teams and organizations."
+  },
+  SECURITY: {
+    title: "Security",
+    strengths: "You prioritize predictability and risk management, creating safe and stable work environments.",
+    development: "Balance caution with adaptability to navigate fast-changing situations effectively.",
+    impact: "Leaders focused on security help organizations stay grounded and manage uncertainty with care."
+  },
+  COMMERCE: {
+    title: "Commerce",
+    strengths: "You are driven by business results, financial metrics, and strategic opportunity.",
+    development: "Ensure commercial goals align with long-term sustainability and stakeholder value.",
+    impact: "Commercially savvy leaders accelerate growth and profitability through sharp business instincts."
+  },
+  SCIENCE: {
+    title: "Science",
+    strengths: "You value data, analysis, and logical reasoning in solving complex problems.",
+    development: "Complement analytical thinking with storytelling and emotional insight to connect with diverse audiences.",
+    impact: "Science-driven leaders bring rigor, precision, and innovation through evidence-based thinking."
+  }
+};
+
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const closeBtn = document.getElementById("close-btn");
+
+const titleEl = document.getElementById("sidebar-title");
+const strengthEl = document.getElementById("sidebar-strengths");
+const devEl = document.getElementById("sidebar-development");
+const impactEl = document.getElementById("sidebar-impact");
+
+document.addEventListener("click", function (e) {
+  const btn = e.target.closest(".info-btn");
+  if (!btn) return;
+
+  const id = btn.dataset.id;
+  const data = sectionData[id];  // <-- Correct variable
 
 
+
+  if (data) {
+    titleEl.textContent = data.title;
+    strengthEl.textContent = data.strengths;
+    devEl.textContent = data.development;
+    impactEl.textContent = data.impact;
+
+    sidebar.classList.remove("translate-x-full");
+    overlay.classList.remove("hidden");
+  }
+});
+
+closeBtn.addEventListener("click", () => {
+  sidebar.classList.add("translate-x-full");
+  overlay.classList.add("hidden");
+});
+
+overlay.addEventListener("click", () => {
+  sidebar.classList.add("translate-x-full");
+  overlay.classList.add("hidden");
+});
+
+document.addEventListener('click', () => {
+  feather.replace();
+});
 
   // Default load first option
   window.addEventListener("DOMContentLoaded", () => {
     updateMainContent(1, 0);
+     feather.replace();
   });
-  feather.replace();
+
+
+ 
 
 </script>
-
+<script> </script>
 
 </body>
 </html>
