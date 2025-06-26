@@ -265,9 +265,12 @@
     </div>
   </header>
 <div class="tabssection fixed z-50 mt-12 flex items-center justify-between pt-[10px]">
-  <div class="flex"><div class="tabsection-button " onclick="showTab()">Summary Report</div>
-        <div class="tabsection-button " onclick="showTab()">Detailed Report</div>
+  <div class="flex"><a href="summary.html"><div class="tabsection-button " onclick="showTab()">Summary Report</div></a>
+        <a href="detail.html"><div class="tabsection-button " onclick="showTab()">Detailed Report</div></a>
        <div class="tabsection-button active" onclick="showTab()">Development Plan</div>
+       <a href="development.html">
+  <div class="tabsection-button text-gray-500" onclick="showTab()">Learning Partner</div>
+  </a>
       </div>
        <a href="Home.html" class="bg-white text-accent text-md px-4 border border-accent py-1 rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 mr-5">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -289,48 +292,68 @@
 
       <!-- Dropdowns -->
       <div class="relative w-full space-y-2">
-        <!-- Personal Attributes -->
+        <!-- Overall -->
         <div class="relative w-full">
-          <div id="dropdownTrigger1" class="dropdown-trigger px-3 py-2 font-semibold text-[#490648] cursor-pointer flex justify-between items-center rounded-sm active-dropdown"
-               onclick="toggleDropdown(1)">
+          <div id="dropdownTrigger1" class="dropdown-trigger px-3 py-2 font-semibold text-[#490648] cursor-pointer flex justify-between items-center rounded-sm active-dropdown">
             <div class="flex items-center gap-2">
               <span>👤</span>
-              <span class="text-sm">Personal Attributes</span>
+              <span class="text-sm">Overall</span>
             </div>
-            <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
+            <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-[-90deg]" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <div id="dropdownMenu1" class="block w-full bg-white shadow mt-1">
+          <!--<div id="dropdownMenu1" class="block w-full bg-white shadow mt-1">
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer highlight-option" onclick="selectOption(1, 0)">Drive and Energy</div>
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 1)">SOCIAL INTELLIGENCE</div>
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 2)">PROBLEM SOLVING</div>
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 3)">CHANGE ORIENTATION </div>
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 4)">RISK TAKING</div>
              <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 5)">COLLABORATIVE LEARNING</div>
-          </div>
+          </div>-->
         </div>
 
-        <!-- Work Proficiencies -->
+        <!-- Personal Attributes -->
         <div class="relative w-full">
-          <div id="dropdownTrigger2" class="dropdown-trigger px-3 py-2 font-semibold text-[#490648] cursor-pointer flex justify-between items-center rounded-sm"
-               onclick="toggleDropdown(2)">
+          <div id="dropdownTrigger1" class="dropdown-trigger px-3 py-2 font-semibold text-[#490648] cursor-pointer flex justify-between items-center rounded-sm" onclick="selectOption(1, 0)">
             <div class="flex items-center gap-2">
-              <span>📦</span>
-              <span class="text-sm">Work Proficiencies</span>
+              <span>👤</span>
+              <span class="text-sm">Personal Attributes</span>
             </div>
-            <svg id="arrowIcon2" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2"
+            <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-[-90deg]" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <div id="dropdownMenu2" class="hidden w-full bg-white shadow mt-1">
+          <!--<div id="dropdownMenu1" class="block w-full bg-white shadow mt-1">
+            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer highlight-option" onclick="selectOption(1, 0)">Drive and Energy</div>
+            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 1)">SOCIAL INTELLIGENCE</div>
+            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 2)">PROBLEM SOLVING</div>
+            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 3)">CHANGE ORIENTATION </div>
+            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 4)">RISK TAKING</div>
+             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 5)">COLLABORATIVE LEARNING</div>
+          </div>-->
+        </div>
+
+        <!-- Work Proficiencies -->
+        <div class="relative w-full">
+          <div id="dropdownTrigger2" class="dropdown-trigger px-3 py-2 font-semibold text-[#490648] cursor-pointer flex justify-between items-center rounded-sm" onclick="selectOption(2, 0)">
+            <div class="flex items-center gap-2">
+              <span>📦</span>
+              <span class="text-sm">Work Proficiencies</span>
+            </div>
+            <svg id="arrowIcon2" class="w-4 h-4 transition-transform duration-200 rotate-[-90deg]" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <!--<div id="dropdownMenu2" class="hidden w-full bg-white shadow mt-1">
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 0)">EXECUTING</div>
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 1)">INFLUENCING</div>
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 2)">RELATIONSHIP BUILDING </div>
             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 3)">STRATEGIC THINKING  </div>
-          </div>
+          </div>-->
         </div>
 
       </div>
@@ -348,30 +371,35 @@
 
   const contentMap = {
     '1-0': {
-      title: "Drive and Energy",
+      title: "Personal Attributes",
       competencies: [
         {
-          name: "Ambition",
+          name: "Drive and Energy",
           description: "Level of self-confidence, competitiveness and energy level ",
           score: 75
         },
         {
-          name: "ADJUSTMENT",
+          name: "SOCIAL INTELLIGENCE",
           description: "Level of Confidence, Self acceptance and stability under pressure",
           score: 80
         },
         {
-          name: "BOLD",
+          name: "PROBLEM SOLVING",
           description: "a tendency to seem unusually self-confident, with an inflated view of oneself, unwilling to admit mistakes or listen to advice",
           score: 90
         },
         {
-          name: "EXCITABLE",
+          name: "CHANGE ORIENTATION",
           description: "A tendency to work with passion and enthusiasm, but potential for being easily frustrated, irritable and inclined to give up on projects and people. ",
           score: 85
         },
         {
-          name: "CAUTION",
+          name: "RISK TAKING",
+          description: "A tendency for some resistance to change, reluctance to take risks or chances due to unusual fear of criticism or failure ",
+          score: 70
+        },
+        {
+          name: "COLLABORATIVE LEARNING",
           description: "A tendency for some resistance to change, reluctance to take risks or chances due to unusual fear of criticism or failure ",
           score: 70
         }
@@ -519,48 +547,23 @@
       title: "Executing",
       competencies: [
         {
-          name: "Focus",
+          name: "EXECUTING",
           description: "People exceptionally talented in the Focus theme can take a direction, follow throughand make the corrections necessary to stay on track. They prioritize, then act.",
           score: 85
         },
         {
-          name: "Achiever",
+          name: "INFLUENCING",
           description: "People exceptionally talented in the Achiever theme work hard and possess a great deal of stamina. They take immense satisfaction in being busy and productive.",
           score: 78
         },
         {
-          name: "Responsibility",
+          name: "RELATIONSHIP BUILDING",
           description: "People exceptionally talented in the Responsibility theme take psychological ownership of what they say they will do. They are committed to stable values such as honesty and loyalty.",
           score: 82
         },
          {
-          name: "Belief",
+          name: "STRATEGIC THINKING",
           description: "People exceptionally talented in the Belief theme have certain core values that are unchanging. Out of these values emerges a defined purpose for their lives.",
-          score: 82
-        },
-         {
-          name: "Discipline",
-          description: "People exceptionally talented in the Discipline theme enjoy routine and structure. Their world is best described by the order they create. ",
-          score: 82
-        },
-         {
-          name: "Arranger",
-          description: "People exceptionally talented in the Arranger theme can organize, but they also have a flexibility that complements this ability. They like to determine how all of the pieces and resources can be arranged for maximum productivity. ",
-          score: 82
-        },
-         {
-          name: "Deliberative",
-          description: "People exceptionally talented in the Deliberative theme are best described by the serious care they take in making decisions or choices. They anticipate obstacles.",
-          score: 82
-        },
-         {
-          name: "Consistency",
-          description: "People exceptionally talented in the Consistency theme are keenly aware of the need to treat people the same. They crave stable routines and clear rules and procedures that everyone can follow",
-          score: 82
-        },
-         {
-          name: "Restorative",
-          description: "People exceptionally talented in the Restorative theme are adept at dealing with problems. They are good at figuring out what is wrong and resolving it. ",
           score: 82
         }
       ]
