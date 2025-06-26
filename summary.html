@@ -412,28 +412,22 @@
             </div>
         </div>
     </header>
-<div class="tabssection fixed z-50 mt-12 flex items-center justify-between">
+<div class="tabssection fixed z-50 mt-12 flex items-center justify-between pt-[10px]">
     <div class="flex">
   <div class="tabsection-button active" onclick="showTab()">Summary Report</div>
 
-  <a
-    id="detailedReportBtn"
-    data-disabled="true"
-    href="detail.html"
-    onclick="handleDetailedClick(event)"
-    class="tabsection-button  text-gray-500 pointer-events-none group relative"
-  >
+  <a  id="detailedReportBtn"  data-disabled="true"  href="detail.html"  onclick="handleDetailedClick(event)"  class="tabsection-button  text-gray-500 pointer-events-none group relative" >
     Detailed Report
     <span class="tooltiptext absolute left-1/2 top-full mt-2 transform -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 whitespace-nowrap">
       Visit all sections to unlock
     </span>
   </a>
-  <a href="development.html">
+  
   <div class="tabsection-button text-gray-500" onclick="showTab()">Development Plan</div>
-  </a>
-  <a href="development.html">
+
+
   <div class="tabsection-button text-gray-500" onclick="showTab()">Learning Partner</div>
-  </a>
+
 </div>
 <a href="Home.html" class="bg-white text-accent text-md px-4 border border-accent py-1 rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 mr-5">
    Home
@@ -463,6 +457,16 @@
         <i data-feather="heart" class="h-4 w-4 mr-2"></i>
         Values & Motives
      <i data-feather="check" class="visited-indicator"></i>
+      </button>
+       <button class="tab-button text-gray-600 pointer-events-none cursor-not-allowed flex items-center relative" data-tab="personal">
+        <i data-feather="help-circle" class="h-4 w-4 mr-2"></i>
+        Critical Thinking
+        <i data-feather="check" class="visited-indicator"></i>
+      </button>
+       <button class="tab-button text-gray-600 pointer-events-none  cursor-not-allowed flex items-center relative" data-tab="personal">
+       <i data-feather="smile" class="h-4 w-4 mr-2"></i>
+       Emotional Intelligence
+        <i data-feather="check" class="visited-indicator"></i>
       </button>
     </div>
   </div>
@@ -508,13 +512,13 @@
                     
                     <!-- Attributes List -->
                     <div class="bg-white rounded-md shadow-sm border border-gray-100">
-                        <!-- Drive and Energy -->
+                        <!-- Energy and Drive -->
                         <div class="attribute-row p-6">
                             <div class="flex items-center mb-2">
                                   <div class="attribute-icon">
                                     <i data-feather="zap"></i>
                                 </div>
-                                <h3 class="attribute-title">Drive and Energy</h3>
+                                <h3 class="attribute-title">Energy and Drive</h3>
                                 <div class="relative inline-flex items-center info-button group" data-attribute="drive-and-energy">
   <div class="info-icon text-gray-500 transition-transform duration-300">
        <i data-feather="info" class="info-buttons h-4 w-4"></i>
@@ -544,7 +548,7 @@
                                 
                                 <!-- Column 2: Narrative Summary -->
                                 <div class="col-span-7">
-                                    <p class="attribute-description">Your social intelligence is solid, allowing you to navigate most interpersonal situations effectively. There's room for growth in reading subtle social cues and adapting your communication style to different audiences.</p>
+                                    <p class="attribute-description">Your Social Acumen is solid, allowing you to navigate most interpersonal situations effectively. There's room for growth in reading subtle social cues and adapting your communication style to different audiences.</p>
                                 </div>
                                 
                                 <!-- Column 3: Risk Indicator -->
@@ -556,13 +560,13 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Social Intelligence -->
+                        <!-- Social Acumen -->
                         <div class="attribute-row p-6">
                             <div class="flex items-center mb-2">
                                   <div class="attribute-icon">
                                     <i class="fas fa-puzzle-piece"></i>
                                 </div>
-                                <h3 class="attribute-title">Social Intelligence</h3>
+                                <h3 class="attribute-title">Social Acumen</h3>
                                 <div class="relative inline-flex items-center info-button group" data-attribute="social-intelligence">
   <div class="info-icon text-gray-500 transition-transform duration-300">
        <i data-feather="info" class="info-buttons h-4 w-4"></i>
@@ -593,7 +597,7 @@
                                 
                                 <!-- Column 2: Narrative Summary -->
                                 <div class="col-span-7">
-                                    <p class="attribute-description">Your social intelligence is solid, allowing you to navigate most interpersonal situations effectively. There's room for growth in reading subtle social cues and adapting your communication style to different audiences.</p>
+                                    <p class="attribute-description">Your Social Acumen is solid, allowing you to navigate most interpersonal situations effectively. There's room for growth in reading subtle social cues and adapting your communication style to different audiences.</p>
                                 </div>
                                 
                                 <!-- Column 3: Risk Indicator -->
@@ -1123,9 +1127,7 @@
                                     </div>-->
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Practical Interest -->
+                              <!-- Practical Interest -->
                         <div class="attribute-row p-6">
                             <div class="flex items-center mb-2">
                                  <div class="attribute-icon">
@@ -1172,6 +1174,9 @@
                                     </div>-->
                                 </div>
                             </div>
+                        </div>
+                        
+                      
                         </div>
                       
                     </div>
@@ -1278,11 +1283,11 @@ tabButtons.forEach(button => {
             // Attribute insights data
             const attributeInsights = {
                 'drive-and-energy': {
-                    title: 'Drive and Energy',
+                    title: 'Energy and Drive',
                     insights: [
                         {
                             title: 'Strengths',
-                            content: 'Your high drive and energy allows you to maintain momentum on projects, inspire others through your enthusiasm, and push through obstacles that might deter others.'
+                            content: 'Your high Energy and Drive allows you to maintain momentum on projects, inspire others through your enthusiasm, and push through obstacles that might deter others.'
                         },
                         {
                             title: 'Development Areas',
@@ -1290,12 +1295,12 @@ tabButtons.forEach(button => {
                         },
                         {
                             title: 'Leadership Impact',
-                            content: 'Leaders with high drive and energy often create dynamic, high-performing teams that accomplish ambitious goals. Your energy is contagious and motivates others.'
+                            content: 'Leaders with high Energy and Drive often create dynamic, high-performing teams that accomplish ambitious goals. Your energy is contagious and motivates others.'
                         }
                     ]
                 },
                 'social-intelligence': {
-                    title: 'Social Intelligence',
+                    title: 'Social Acumen',
                     insights: [
                         {
                             title: 'Strengths',
@@ -1307,7 +1312,7 @@ tabButtons.forEach(button => {
                         },
                         {
                             title: 'Leadership Impact',
-                            content: 'Enhancing your social intelligence will improve team cohesion, conflict resolution, and your ability to influence stakeholders across the organization.'
+                            content: 'Enhancing your Social Acumen will improve team cohesion, conflict resolution, and your ability to influence stakeholders across the organization.'
                         }
                     ]
                 },

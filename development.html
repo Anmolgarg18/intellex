@@ -7,6 +7,7 @@
   <script src="https://unpkg.com/feather-icons"></script>
 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <script src="https://unpkg.com/feather-icons"></script>
  <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -15,6 +16,7 @@
       background-color: rgba(73, 6, 72, 0.15);
       border-top: 3px solid #490648;
       border-bottom: 3px solid #490648;
+      color: #490648
     }
 
     .highlight-option {
@@ -212,7 +214,7 @@
         .hidden-bullets {
             display: none;
         }
-         .tabssection {
+            .tabssection {
             margin-top: 50px;
       background-color: #ffffff;
       width: 100%;
@@ -233,6 +235,142 @@
       color: #490648;
       font-weight: bold;
     }
+    .chatbot-panel {
+      position: fixed;
+      top: 110px;
+      right: 0;
+      height: 600px;
+      width: 420px;
+      background-color: #ffffff;
+      box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      z-index: 9999;
+      border-bottom-left-radius: 8px;
+      border-top-left-radius: 8px;
+    }
+
+    .chat-header {
+      border-top-left-radius: 8px;
+      background-color: #490648;
+      color: white;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-header .left {
+      display: flex;
+      align-items: center;
+    }
+
+    .chat-header .left span {
+      margin-left: 8px;
+    }
+
+    .chat-header .close-btn {
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .chat-header .close-btn:hover {
+      color: #f9edf9;          
+      transform: scale(1.2);  
+      cursor: pointer;        
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      max-width: 75%;
+      border: 1px solid #ccc;
+    }
+
+    .user-message {
+      align-self: flex-end;
+      background-color: #490648;
+      color: white;
+    }
+
+    .bot-message {
+      align-self: flex-start;
+      background-color: #f9edf9;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+      align-items: center;
+      padding: 20px;
+    }
+    .chat-input-container {
+  display: flex;
+  width: 400px;
+  height: 40px;
+  border-radius: 25px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.chat-input-text {
+  flex: 1;
+  border: none;
+  padding: 0 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+.send-button {
+  width: 60px;
+  background-color: #4b004f; /* dark purple */
+  color: white;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #5d005f; /* slightly lighter purple on hover */
+}
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      font-size: 14px;
+    }
+    
+    
+    .image-icon{
+      height: 40px;
+      width: auto;
+    }
+
+    .image1-icon{
+      height: 30px;
+      width: auto;
+    }
+
+    .chat-input input:focus,
+    .chat-input button:focus {
+      outline: none;
+    }
+
   </style>
 
   <script>
@@ -249,7 +387,7 @@
     };
   </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 ">
 
   <!-- Header -->
   <header class="fixed top-0 left-0 right-0 h-12 bg-deeppurple text-white px-6 flex justify-between items-center shadow-sm z-20">
@@ -265,14 +403,15 @@
     </div>
   </header>
 <div class="tabssection fixed z-50 mt-12 flex items-center justify-between pt-[10px]">
-  <div class="flex"><a href="summary.html"><div class="tabsection-button " onclick="showTab()">Summary Report</div></a>
-        <a href="detail.html"><div class="tabsection-button " onclick="showTab()">Detailed Report</div></a>
-       <div class="tabsection-button active" onclick="showTab()">Development Plan</div>
-       <a href="development.html">
+  <div class="flex">
+    <a href="summary.html">
+    <div class="tabsection-button " onclick="showTab()">Summary Report</div></a>
+       <a href="detail.html"> <div class="tabsection-button  " onclick="showTab()">Detailed Report</div></a>
+       <div class="tabsection-button active" onclick="showTab()">Development Plan</div></a>
   <div class="tabsection-button text-gray-500" onclick="showTab()">Learning Partner</div>
-  </a>
+ 
       </div>
-       <a href="Home.html" class="bg-white text-accent text-md px-4 border border-accent py-1 rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 mr-5">
+      
   <a href="Home.html" class="bg-white text-accent text-md px-4 border border-accent py-1 rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 mr-5">
    Home
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -280,83 +419,97 @@
 </svg>
 </a> 
         </div>
-   
-
+    </div>
   <div class="flex">
+  
+
     <!-- Sidebar -->
-    <div class="w-64 h-screen fixed top-12 left-0 bg-white border-r border-purple-200 shadow py-4 space-y-3">
+    <div class="w-64 h-screen fixed top-[15%] left-0 bg-white border-r border-purple-200 shadow py-4 space-y-3">
+      
       <h2 class="text-xs text-gray-500 font-semibold tracking-widest mb-4 px-4 pb-2">
         REPORT SECTIONS
       </h2>
 
       <!-- Dropdowns -->
       <div class="relative w-full space-y-2">
-        <!-- Overall -->
-        <div class="relative w-full">
-          <div id="dropdownTrigger1" class="dropdown-trigger px-3 py-2 font-semibold text-[#490648] cursor-pointer flex justify-between items-center rounded-sm active-dropdown">
+        <!-- overall -->
+         <div class="relative w-full">
+          <div id="dropdownTrigger1" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm active-dropdown"
+             onclick="selectOption(1, 0)"  >
             <div class="flex items-center gap-2">
-              <span>👤</span>
+           <i data-feather="grid" class="h-4 w-4 mr-2"></i>
               <span class="text-sm">Overall</span>
             </div>
-            <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-[-90deg]" fill="none" stroke="currentColor" stroke-width="2"
+            <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <!--<div id="dropdownMenu1" class="block w-full bg-white shadow mt-1">
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer highlight-option" onclick="selectOption(1, 0)">Drive and Energy</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 1)">SOCIAL INTELLIGENCE</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 2)">PROBLEM SOLVING</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 3)">CHANGE ORIENTATION </div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 4)">RISK TAKING</div>
-             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 5)">COLLABORATIVE LEARNING</div>
-          </div>-->
+         
+
         </div>
 
         <!-- Personal Attributes -->
         <div class="relative w-full">
-          <div id="dropdownTrigger1" class="dropdown-trigger px-3 py-2 font-semibold text-[#490648] cursor-pointer flex justify-between items-center rounded-sm" onclick="selectOption(1, 0)">
+          <div id="dropdownTrigger2" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm "
+             onclick="selectOption(2, 0)"  >
             <div class="flex items-center gap-2">
-              <span>👤</span>
+               <i data-feather="user" class="h-4 w-4 mr-2"></i>
               <span class="text-sm">Personal Attributes</span>
             </div>
-            <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-[-90deg]" fill="none" stroke="currentColor" stroke-width="2"
+            <svg id="arrowIcon2" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <!--<div id="dropdownMenu1" class="block w-full bg-white shadow mt-1">
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer highlight-option" onclick="selectOption(1, 0)">Drive and Energy</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 1)">SOCIAL INTELLIGENCE</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 2)">PROBLEM SOLVING</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 3)">CHANGE ORIENTATION </div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 4)">RISK TAKING</div>
-             <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(1, 5)">COLLABORATIVE LEARNING</div>
-          </div>-->
+         
+
         </div>
 
         <!-- Work Proficiencies -->
         <div class="relative w-full">
-          <div id="dropdownTrigger2" class="dropdown-trigger px-3 py-2 font-semibold text-[#490648] cursor-pointer flex justify-between items-center rounded-sm" onclick="selectOption(2, 0)">
+          <div id="dropdownTrigger3" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm"
+            onclick="selectOption(3, 0)"  >
             <div class="flex items-center gap-2">
-              <span>📦</span>
+              <i data-feather="briefcase" class="h-4 w-4 mr-2"></i>
               <span class="text-sm">Work Proficiencies</span>
             </div>
-            <svg id="arrowIcon2" class="w-4 h-4 transition-transform duration-200 rotate-[-90deg]" fill="none" stroke="currentColor" stroke-width="2"
+            <svg id="arrowIcon3" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <!--<div id="dropdownMenu2" class="hidden w-full bg-white shadow mt-1">
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 0)">EXECUTING</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 1)">INFLUENCING</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 2)">RELATIONSHIP BUILDING </div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 3)">STRATEGIC THINKING  </div>
-          </div>-->
         </div>
-
       </div>
     </div>
+
+    <!---chatwindow-->
+    <div id="chatsection" style="display: none">
+    <div class="chatbot-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="left">
+        <img src="chatbot.png" class="image-icon"><span>Intellex Coach.AI<br>
+        <div style="font-size: 14px;">Your personal growth navigator</div>
+      </span>
+      </div>
+      <button class="close-btn" onclick="hideBox()">×</button>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="bot-message message">I'm here to provide deeper insights into your development journey and help you navigate your growth opportunities. Based on the recent feedback and assessments, I've compiled tailored recommendations to accelerate your professional development. What would you like to do today?</div>
+    </div>
+
+    <div class="chat-input">
+      <img src="amplify.png" class="image1-icon">
+      <span class="chat-input-container">
+      <input type="text" id="userInput" placeholder="Type your message..." class="chat-input-text" />
+      <button onclick="sendMessage()" title="Send" class="send-button">
+        &#8594;
+        </button>
+      </span>
+  </div>
+  </div>
+  </div>
 
     <!-- Main Content Area -->
    <div id="mainContent" class="ml-64 mt-32 px-6 relative z-10 w-full">
@@ -370,390 +523,118 @@
 
   const contentMap = {
     '1-0': {
-      title: "Personal Attributes",
+      title: "Overall",
       competencies: [
         {
-          name: "Drive and Energy",
-          description: "Level of self-confidence, competitiveness and energy level ",
+          name: "personal Attributes",
+          description: "Deep insight into an executive’s personality and learning agility that provides a realistic picture of how a person will perform in a given role ",
           score: 75
         },
         {
-          name: "SOCIAL INTELLIGENCE",
-          description: "Level of Confidence, Self acceptance and stability under pressure",
+          name: "Work Proficiencies",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
           score: 80
-        },
-        {
-          name: "PROBLEM SOLVING",
-          description: "a tendency to seem unusually self-confident, with an inflated view of oneself, unwilling to admit mistakes or listen to advice",
-          score: 90
-        },
-        {
-          name: "CHANGE ORIENTATION",
-          description: "A tendency to work with passion and enthusiasm, but potential for being easily frustrated, irritable and inclined to give up on projects and people. ",
-          score: 85
-        },
-        {
-          name: "RISK TAKING",
-          description: "A tendency for some resistance to change, reluctance to take risks or chances due to unusual fear of criticism or failure ",
-          score: 70
-        },
-        {
-          name: "COLLABORATIVE LEARNING",
-          description: "A tendency for some resistance to change, reluctance to take risks or chances due to unusual fear of criticism or failure ",
-          score: 70
         }
-      ]
-    },
-    '1-1': {
-      title: "SOCIAL INTELLIGENCE",
-      competencies: [
-        {
-          name: "SOCIABILITY ",
-          description: "Degree to which a person needs and/or enjoys social interaction ",
-          score: 70
-        },
-        {
-          name: "INTERPERSONAL SENSITIVITY ",
-          description: "Degree to which a person seems sensitive, perceptive or tactful",
-          score: 68
-        },
-        {
-          name: "COLORFUL",
-          description: "A tendency to seem expressive and attention seeking with a potential to be easily bored and come across as disorganized.",
-          score: 78
-        },
-        {
-          name: "LEISURELY",
-          description: "A tendency to be friendly and cooperative, but following one’s own agenda and quietly resisting those of others",
-          score: 68
-        },
-        {
-          name: "RESERVED",
-          description: "A tendency to keep to oneself, avoiding meeting new people and being indA tendency for a mistrust of people and institutions and potentially prone to negativity or suspicion of others intentions.",
-          score: 68
-        },
-        {
-          name: "SKEPTICAL",
-          description: "Degree to which a person seems sensitive, perceptive or tactful",
-          score: 68
-        }
-      ]
-    },
-    '1-2': {
-      title: "PROBLEM SOLVING",
-      competencies: [
-        {
-          name: "PRUDENCE ",
-          description: "Degree to which a person seems conscientious, rule abiding and dependable ",
-          score: 70
-        },
-        {
-          name: "INQUISITIVE",
-          description: "Degree to which a person seems big-pictured, visionary and innovative in problem-solving; good at synthesizing opinions.",
-          score: 68
-        },
-        {
-          name: "LEARNING APPROACH",
-          description: "Degree to which a person takes pleasure in learning and staying up-to-date on business and technical matters.",
-          score: 78
-        },
-        {
-          name: "DILIGENT",
-          description: "A tendency for hard work, high standards and detail orientation, but has the potential of being overly meticulous, controlling and unforgiving of mistakes ",
-          score: 68
-        },
-        {
-          name: "IMAGINATIVE",
-          description: "A tendency for acting and thinking in a creative way but has potential to be viewed as unfocused or over confident and lacking in follow through ",
-          score: 68
-        },
-        {
-          name: "MISCHEVIOUS",
-          description: "A tendency for being charming and risk taking, but has the potential to push the limits, being easily bored or maintain commitments",
-          score: 68
-        },
-         {
-          name: "DUTIFUL",
-          description: "A tendency fo being compliant, conforming and eager to please one’s superiors with tendency to rely on others for advice and a reluctance to act",
-          score: 68
-        }
-      ]
-    },
-    '1-3': {
-      title: "CHANGE ORIENTATION ",
-      competencies: [
-        {
-          name: "FLEXIBILITY ",
-          description: "Degree to which one is open to new ideas and proposing new solutions ",
-          score: 70
-        },
-        {
-          name: "SPEED",
-          description: "Degree to which one acts on ideas quickly, so those not working are discarded and other possibilities are accelerated ",
-          score: 68
-        },
-        {
-          name: "REFLECTION",
-          description: "Degree to which one evaluates one’s own performance in order to be more effective ",
-          score: 78
-        }
-       
-      ]
-    },
-    '1-4': {
-      title: "RISK TAKING",
-      competencies: [
-        {
-          name: "EXPERIMENTING ",
-          description: "Try out new approaches and ideas to determine what is effective",
-          score: 70
-        },
-        {
-          name: "PERFORMANCE RISK TAKING",
-          description: "Seeking new assignments, roles that provide opportunities to be challenged ",
-          score: 68
-        },
-        {
-          name: "INTERPERSONAL RISK TAKING ",
-          description: "Confronting differences with others in ways that lead to learning and change",
-          score: 78
-        }
-       
-      ]
-    },
-     '1-5': {
-      title: "COLLABORATIVE LEARNING",
-      competencies: [
-        {
-          name: "COLLABORATING",
-          description: "Finding ways to work with others that generate unique opportunities for learning",
-          score: 70
-        },
-        {
-          name: "FEEDBACK SEEKING",
-          description: "Asking others for feedback on one’s overall ideas and overall performance ",
-          score: 68
-        },
-        {
-          name: "INFORMATION GATHERING",
-          description: "Using various methods to remain current in one’s area of expertise ",
-          score: 78
-        }
-       
       ]
     },
     '2-0': {
-      title: "Executing",
+      title: "Personal Attributes",
       competencies: [
         {
-          name: "EXECUTING",
-          description: "People exceptionally talented in the Focus theme can take a direction, follow throughand make the corrections necessary to stay on track. They prioritize, then act.",
-          score: 85
+          name: "Energy and Drive ",
+          description: "Degree to which a person needs and/or enjoys social interaction Intrinsic motivation, enthusiasm, and persistence in pursuing goals, inspiring others, and overcoming challenges.",
         },
         {
-          name: "INFLUENCING",
-          description: "People exceptionally talented in the Achiever theme work hard and possess a great deal of stamina. They take immense satisfaction in being busy and productive.",
+          name: "Social Acumen",
+          description: "The ability to understand, navigate, and influence interpersonal relationships effectively.",
+          score: 68
+        },
+        {
+          name: "Problem Solving",
+          description: "The ability to analyze complex problems, view them from multiple perspectives, assess risk and make decisions",
           score: 78
         },
         {
-          name: "RELATIONSHIP BUILDING",
-          description: "People exceptionally talented in the Responsibility theme take psychological ownership of what they say they will do. They are committed to stable values such as honesty and loyalty.",
-          score: 82
+          name: "Change Orientation",
+          description: "How readily the individual embraces and drives change—both in thought and action.",
+          score: 68
         },
-         {
-          name: "STRATEGIC THINKING",
-          description: "People exceptionally talented in the Belief theme have certain core values that are unchanging. Out of these values emerges a defined purpose for their lives.",
-          score: 82
+        {
+          name: "Risk Taking",
+          description: "Willingness to step outside comfort zones—by taking on new roles or confronting tough issues",
+          score: 68
+        },
+        {
+          name: "Collaborating Learning",
+          description: "The degree to which the person leverages others—through teaming, feedback — to learn fast.",
+          score: 68
+        },
+      ]
+    },
+    '3-0': {
+      title: "Work Proficiencies",
+      competencies: [
+        {
+          name: "Executing ",
+          description: "Making things happen ",
+          score: 70
+        },
+        {
+          name: "Influencing",
+          description: "Taking charge, speak up and make sure others are heard",
+          score: 68
+        },
+        {
+          name: "Relationship Building",
+          description: "Building strong relationships that hold a team together and make it greater than the sum of its parts",
+          score: 78
+        },
+        {
+          name: "Strategic Thinking",
+          description: "Absorb and analyze information that informs better decision",
+          score: 68
         }
       ]
     },
-     '2-1': {
-      title: "Influencing",
-      competencies: [
-        {
-          name: "Significance",
-          description: "People exceptionally talented in the Significance theme want to make a big impact. They are independent and prioritize projects based on how much influence they will have on their organization or people around them. ",
-          score: 85
-        },
-        {
-          name: "Maximizer",
-          description: "People exceptionally talented in the Maximizer theme focus on strengths as a way to stimulate personal and group excellence. They seek to transform something strong into something superb.",
-          score: 78
-        },
-        {
-          name: "Competition",
-          description: "People exceptionally talented in the Competition theme measure their progress against the performance of others. They strive to win first place and revel in contests. ",
-          score: 82
-        },
-         {
-          name: "Activator",
-          description: "People exceptionally talented in the Activator theme can make things happen by turning thoughts into action. They want to do things now, rather than simply talk about them.",
-          score: 82
-        },
-         {
-          name: "Self-Assurance",
-          description: "People exceptionally talented in the Self-Assurance theme feel confident in their ability to take risks and manage their own lives. They have an inner compass that gives them certainty in their decisions.",
-          score: 82
-        },
-         {
-          name: "Communication",
-          description: "People exceptionally talented in the Communication theme generally find it easy to put their thoughts into words. They are good conversationalists and presenters.",
-          score: 82
-        },
-         {
-          name: "Woo",
-          description: "People exceptionally talented in the Woo theme love the challenge of meeting new people and winning them over. They derive satisfaction from breaking the ice and making a connection with someone.",
-          score: 82
-        },
-         {
-          name: "Command",
-          description: "People exceptionally talented in the Command theme have presence. They can take control of a situation and make decisions. ",
-          score: 82
-        }
-      ]
-    },
-     '2-2': {
-      title: "Relationship Building",
-      competencies: [
-        {
-          name: "Individualization",
-          description: "People exceptionally talented in the Individualization theme are intrigued with the unique qualities of each person. They have a gift for figuring out how different people can work together productively",
-          score: 85
-        },
-        {
-          name: "Positivity",
-          description: "People exceptionally talented in the Positivity theme have contagious enthusiasm. They are upbeat and can get others excited about what they are going to do. ",
-          score: 78
-        },
-        {
-          name: "Developer",
-          description: "People exceptionally talented in the Developer theme recognize and cultivate the potential in others. They spot the signs of each small improvement and derive satisfaction from evidence of progress. ",
-          score: 82
-        },
-         {
-          name: "Relator",
-          description: "People exceptionally talented in the Relator theme enjoy close relationships with others. They find deep satisfaction in working hard with friends to achieve a goal. ",
-          score: 82
-        },
-         {
-          name: "Connectedness",
-          description: "People exceptionally talented in the Connectedness theme have faith in the links among all things. They believe there are few coincidences and that almost every event has meaning. ",
-          score: 82
-        },
-         {
-          name: "Empathy",
-          description: "People exceptionally talented in the Empathy theme can sense other people’s feelings by imagining themselves in others’ lives or situations.",
-          score: 82
-        },
-         {
-          name: "Harmony",
-          description: "People exceptionally talented in the Harmony theme look for consensus. They don’t enjoy conflict; rather, they seek areas of agreement.",
-          score: 82
-        },
-         {
-          name: "Adaptability",
-          description: "People exceptionally talented in the Adaptability theme prefer to go with the flow. They tend to be “now” people who take things as they come and discover the future one day at a time",
-          score: 82
-        },
-        {
-          name: "Includer",
-          description: "People exceptionally talented in the Includer theme accept others. They show awareness of those who feel left out and make an effort to include them. ",
-          score: 82
-        }
-      ]
-    },
-     '2-3': {
-      title: "Strategic Thinking",
-      competencies: [
-        {
-          name: "Futuristic",
-          description: "People exceptionally talented in the Futuristic theme are inspired by the future and what could be. They energize others with their visions of the future.",
-          score: 85
-        },
-        {
-          name: "Strategic",
-          description: "People exceptionally talented in the Strategic theme create alternative ways to proceed. Faced with any given scenario, they can quickly spot the relevant patterns and issues. ",
-          score: 78
-        },
-        {
-          name: "Learner",
-          description: "People exceptionally talented in the Learner theme have a great desire to learn and want to continuously improve. The process of learning, rather than the outcome, excites them.  ",
-          score: 82
-        },
-         {
-          name: "Analytical",
-          description: "People exceptionally talented in the Analytical theme search for reasons and causes. They have the ability to think about all of the factors that might affect a situation.",
-          score: 82
-        },
-         {
-          name: "Intellection",
-          description: "People exceptionally talented in the Intellection theme are characterized by their intellectual activity. They are introspective and appreciate intellectual discussions.",
-          score: 82
-        },
-         {
-          name: "Ideation",
-          description: "People exceptionally talented in the Ideation theme are fascinated by ideas. They are able to find connections between seemingly disparate phenomena. ",
-          score: 82
-        },
-         {
-          name: "Input",
-          description: "People exceptionally talented in the Input theme have a need to collect and archive. They may accumulate information, ideas, artifacts or even relationships.",
-          score: 82
-        },
-         {
-          name: "Context",
-          description: "People exceptionally talented in the Context theme enjoy thinking about the past. They understand the present by researching its history. ",
-          score: 82
-        },
-        {
-          name: "Includer",
-          description: "People exceptionally talented in the Includer theme accept others. They show awareness of those who feel left out and make an effort to include them. ",
-          score: 82
-        }
-      ]
-    }
+    
+     
     // Add more sections as needed
   };
 
-  function toggleDropdown(id) {
-    for (let i = 1; i <= 3; i++) {
-      const trigger = document.getElementById(`dropdownTrigger${i}`);
-      const menu = document.getElementById(`dropdownMenu${i}`);
-      const arrow = document.getElementById(`arrowIcon${i}`);
+  // function toggleDropdown(id) {
+  //   for (let i = 1; i <= 3; i++) {
+  //     const trigger = document.getElementById(`dropdownTrigger${i}`);
+  //     const menu = document.getElementById(`dropdownMenu${i}`);
+  //     const arrow = document.getElementById(`arrowIcon${i}`);
 
-      if (i === id) {
-        const isOpen = !menu.classList.contains("hidden");
-        menu.classList.toggle("hidden");
-        arrow.classList.toggle("rotate-180");
-        highlightSelectedOption(id);
-      } else {
-        menu.classList.add("hidden");
-        arrow.classList.remove("rotate-180");
-      }
-    }
-  }
+  //     if (i === id) {
+  //       const isOpen = !menu.classList.contains("hidden");
+  //       menu.classList.toggle("hidden");
+  //       arrow.classList.toggle("rotate-180");
+  //       highlightSelectedOption(id);
+  //     } else {
+  //       menu.classList.add("hidden");
+  //       arrow.classList.remove("rotate-180");
+  //     }
+  //   }
+  // }
 
   function selectOption(id, index) {
     selectedIndexes = {}; // reset
     selectedIndexes[id] = index;
 
     for (let i = 1; i <= 3; i++) {
-      document.getElementById(`dropdownTrigger${i}`).classList.remove("active-dropdown");
-      document.getElementById(`dropdownMenu${i}`).classList.add("hidden");
-      document.getElementById(`arrowIcon${i}`).classList.remove("rotate-180");
+
+        document.getElementById(`dropdownTrigger${i}`).classList.remove("active-dropdown");
+      document.getElementById(`arrowIcon${i}`).classList.remove("rotate-[270deg]");
     }
 
-    document.getElementById(`dropdownTrigger${id}`).classList.add("active-dropdown");
-    highlightSelectedOption(id);
+   document.getElementById(`dropdownTrigger${id}`).classList.add("active-dropdown");
+   document.getElementById(`arrowIcon${id}`).classList.add("rotate-[270deg]");
     updateMainContent(id, index);
   }
 
-  function highlightSelectedOption(id) {
-    const options = document.querySelectorAll(`#dropdownMenu${id} .dropdown-option`);
-    options.forEach((opt, idx) => {
-      opt.classList.toggle("highlight-option", selectedIndexes[id] === idx);
-    });
-  }
+
 
   function updateMainContent(id, index) {
     const key = `${id}-${index}`;
@@ -779,13 +660,13 @@
     </div>
 
     <!-- Right: Button -->
-   <button class="bg-white text-accent text-md px-6 border border-accent py-2 rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 ">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-       class="bi bi-arrow-left" viewBox="0 0 16 16">
-    <path fill-rule="evenodd"
-          d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-  </svg>
-  Back
+  
+<div class="flex flex-col items-center">
+  <img src="chatbot.svg" class="w-auto h-[60px] transition-transform duration-300 animate-bounce" onclick="toggleBox()" />
+  <span class="text-[#490648] text-sm font-medium">Question? Ask</span>
+</a>
+
+
 </button>
 
     </div>
@@ -806,33 +687,13 @@
                                 <h2 class="text-xl font-bold">${c.name.toUpperCase()}</h2>
                             </div>
                             
-                            <p class="text-gray-800 mb-6 text-lg font-light">
+                            <p class="text-gray-800  text-lg font-light">
                             ${c.description}
                             </p>
-                            
-                            <div class="mb-8 relative">
-                                <div class="score-bar">
-                                    <div class="score-fill" style="width: ${c.score}%"></div>
-                                    <div class="score-pointer" style="left:${c.score}%"></div>
-                                    <div class="score-value" style="left:${c.score}%">${c.score}%</div>
-                                    
-                                    <!-- Score markers -->
-                                    <div class="score-marker" style="left: 25%"></div>
-                                   
-                                    <div class="score-marker" style="left: 68%"></div>
-                                    
-                                    <!-- Score labels -->
-                                    
-                                    <div class="score-label" style="left: 25%">Below Average</div>
-                                    
-                                    <div class="score-label" style="left: 69%;white-space: nowrap;">Above Average</div>
-                                   
-                                </div>
-                            </div>
-                            
+                          
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="implications-section">
-                                    <h3 class="implications-title">Capitalizing on Your Core Strengths</h3>
+                                    <h3 class="implications-title">Behavioral Implications</h3>
                                     <ul class="bullet-list">
                                         <li>Demonstrates high standards and seeks challenging goals to achieve results.</li>
                                         <li>Shows persistence in overcoming obstacles and maintains focus on long-term objectives.</li>
@@ -847,7 +708,7 @@
                                     </div>
                                 </div>
                                 <div class="implications-section">
-                                    <h3 class="implications-title">Turning Opportunities into Growth</h3>
+                                    <h3 class="implications-title">Leadership Implications</h3>
                                     <ul class="bullet-list">
                                         <li>Creates a performance-oriented culture with clear expectations for excellence.</li>
                                         <li>Sets stretch goals for the team and models dedication to continuous improvement.</li>
@@ -861,6 +722,7 @@
                                         </svg>
                                     </div>
                                 </div>
+                              
                             </div>
                         </div>
       `;
@@ -869,23 +731,57 @@
     main.innerHTML = html;
   }
 
-  // Close on outside click
-  window.addEventListener("click", function (e) {
-    for (let i = 1; i <= 3; i++) {
-      const trigger = document.getElementById(`dropdownTrigger${i}`);
-      const menu = document.getElementById(`dropdownMenu${i}`);
-      const arrow = document.getElementById(`arrowIcon${i}`);
-      if (!trigger.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.add("hidden");
-        arrow.classList.remove("rotate-180");
+  function toggleBox() {
+ document.getElementById("chatsection").style.display = "block";
+}
+
+function hideBox() {
+    document.getElementById("chatsection").style.display = "none";
+  }
+
+  function sendMessage() {
+      const input = document.getElementById('userInput');
+      const msg = input.value.trim();
+      const chatMessages = document.getElementById('chatMessages');
+
+      if (msg !== "") {
+        // User message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'user-message message';
+        userMsg.textContent = msg;
+        chatMessages.appendChild(userMsg);
+
+        // Simulated bot reply
+        setTimeout(() => {
+          const botMsg = document.createElement('div');
+          botMsg.className = 'bot-message message';
+          botMsg.textContent = "Thank you for you reply";
+          chatMessages.appendChild(botMsg);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 500);
+
+        input.value = "";
+        chatMessages.scrollTop = chatMessages.scrollHeight;
       }
     }
-  });
+
+    // Enter key to send message
+    document.getElementById('userInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+
+  // Close on outside click
+ 
 
   // Default load first option
   window.addEventListener("DOMContentLoaded", () => {
-    updateMainContent(1, 0);
+    selectOption(1, 0);
   });
+  feather.replace();
+
 </script>
 
 
