@@ -105,7 +105,7 @@
         }
         .score-label {
             position: absolute;
-             margin-top: 4px;
+             margin-top: 8px;
             transform: translateX(-50%);
             font-size: 9px;
             color: #888;
@@ -458,13 +458,13 @@
 
         </div>
 
-        <!-- Work Proficiencies -->
+        <!-- Work Competencies -->
         <div class="relative w-full">
           <div id="dropdownTrigger2" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm"
                onclick="toggleDropdown(2)">
             <div class="flex items-center gap-2">
               <i data-feather="briefcase" class="h-4 w-4 mr-2"></i>
-              <span class="text-sm">Work Proficiencies</span>
+              <span class="text-sm">Work Competencies</span>
             </div>
             <svg id="arrowIcon2" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
@@ -472,10 +472,9 @@
             </svg>
           </div>
           <div id="dropdownMenu2" class="hidden w-full bg-white shadow mt-1">
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 0)">Executing</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 1)">Influencing</div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 2)">Relationship Building </div>
-            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 3)">Strategic Thinking  </div>
+            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 0)">Top 5 Strengths</div>
+            <div class="dropdown-option px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer" onclick="selectOption(2, 1)">Next Top 5 Strengths</div>
+           
           </div>
         </div>
 
@@ -809,57 +808,57 @@
   ]
 },
     '2-0': {
-      title: "Executing",
+      title: "Top 5 Strengths",
       competencies: [
         {
-          name: "Focus",
+          name: "Executing - Focus",
           description: "People exceptionally talented in the Focus theme can take a direction, follow throughand make the corrections necessary to stay on track. They prioritize, then act.",
           score: 85
         },
         {
-          name: "Achiever",
+          name: "Relationship - Individualization",
           description: "People exceptionally talented in the Achiever theme work hard and possess a great deal of stamina. They take immense satisfaction in being busy and productive.",
           score: 78
         },
         {
-          name: "Responsibility",
+          name: "Executing-Responsibility",
           description: "People exceptionally talented in the Responsibility theme take psychological ownership of what they say they will do. They are committed to stable values such as honesty and loyalty.",
           score: 82
         },
          {
-          name: "Belief",
+          name: "Executing-Belief",
           description: "People exceptionally talented in the Belief theme have certain core values that are unchanging. Out of these values emerges a defined purpose for their lives.",
           score: 82
         },
          {
-          name: "Discipline",
+          name: "Executing-Discipline",
           description: "People exceptionally talented in the Discipline theme enjoy routine and structure. Their world is best described by the order they create. ",
           score: 82
         },
          {
-          name: "Arranger",
+          name: "Executing-Arranger",
           description: "People exceptionally talented in the Arranger theme can organize, but they also have a flexibility that complements this ability. They like to determine how all of the pieces and resources can be arranged for maximum productivity. ",
           score: 82
         },
          {
-          name: "Deliberative",
+          name: "Executing-Deliberative",
           description: "People exceptionally talented in the Deliberative theme are best described by the serious care they take in making decisions or choices. They anticipate obstacles.",
           score: 82
         },
          {
-          name: "Consistency",
+          name: "Executing-Consistency",
           description: "People exceptionally talented in the Consistency theme are keenly aware of the need to treat people the same. They crave stable routines and clear rules and procedures that everyone can follow",
           score: 82
         },
          {
-          name: "Restorative",
+          name: "Executing-Restorative",
           description: "People exceptionally talented in the Restorative theme are adept at dealing with problems. They are good at figuring out what is wrong and resolving it. ",
           score: 82
         }
       ]
     },
      '2-1': {
-      title: "Influencing",
+      title: "Next Top 5 strengths",
       competencies: [
         {
           name: "Significance",
@@ -1121,7 +1120,7 @@
                         <div class="flex items-center justify-between">
     <!-- Left: Icon + Title -->
     <div class="flex items-center">
-      <div class="category-icon">
+      <div class="category-icon" style="${content.title === 'Top 5 Strengths' || content.title === 'Next Top 5 strengths' ? 'display: none;' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
@@ -1172,24 +1171,37 @@
                             ${c.description}
                             </p>
                             
-                            <div class="mb-8 relative">
-                                <div class="score-bar">
-                                    <div class="score-fill" style="width: ${c.score}%"></div>
-                                    <div class="score-pointer" style="left:${c.score}%"></div>
-                                    
-                                    <!-- Score markers -->
-                                    <div class="score-marker" style="left: 33%"></div>
-                                  
-                                    <div class="score-marker" style="left: 66%"></div>
-                                    
-                                    <!-- Score labels -->
-                                    
-                                    <div class="score-label" style="left: 13%">Below Average</div>
-                                      <div class="score-label" style="left: 50%">Average</div>
-                                    <div class="score-label" style="left: 85%;white-space: nowrap;">Above Average</div>
-                                   
-                                </div>
-                            </div>
+                            ${[  "EXCITABLE", "SKEPTICAL", "CAUTIOUS", "RESERVED", "LEISURELY",  "BOLD", "MISCHIEVOUS", "COLORFUL", "IMAGINATIVE", "DILIGENT", "DUTIUL"].includes(c.name.toUpperCase()) ? `
+  <div class="mb-8 relative">
+    <div class="score-bar">
+      <div class="score-fill" style="width: ${c.score}%"></div>
+      <div class="score-pointer" style="left:${c.score}%"></div>
+
+      <div class="score-marker" style="left: 30%"></div>
+      <div class="score-marker" style="left: 60%"></div>
+       <div class="score-marker" style="left: 85%"></div>
+
+      <div class="score-label" style="left: 13%">No Risk</div>
+      <div class="score-label" style="left: 45%">Low Risk</div>
+      <div class="score-label" style="left: 73%">Moderate Risk</div>
+      <div class="score-label" style="left: 95%;white-space: nowrap;">High risk</div>
+    </div>
+  </div>
+` : `
+ <div class="mb-8 relative">
+    <div class="score-bar">
+      <div class="score-fill" style="width: ${c.score}%"></div>
+      <div class="score-pointer" style="left:${c.score}%"></div>
+
+      <div class="score-marker" style="left: 35%"></div>
+      <div class="score-marker" style="left: 70ww%"></div>
+
+      <div class="score-label" style="left: 13%">Below Average</div>
+      <div class="score-label" style="left: 50%">Average</div>
+      <div class="score-label" style="left: 85%;white-space: nowrap;">Above Average</div>
+    </div>
+  </div>
+`}
                             
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div class="implications-section">
@@ -1449,55 +1461,55 @@ function hideBox() {
     development: "Guard against analysis paralysis—balance input collection with timely execution.",
     impact: "Well-informed leaders bring clarity, depth, and foresight to decision-making and planning."
   },
-    FOCUS: {
+    EXECUTINGFOCUS: {
     title: "Focus",
     strengths: "You demonstrate strengths associated with the Focus theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Focus talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Focus bring a distinctive influence to team dynamics, culture, and results."
   },
-  ACHIEVER: {
+  EXECUTINGACHIEVER: {
     title: "Achiever",
     strengths: "You demonstrate strengths associated with the Achiever theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Achiever talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Achiever bring a distinctive influence to team dynamics, culture, and results."
   },
-  RESPONSIBILITY: {
+  EXECUTINGRESPONSIBILITY: {
     title: "Responsibility",
     strengths: "You demonstrate strengths associated with the Responsibility theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Responsibility talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Responsibility bring a distinctive influence to team dynamics, culture, and results."
   },
-  BELIEF: {
+  EXECUTINGBELIEF: {
     title: "Belief",
     strengths: "You demonstrate strengths associated with the Belief theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Belief talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Belief bring a distinctive influence to team dynamics, culture, and results."
   },
-  DISCIPLINE: {
+  EXECUTINGDISCIPLINE: {
     title: "Discipline",
     strengths: "You demonstrate strengths associated with the Discipline theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Discipline talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Discipline bring a distinctive influence to team dynamics, culture, and results."
   },
-  ARRANGER: {
+  EXECUTINGARRANGER: {
     title: "Arranger",
     strengths: "You demonstrate strengths associated with the Arranger theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Arranger talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Arranger bring a distinctive influence to team dynamics, culture, and results."
   },
-  DELIBERATIVE: {
+  EXECUTINGDELIBERATIVE: {
     title: "Deliberative",
     strengths: "You demonstrate strengths associated with the Deliberative theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Deliberative talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Deliberative bring a distinctive influence to team dynamics, culture, and results."
   },
-  CONSISTENCY: {
+  EXECUTINGCONSISTENCY: {
     title: "Consistency",
     strengths: "You demonstrate strengths associated with the Consistency theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Consistency talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Consistency bring a distinctive influence to team dynamics, culture, and results."
   },
-  RESTORATIVE: {
+  EXECUTINGRESTORATIVE: {
     title: "Restorative",
     strengths: "You demonstrate strengths associated with the Restorative theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Restorative talent to avoid overuse or blind spots.",
@@ -1551,7 +1563,7 @@ function hideBox() {
     development: "Focus on enhancing the balance and application of your Command talent to avoid overuse or blind spots.",
     impact: "Leaders with strong Command bring a distinctive influence to team dynamics, culture, and results."
   },
-  INDIVIDUALIZATION: {
+  RELATIONSHIPINDIVIDUALIZATION: {
     title: "Individualization",
     strengths: "You demonstrate strengths associated with the Individualization theme, contributing positively to your team and goals.",
     development: "Focus on enhancing the balance and application of your Individualization talent to avoid overuse or blind spots.",
