@@ -381,12 +381,12 @@
     .tabsection-button {
         margin-top: 10px;
       padding: 5px 20px;
-      background: #f0f0f0;
+      background: #ffffff;
       margin-bottom: 0px;
     }
 
     .tabsection-button.active {
-      background: #f9fafb;
+      background: #ffffff;
       border-top: 5px solid #490648;
       color: #490648;
       font-weight: bold;
@@ -395,13 +395,13 @@
 </head>
 <body class="h-full overflow-auto">
     <!-- Top Ribbon -->
-      <header class="fixed top-0 left-0 right-0 h-12 bg-deeppurple text-white px-6 flex justify-between items-center shadow-sm z-20 mb-[15px]">
+      <header class="fixed top-0 left-0 right-0 h-[48px] bg-white text-deeppurple px-6 flex justify-between items-center shadow-sm z-20 mb-[15px] border border-bottom border-deeppurple ">
 
         <div class="flex items-center">
             <h1 class="text-lg font-bold">Intellex.ai</h1>
         </div>
         <div class="flex items-center space-x-4">
-            <a href="index.html" class="text-white hover:text-gray-200 transition-colors text-sm" aria-label="Logout">
+            <a href="index.html" class="text-black hover:text-gray-200 transition-colors text-sm" aria-label="Logout">
                 <i class="fas fa-sign-out-alt mr-1"></i> Logout
             </a>
             <div class="flex items-center">
@@ -412,7 +412,7 @@
             </div>
         </div>
     </header>
-<div class="tabssection fixed z-50 mt-12 flex items-center justify-between pt-[10px]">
+<div class="tabssection fixed z-50 mt-13 flex items-center justify-between pt-[10px]">
     <div class="flex">
   <div class="tabsection-button active" onclick="showTab()">Summary Report</div>
 
@@ -458,9 +458,9 @@
         Values & Motives
      <i data-feather="check" class="visited-indicator"></i>
       </button>
-       <button class="tab-button text-gray-600 pointer-events-none cursor-not-allowed flex items-center relative" data-tab="personal">
+       <button class="tab-button flex items-center relative" data-tab="Leadership">
         <i data-feather="help-circle" class="h-4 w-4 mr-2"></i>
-        Critical Thinking
+        Leadership Traits
         <i data-feather="check" class="visited-indicator"></i>
       </button>
        <button class="tab-button text-gray-600 pointer-events-none  cursor-not-allowed flex items-center relative" data-tab="personal">
@@ -471,13 +471,13 @@
     </div>
   </div>
             <!-- Main Content Area -->
-            <div id="main-content" class="flex-1 ml-64 mt-[40px] overflow-y-auto p-6 bg-[#F9FAFB] max-h-[calc(100vh-3rem)]">
+            <div id="main-content" class="flex-1 ml-64 mt-[40px] overflow-y-auto p-6 bg-white max-h-[calc(100vh-3rem)]">
                 <!-- Personal Attributes Section -->
                 <div class="flex justify-between items-center w-full  mb-6">
     <!-- Header (left side) -->
     <header class="flex-1">
-        <h1 class="text-3xl font-bold text-black mb-2 whitespace-nowrap">Leadership Summary Report</h1>
-        <div class="h-1 w-16 bg-accent"></div>
+        <!-- <h1 class="text-3xl font-bold text-black mb-2 whitespace-nowrap">Leadership Summary Report</h1> -->
+        <!-- <div class="h-1 w-16 bg-accent"></div> -->
     </header>
 
     <!-- Buttons (right side) -->
@@ -1138,7 +1138,590 @@
                                 </div>
                             </div>
                         </div>
+                  <!-- Leadership Traits       -->
+                   <div id="Leadership" class="tab-content">
+                    <div class="mb-8 bg-white p-3 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-semibold text-deeppurple section-title">Leadership Traits</h2>
+                        <p class="text-gray-600 mb-6 text-sm">Understanding individual strengths and preferences in making things happen at work</p>
+                    </div>
+                    
+                    <!-- Attributes List -->
+                    <div class="bg-white rounded-md shadow-sm border border-gray-100">
+                        <!-- Executing -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="cpu"></i>
+                                </div>
+                                <h3 class="attribute-title">Self-Awareness</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="executing">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Making things happen</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 85%"></div>
+                                        <div class="score-pointer left-[85%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                        <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You excel at turning ideas into action, consistently delivering results. Your ability to organize resources, manage timelines, and drive projects to completion is a significant asset to any team.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-cente flex items-center risk-lowbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-low"></div>
+                                        <span class="risk-label">Low Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                           <!-- Influencing -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                    <i data-feather="trending-up"></i>
+                                </div>
+                                <h3 class="attribute-title">Respect</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="influencing">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Taking charge, speak up and make sure others are heard</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 55%"></div>
+                                       <div class="score-pointer left-[55%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+ <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You have moderate influence skills, able to persuade others in many situations. Developing more advanced persuasion techniques and emotional intelligence could enhance your leadership impact.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-mdbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-medium"></div>
+                                        <span class="risk-label">Medium Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Relationship Building -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="heart"></i>
+                                </div>
+                                <h3 class="attribute-title">Compassion</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="relationship-building">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Building strong relationships that hold a team together and make it greater than the sum of its parts</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 80%"></div>
+                                       <div class="score-pointer left-[80%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                        <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">You excel at building and maintaining professional relationships. Your ability to connect with others, establish trust, and foster collaboration creates a positive work environment and strengthens team cohesion.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-lowbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-low"></div>
+                                        <span class="risk-label">Low Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
+                     
+                        
+                        <!-- Strategic Thinking -->
+                        <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Entrepreneurial</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Communication</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Learning Agility</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Collaboration</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Results Driven</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Integrity</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Courage</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Gratitude</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="attribute-row p-6">
+                            <div class="flex items-center mb-2">
+                                 <div class="attribute-icon">
+                                   <i data-feather="layers"></i>
+                                </div>
+                                <h3 class="attribute-title">Resilience</h3>
+                                 <div class="relative inline-flex items-center info-button group" data-attribute="strategic-thinking">
+  <div class="info-icon text-gray-500 transition-transform duration-300">
+       <i data-feather="info" class="info-buttons h-4 w-4"></i>
+  </div>
+  <div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-90 transition-opacity duration-300">
+    Click to learn more
+  </div>
+</div>
+                            </div>
+                            <div class="attribute-definition mb-4">Absorb and analyze information that informs better decision</div>
+                            
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Column 1: Bar Graph -->
+                                <div class="col-span-3">
+                                    <div class="bar-container">
+                                        <div class="bar-fill" style="width: 20%"></div>
+                                        <div class="score-pointer left-[20%]"></div>
+                                        <div class="bar-divider left-[33%]"></div>
+                                        <div class="bar-divider left-[66%]"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                         <span class="bar-label left-[13%]">Below Average</span>
+                                         <span class="bar-label left-[50%]">Average</span>
+                                        <span class="bar-label left-[85%] whitespace-nowrap">Above Average</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Column 2: Narrative Summary -->
+                                <div class="col-span-7">
+                                    <p class="attribute-description">This is an area for growth. Develop your ability to think long-term, anticipate market changes, and align tactical decisions with broader organizational goals. Consider seeking mentorship from strategic leaders.</p>
+                                </div>
+                                
+                                <!-- Column 3: Risk Indicator -->
+                                <div class="col-span-2 flex justify-start items-start">
+                                    <div class="flex items-center flex items-center risk-highbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-high"></div>
+                                        <span class="risk-label">High Risk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          
+                    </div>
+                </div>
                       
                         </div>
                       
