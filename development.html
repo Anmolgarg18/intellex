@@ -12,6 +12,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
+   html, body {
+  overflow-x: hidden;
+}
     .active-dropdown {
       background-color: rgba(73, 6, 72, 0.15);
       border-top: 3px solid #490648;
@@ -195,8 +198,8 @@
             margin-right: 1rem;
         }
         .main-header {
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #e5e5e5;
+            /* padding: 1.5rem 0;
+            border-bottom: 1px solid #e5e5e5; */
         }
         .see-more-btn {
             color: var(--accent-color);
@@ -371,6 +374,98 @@
       outline: none;
     }
 
+    .score-pointer {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #490648;
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px #490648;
+            z-index: 10;
+        }
+        
+        .bar-container {
+  position: relative; /* this makes the labels position against it */
+  height: 10px;
+  background-color: #F3F3F3;
+  border: 1px solid grey;
+  border-radius: 5px;
+  display: flex;
+  min-width: 100%;
+}
+
+        .bar-fill {
+            height: 100%;
+            background-color: #490648;
+            border-radius: 5px 0 0 5px;
+        }
+        .bar-divider {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background-color: grey;
+            z-index: 2;
+        }
+       
+       .bar-labels {
+  position: absolute;
+     /* push it below the bar */
+  font-size: 9px;
+  color: #888;
+  margin-top: 4px;
+  width: 100%;
+}
+        .bar-label {
+            position: relative;
+           
+        }
+        .bar-label-0 {
+            left: 0;
+            transform: translateX(0);
+        }
+        .bar-label-50 {
+            left: 50%;
+        }
+        .bar-label-100 {
+            left: 100%;
+            transform: translateX(-100%);
+        }
+ .risk-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .risk-high {
+            background-color: #e53e3e;
+        }
+        .risk-medium {
+            background-color: #ed8936;
+        }
+        .risk-low {
+            background-color: #38a169;
+        }
+        .risk-lowbg
+        {
+           background-color:  rgba(56, 161, 105, 0.1)
+        }
+          .risk-highbg
+        {
+           background-color:  rgba(229, 62, 62, 0.1) 
+        }
+          .risk-mdbg
+        {
+           background-color:  rgba(237, 137, 54, 0.1)
+        }
+        .risk-label {
+            font-size: 0.75rem;
+            color: #555;
+        }
+
   </style>
 
   <script>
@@ -395,7 +490,7 @@
     <div class="flex items-center space-x-4">
       <a href="index.html" class="text-white hover:text-gray-200 text-sm"><i class="fas fa-sign-out-alt mr-1"></i> Logout</a>
       <div class="flex items-center">
-        <span class="mr-2 text-sm">Pravesh Mehra</span>
+        <span class="mr-2 text-sm">John Doe</span>
         <div class="w-7 h-7 rounded-full bg-light-purple flex items-center justify-center">
           <span class="text-xs font-medium">PM</span>
         </div>
@@ -438,7 +533,7 @@
              onclick="selectOption(1, 0)"  >
             <div class="flex items-center gap-2">
            <i data-feather="grid" class="h-4 w-4 mr-2"></i>
-              <span class="text-sm">Overall</span>
+              <span class="text-sm">WHAT IS IMPORTANT FOR MY ROLE?</span>
             </div>
             <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
@@ -454,8 +549,8 @@
           <div id="dropdownTrigger2" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm "
              onclick="selectOption(2, 0)"  >
             <div class="flex items-center gap-2">
-               <i data-feather="user" class="h-4 w-4 mr-2"></i>
-              <span class="text-sm">Personal Attributes</span>
+               <i data-feather="user" class="h-5 w-5 mr-2"></i>
+              <span class="text-sm">WHAT ARE ESSENTIAL LEADERSHIP TRAITS?</span>
             </div>
             <svg id="arrowIcon2" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
@@ -526,12 +621,52 @@
       title: "Overall",
       competencies: [
         {
-          name: "personal Attributes",
+          name: "DRIVE AND ENERGY",
           description: "Deep insight into an executive’s personality and learning agility that provides a realistic picture of how a person will perform in a given role ",
           score: 75
         },
         {
-          name: "Work Competencies",
+          name: "SOCIAL ACUMEN",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
+          score: 80
+        },
+         {
+          name: "PROBLEM SOLVING",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
+          score: 80
+        },
+         {
+          name: "CHANGE ORIENTATION",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
+          score: 80
+        },
+        {
+          name: "RISK TAKING",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
+          score: 80
+        },
+         {
+          name: "COLLABORATIVE LEARNING",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
+          score: 80
+        },
+        {
+          name: "EXECUTING",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
+          score: 80
+        },
+        {
+          name: "RELATIONSHIP BUILDING",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
+          score: 80
+        },
+        {
+          name: "INFLUENCING",
+          description: "Understanding individual strengths and preferences in making things happen at work ",
+          score: 80
+        },
+        {
+          name: "STRATEGIC THINKING",
           description: "Understanding individual strengths and preferences in making things happen at work ",
           score: 80
         }
@@ -636,93 +771,157 @@
 
 
 
-  function updateMainContent(id, index) {
-    const key = `${id}-${index}`;
-    const content = contentMap[key];
-    const main = document.getElementById("mainContent");
+ function updateMainContent(id, index) {
+  const key = `${id}-${index}`;
+  const content = contentMap[key];
+  const main = document.getElementById("mainContent");
 
-    if (!content) {
-      main.innerHTML = `<h2 class='text-xl font-bold text-accent mb-4'>Not Found</h2><p class='text-gray-700'>No content available.</p>`;
-      return;
-    }
-
-    let html = `
-      <div class="main-header mb-4">
-                        <div class="flex items-center justify-between">
-    <!-- Left: Icon + Title -->
-    <div class="flex items-center">
-      <div class="category-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      </div>
-      <h1 class="text-3xl font-bold accent-color ml-3">${content.title}</h1>
-    </div>
-
-    <!-- Right: Button -->
-  
-<div class="flex flex-col items-center">
-  <img src="chatbot.svg" class="w-auto h-[60px] transition-transform duration-300 animate-bounce" onclick="toggleBox()" />
-  <span class="text-[#490648] text-sm font-medium">Question? Ask</span>
-</a>
-
-
-</button>
-
-    </div>
-  </div>
-                        
-    `;
-
-    content.competencies.forEach(c => {
-      html += `
-
-        <div  class="trait-card   border-b py-6 px-8">
-                            
-                            <p class="text-gray-800  text-lg font-light">
-                            ${c.description}
-                            </p>
-                          
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="implications-section">
-                                    <h3 class="implications-title">Capitalizing on Your Core Strengths</h3>
-                                    <ul class="bullet-list">
-                                        <li>Demonstrates high standards and seeks challenging goals to achieve results.</li>
-                                        <li>Shows persistence in overcoming obstacles and maintains focus on long-term objectives.</li>
-                                        <li class="hidden-bullets">Actively seeks feedback to improve performance and reach higher levels of achievement.</li>
-                                        <li class="hidden-bullets">Takes initiative on projects that offer opportunities for growth and advancement.</li>
-                                    </ul>
-                                    <div class="see-more-btn" data-target="behavioral-ambition">
-                                        See more...
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="implications-section">
-                                    <h3 class="implications-title">Dealing with your challenges</h3>
-                                    <ul class="bullet-list">
-                                        <li>Creates a performance-oriented culture with clear expectations for excellence.</li>
-                                        <li>Sets stretch goals for the team and models dedication to continuous improvement.</li>
-                                        <li class="hidden-bullets">Recognizes and rewards high achievement, fostering a competitive yet collaborative environment.</li>
-                                        <li class="hidden-bullets">Drives organizational growth through strategic vision and execution.</li>
-                                    </ul>
-                                    <div class="see-more-btn" data-target="leadership-ambition">
-                                        See more...
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                </div>
-                              
-                            </div>
-                        </div>
-      `;
-    });
-
-    main.innerHTML = html;
+  if (!content) {
+    main.innerHTML = `<h2 class='text-xl font-bold text-accent mb-4'>Not Found</h2><p class='text-gray-700'>No content available.</p>`;
+    return;
   }
 
+  let html = `
+    <div class="main-header ">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <h1 class="text-3xl font-bold accent-color ml-3">Behavioral Dimensions</h1>
+        </div>
+        <div class="flex flex-col items-center">
+          <img src="chatbot.svg" class="w-auto h-[60px] transition-transform duration-300 animate-bounce" onclick="toggleBox()" />
+          <span class="text-[#490648] text-sm font-medium">Question? Ask</span>
+        </div>
+      </div>
+
+      <div class="bg-[#490648] rounded-t-md text-white font-bold uppercase text-sm mt-[30px] grid grid-cols-[200px_1fr_150px_95px] items-center">
+        <div class="px-4 py-2">Attribute</div>
+        <div class="px-4 py-2 text-center">Your Score</div>
+        <div class="px-4 py-2">Risk Level</div>
+        <div class="px-4 py-2"></div>
+      </div>
+    </div>
+  `;
+
+  content.competencies.forEach((c) => {
+    const score = c.score || 0;
+    html += `
+      <div class="competency-box bg-[#fcf9ff] rounded-xl shadow-sm mb-[25px] px-4 py-3 grid grid-cols-[200px_1fr_150px_95px] items-center gap-4">
+
+        <!-- Attribute Label -->
+        <div class="text-sm font-semibold text-gray-800 uppercase">
+          ${c.name}
+        </div>
+
+        <!-- Progress Section -->
+        <div class="flex items-center gap-3">
+          <div class="bar-container">
+            <div class="bar-fill bg-accent h-full transition-all duration-700 ease-in-out" data-width="${score}%"></div>
+            <div class="score-pointer transition-all duration-700 ease-in-out" data-position="${score}%"></div>
+            <div class="bar-divider left-[33%]"></div>
+            <div class="bar-divider left-[66%]"></div>
+          </div>
+         <div class="bar-labels">
+  <span class="bar-label left-[5%] top-[15px]">Below Average</span>
+  <span class="bar-label left-[20%] top-[15px]">Average</span>
+  <span class="bar-label whitespace-nowrap left-[35%] top-[15px]">Above Average</span>
+</div>
+
+        </div>
+
+        <!-- Risk Label -->
+         <div class="flex items-center flex items-center risk-mdbg px-2 py-2 rounded-xl">
+                                        <div class="risk-indicator risk-medium"></div>
+                                        <span class="risk-label">Medium Risk</span>
+                                    </div>
+
+        <!-- Toggle Icon -->
+        <div class="cursor-pointer toggle-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#490648] icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path class="icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Accordion Content -->
+      <div class="accordion-content hidden mt-4 text-sm text-gray-600">
+        <div class="space-y-4">
+          <details class="group border-b pb-4">
+            <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-gray-800 uppercase">
+              <div class="flex items-center space-x-2 text-green-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>CORE STRENGTHS To Leverage</span>
+              </div>
+              <svg class="w-4 h-4 transform transition-transform duration-300 text-[#490648] group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <ul class="list-disc pl-6 mt-3 text-sm text-gray-700 space-y-1">
+              <li>Consistently demonstrates high energy levels in all work activities</li>
+              <li>Takes initiative without being prompted</li>
+              <li>Shows resilience when facing obstacles</li>
+              <li>Motivates team members through personal example</li>
+            </ul>
+          </details>
+
+          <details class="group border-b pb-4">
+            <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-gray-800 uppercase">
+              <div class="flex items-center space-x-2 text-yellow-600">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 1010 10A10 10 0 0012 2z" />
+                </svg>
+                <span>RISK AREAS</span>
+              </div>
+              <svg class="w-4 h-4 transform transition-transform duration-300 text-[#490648] group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <ul class="list-disc pl-6 mt-3 text-sm text-gray-700 space-y-1">
+              <li>May overwhelm others with pace and intensity</li>
+              <li>Could risk burnout if energy is not properly channeled</li>
+              <li>Might become frustrated with team members who work at a different pace</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    `;
+  });
+
+  main.innerHTML = html;
+
+  // Toggle logic for accordion
+  document.querySelectorAll('.toggle-icon').forEach(el => {
+    el.addEventListener('click', () => {
+      const container = el.closest('.competency-box');
+      const content = container.nextElementSibling;
+      const iconPath = el.querySelector('.icon-path');
+
+      content.classList.toggle('hidden');
+      iconPath.setAttribute("d", content.classList.contains('hidden')
+        ? "M12 4v16m8-8H4"
+        : "M20 12H4"
+      );
+    });
+  });
+
+  // Animate bar fill and pointer after content is rendered
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const targetWidth = el.getAttribute('data-width') || '0%';
+    el.style.width = '0%';
+    setTimeout(() => {
+      el.style.width = targetWidth;
+    }, 100);
+  });
+
+  document.querySelectorAll('.score-pointer').forEach(el => {
+    const targetLeft = el.getAttribute('data-position') || '0%';
+    el.style.left = '0%';
+    setTimeout(() => {
+      el.style.left = targetLeft;
+    }, 100);
+  });
+}
   function toggleBox() {
  document.getElementById("chatsection").style.display = "block";
 }
@@ -765,7 +964,7 @@ function hideBox() {
     });
 
 
-  // Close on outside click
+
  
 
   // Default load first option
