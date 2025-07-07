@@ -217,7 +217,7 @@
         .hidden-bullets {
             display: none;
         }
-            .tabssection {
+             .tabssection {
             margin-top: 50px;
       background-color: #ffffff;
       width: 100%;
@@ -226,15 +226,17 @@
     }
 
     .tabsection-button {
-        margin-top: 10px;
-      padding: 5px 20px;
-      background: #f0f0f0;
+      
+        margin-bottom: 20px;
+      padding: 10px 20px;
+      background: #ffffff;
       margin-bottom: 0px;
+      font-size: 14px;
     }
 
     .tabsection-button.active {
-      background: #f9fafb;
-      border-top: 5px solid #490648;
+      background: #ffffff;
+      border-bottom: 3px solid #490648;
       color: #490648;
       font-weight: bold;
     }
@@ -469,57 +471,106 @@
   </style>
 
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            accent: '#490648',
-            deeppurple: '#490648',
-            'light-purple': '#6d1a6d',
-          }
+     tailwind.config = {
+    theme: {
+      extend: {
+        zIndex: {
+          200: '200',
+        },
+        colors: {
+          accent: '#490648',
+          'deeppurple': '#490648',
+          'light-purple': '#6d1a6d',
+          'risk-low': '#10B981',
+          'risk-medium': '#F59E0B',
+          'risk-high': '#EF4444'
         }
       }
-    };
+    }
+  }
   </script>
 </head>
-<body class="bg-gray-50 ">
+<body class="bg-white">
 
   <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 h-12 bg-deeppurple text-white px-6 flex justify-between items-center shadow-sm z-20">
-    <h1 class="text-lg font-bold">Intellex.ai</h1>
-    <div class="flex items-center space-x-4">
-      <a href="index.html" class="text-white hover:text-gray-200 text-sm"><i class="fas fa-sign-out-alt mr-1"></i> Logout</a>
-      <div class="flex items-center">
-        <span class="mr-2 text-sm">John Doe</span>
-        <div class="w-7 h-7 rounded-full bg-light-purple flex items-center justify-center">
+ <header class="fixed top-0 left-0 right-0 h-[58px] bg-white text-deeppurple px-6 flex justify-between items-center  z-20 mb-[15px] border-b border-b-gray-300 z-200">
+
+        <div class="flex items-center">
+            <h1 class="text-xl font-bold">Intellex.ai</h1>
+        </div>
+       <div class="flex items-center space-x-4">
+  <div class="relative text-left">
+    <details class="group">
+      <summary class="flex items-center cursor-pointer list-none text-white mr-8">
+        <div class="w-8 h-8 rounded-full bg-light-purple flex items-center justify-center">
           <span class="text-xs font-medium">PM</span>
         </div>
-      </div>
-    </div>
-  </header>
-<div class="tabssection fixed z-50 mt-12 flex items-center justify-between pt-[10px]">
-  <div class="flex">
-    <a href="summary.html">
-    <div class="tabsection-button " onclick="showTab()">Summary Report</div></a>
-       <a href="detail.html"> <div class="tabsection-button  " onclick="showTab()">Detailed Report</div></a>
-       <div class="tabsection-button active" onclick="showTab()">Development Plan</div></a>
-  <div class="tabsection-button text-gray-500" onclick="showTab()">Learning Partner</div>
- 
-      </div>
-      
-  <a href="Home.html" class="bg-white text-accent text-md px-4 border border-accent py-1 rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 mr-5">
-   Home
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" class="bi bi-arrow-left" viewBox="0 0 16 16">
-  <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
-</svg>
-</a> 
+        <div class="flex flex-col ms-2 text-left">
+          <span class="text-sm text-black">John Doe</span>
+          <span class="text-xs text-gray-600">Senior Manager</span>
         </div>
-    </div>
-  <div class="flex">
+        <svg class="w-4 h-4 ml-2 text-black" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+
+      <div
+        class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg "
+      >
+        <a
+          href="/reset-password"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          Reset Password
+        </a>
+        <a
+          href="Home.html"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          Logout
+        </a>
+      </div>
+    </details>
+  </div>
+</div>
+
+    </header>
+<div class="tabssection fixed z-50 mt-[58px] flex items-center   border-b border-b-gray-300 ">
+         <a href="Home.html" class="bg-white text-accent text-md my-1 px-4  border-accent  rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 ms-5">
+   <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z"/>
+  </svg>
+            Back to Home
+
+</a> 
+<div class="h-11 w-[1px] ms-[90px] bg-gray-300"></div>
+    <div class="flex ms-[40px]">
+ 
+  <a href="summary.html" class="tabsection-button  flex gap-2 items-center" onclick="showTab()">LEADERSHIP SUMMARY <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+</svg></a>
+
+  <a  id="detailedReportBtn"  href="detail.html"  onclick="handleDetailedClick(event)"  class="tabsection-button   group relative" >
+    DETAILED RESULTS
+
+  </a>
+  
+  <a href="development.html"><div class="tabsection-button active text-gray-500 active" onclick="showTab()">DEVELOPMENT PLAN</div></a>
+
+
+  <div class="tabsection-button text-gray-500" onclick="showTab()">LEARNING PARTNER
+</div>
+
+</div>
+
+</div>
+  <div class="flex justify-center items-center">
   
 
     <!-- Sidebar -->
-    <div class="w-64 h-screen fixed top-[15%] left-0 bg-white border-r border-purple-200 shadow py-4 space-y-3">
+    <div class="w-[253px] fixed top-[20%] left-[20px] h-auto py-[20px] px-[20px] bg-white border border-sm rounded-[15px] shadow-sm z-10 overflow-y-auto ">
       
       <h2 class="text-xs text-gray-500 font-semibold tracking-widest mb-4 px-4 pb-2">
         REPORT SECTIONS
@@ -771,7 +822,7 @@
 
 
 
- function updateMainContent(id, index) {
+function updateMainContent(id, index) {
   const key = `${id}-${index}`;
   const content = contentMap[key];
   const main = document.getElementById("mainContent");
@@ -782,8 +833,8 @@
   }
 
   let html = `
-    <div class="main-header ">
-      <div class="flex items-center justify-between">
+    <div class="main-header px-[70px] mt-[30px]">
+      <div class="flex items-center justify-between mb-6">
         <div class="flex items-center">
           <h1 class="text-3xl font-bold accent-color ml-3">Behavioral Dimensions</h1>
         </div>
@@ -793,119 +844,126 @@
         </div>
       </div>
 
-      <div class="bg-[#490648] rounded-t-md text-white font-bold uppercase text-sm mt-[30px] grid grid-cols-[200px_1fr_150px_95px] items-center">
-        <div class="px-4 py-2">Attribute</div>
-        <div class="px-4 py-2 text-center">Your Score</div>
-        <div class="px-4 py-2">Risk Level</div>
-        <div class="px-4 py-2"></div>
-      </div>
-    </div>
+      <!-- Rounded table wrapper -->
+      <div class="overflow-hidden rounded-t-xl shadow">
+        <!-- Custom table header using grid -->
+        <div class="bg-[#490648] text-white uppercase font-bold text-sm">
+          <div class="grid grid-cols-[200px_1fr_150px_95px] px-4 py-3">
+            <div>Attribute</div>
+            <div class="text-center">Your Score</div>
+            <div class="text-center">Risk Level</div>
+            <div class="text-center">Details</div>
+          </div>
+        </div>
+
+        <!-- Actual table content -->
+        <table class="w-full text-sm text-gray-800 border-collapse bg-white">
+          <tbody>
   `;
 
   content.competencies.forEach((c) => {
     const score = c.score || 0;
     html += `
-      <div class="competency-box bg-[#fcf9ff] rounded-xl shadow-sm mb-[25px] px-4 py-3 grid grid-cols-[200px_1fr_150px_95px] items-center gap-4">
-
-        <!-- Attribute Label -->
-        <div class="text-sm font-semibold text-gray-800 uppercase">
-          ${c.name}
-        </div>
-
-        <!-- Progress Section -->
-        <div class="flex items-center gap-3">
-          <div class="bar-container">
-            <div class="bar-fill bg-accent h-full transition-all duration-700 ease-in-out" data-width="${score}%"></div>
-            <div class="score-pointer transition-all duration-700 ease-in-out" data-position="${score}%"></div>
-            <div class="bar-divider left-[33%]"></div>
-            <div class="bar-divider left-[66%]"></div>
+      <tr class="bg-[#fcf9ff] border-t">
+        <td class="px-4 py-3 font-semibold uppercase align-top">${c.name}</td>
+        <td class="px-4 py-3 align-top">
+          <div class="flex items-center gap-3">
+            <div class="relative w-full h-4 bg-gray-200 rounded-md overflow-hidden">
+              <div class="absolute top-0 left-0 h-full bg-accent transition-all duration-700 ease-in-out bar-fill" data-width="${score}%"></div>
+              <div class="absolute top-[-5px] w-4 h-4 rounded-full bg-[#490648] border border-white transition-all score-pointer" data-position="${score}%"></div>
+              <div class="absolute left-[33%] top-0 h-full w-[2px] bg-white/50"></div>
+              <div class="absolute left-[66%] top-0 h-full w-[2px] bg-white/50"></div>
+            </div>
+            <div class="text-xs text-gray-600">${score}%</div>
           </div>
-         <div class="bar-labels">
-  <span class="bar-label left-[5%] top-[15px]">Below Average</span>
-  <span class="bar-label left-[20%] top-[15px]">Average</span>
-  <span class="bar-label whitespace-nowrap left-[35%] top-[15px]">Above Average</span>
-</div>
-
-        </div>
-
-        <!-- Risk Label -->
-         <div class="flex items-center flex items-center risk-mdbg px-2 py-2 rounded-xl">
-                                        <div class="risk-indicator risk-medium"></div>
-                                        <span class="risk-label">Medium Risk</span>
-                                    </div>
-
-        <!-- Toggle Icon -->
-        <div class="cursor-pointer toggle-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#490648] icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path class="icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-        </div>
-      </div>
-
-      <!-- Accordion Content -->
-      <div class="accordion-content hidden mt-4 text-sm text-gray-600">
-        <div class="space-y-4">
-          <details class="group border-b pb-4">
-            <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-gray-800 uppercase">
-              <div class="flex items-center space-x-2 text-green-700">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-width="2" d="M5 13l4 4L19 7" />
+          <div class="relative mt-2 text-xs">
+            <span class="absolute left-[5%]">Below Average</span>
+            <span class="absolute left-[35%]">Average</span>
+            <span class="absolute left-[65%]">Above Average</span>
+          </div>
+        </td>
+        <td class="px-4 py-3 align-top">
+          <div class="flex items-center gap-2 px-2 py-1 rounded-xl bg-yellow-100">
+            <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+            <span class="text-xs font-medium text-yellow-700">Medium Risk</span>
+          </div>
+        </td>
+        <td class="px-4 py-3 text-center align-top">
+          <button class="toggle-accordion text-[#490648] hover:text-purple-800 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path class="icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
+        </td>
+      </tr>
+      <tr class="hidden accordion-content-row">
+        <td colspan="4" class="pt-2 pb-4 px-6 text-sm text-gray-600">
+          <div class="space-y-4">
+            <details class="group border-b pb-2">
+              <summary class="flex items-center justify-between cursor-pointer font-semibold text-green-700 uppercase">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Core Strengths to Leverage
+                </span>
+                <svg class="w-4 h-4 transform transition-transform group-open:rotate-180 text-[#490648]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
-                <span>CORE STRENGTHS To Leverage</span>
-              </div>
-              <svg class="w-4 h-4 transform transition-transform duration-300 text-[#490648] group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <ul class="list-disc pl-6 mt-3 text-sm text-gray-700 space-y-1">
-              <li>Consistently demonstrates high energy levels in all work activities</li>
-              <li>Takes initiative without being prompted</li>
-              <li>Shows resilience when facing obstacles</li>
-              <li>Motivates team members through personal example</li>
-            </ul>
-          </details>
-
-          <details class="group border-b pb-4">
-            <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-gray-800 uppercase">
-              <div class="flex items-center space-x-2 text-yellow-600">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 1010 10A10 10 0 0012 2z" />
+              </summary>
+              <ul class="list-disc pl-6 mt-2 text-gray-700 space-y-1">
+                <li>Consistently demonstrates high energy levels in all work activities</li>
+                <li>Takes initiative without being prompted</li>
+                <li>Shows resilience when facing obstacles</li>
+                <li>Motivates team members through personal example</li>
+              </ul>
+            </details>
+            <details class="group border-b pb-2">
+              <summary class="flex items-center justify-between cursor-pointer font-semibold text-yellow-600 uppercase">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 1010 10A10 10 0 0012 2z" />
+                  </svg>
+                  Risk Areas
+                </span>
+                <svg class="w-4 h-4 transform transition-transform group-open:rotate-180 text-[#490648]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
-                <span>RISK AREAS</span>
-              </div>
-              <svg class="w-4 h-4 transform transition-transform duration-300 text-[#490648] group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <ul class="list-disc pl-6 mt-3 text-sm text-gray-700 space-y-1">
-              <li>May overwhelm others with pace and intensity</li>
-              <li>Could risk burnout if energy is not properly channeled</li>
-              <li>Might become frustrated with team members who work at a different pace</li>
-            </ul>
-          </details>
-        </div>
-      </div>
+              </summary>
+              <ul class="list-disc pl-6 mt-2 text-gray-700 space-y-1">
+                <li>May overwhelm others with pace and intensity</li>
+                <li>Could risk burnout if energy is not properly channeled</li>
+                <li>Might become frustrated with team members who work at a different pace</li>
+              </ul>
+            </details>
+          </div>
+        </td>
+      </tr>
     `;
   });
 
+  html += `
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
   main.innerHTML = html;
 
-  // Toggle logic for accordion
-  document.querySelectorAll('.toggle-icon').forEach(el => {
-    el.addEventListener('click', () => {
-      const container = el.closest('.competency-box');
-      const content = container.nextElementSibling;
-      const iconPath = el.querySelector('.icon-path');
+  // Accordion toggle logic
+  document.querySelectorAll('.toggle-accordion').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const row = btn.closest('tr');
+      const nextRow = row.nextElementSibling;
+      const iconPath = btn.querySelector('.icon-path');
 
-      content.classList.toggle('hidden');
-      iconPath.setAttribute("d", content.classList.contains('hidden')
-        ? "M12 4v16m8-8H4"
-        : "M20 12H4"
-      );
+      nextRow.classList.toggle('hidden');
+      iconPath.setAttribute('d', nextRow.classList.contains('hidden') ? 'M12 4v16m8-8H4' : 'M20 12H4');
     });
   });
 
-  // Animate bar fill and pointer after content is rendered
+  // Animate score bars
   document.querySelectorAll('.bar-fill').forEach(el => {
     const targetWidth = el.getAttribute('data-width') || '0%';
     el.style.width = '0%';
@@ -914,6 +972,7 @@
     }, 100);
   });
 
+  // Animate pointer dot
   document.querySelectorAll('.score-pointer').forEach(el => {
     const targetLeft = el.getAttribute('data-position') || '0%';
     el.style.left = '0%';
@@ -922,6 +981,9 @@
     }, 100);
   });
 }
+
+
+
   function toggleBox() {
  document.getElementById("chatsection").style.display = "block";
 }

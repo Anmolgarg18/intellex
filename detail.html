@@ -412,7 +412,7 @@
     <div class="flex items-center space-x-4">
       <a href="index.html" class="text-white hover:text-gray-200 text-sm"><i class="fas fa-sign-out-alt mr-1"></i> Logout</a>
       <div class="flex items-center">
-        <span class="mr-2 text-sm">John Doe</span>
+        <span class="mr-2 text-sm">Pravesh Mehra</span>
         <div class="w-7 h-7 rounded-full bg-light-purple flex items-center justify-center">
           <span class="text-xs font-medium">PM</span>
         </div>
@@ -1271,8 +1271,8 @@
                             ${[  "EXCITABLE", "SKEPTICAL", "CAUTIOUS", "RESERVED", "LEISURELY",  "BOLD", "MISCHIEVOUS", "COLORFUL", "IMAGINATIVE", "DILIGENT", "DUTIUL"].includes(c.name.toUpperCase()) ? `
   <div class="mb-8 relative">
     <div class="score-bar">
-      <div class="score-fill" style="width: ${c.score}%"></div>
-      <div class="score-pointer" style="left:${c.score}%"></div>
+     <div class="score-fill transition-all duration-700 ease-in-out bg-[#490648] h-2 rounded"   data-width="${c.score}%"   style="width: 0%;"> </div>
+      <div class="score-pointer transition-all duration-700 ease-in-out" data-position="${c.score}%"></div>
 
       <div class="score-marker" style="left: 30%"></div>
       <div class="score-marker" style="left: 60%"></div>
@@ -1286,9 +1286,9 @@
   </div>
 ` : `
  <div class="mb-8 relative">
-    <div class="score-bar">
-      <div class="score-fill" style="width: ${c.score}%"></div>
-      <div class="score-pointer" style="left:${c.score}%"></div>
+    <div class="score-bar ">  <div class="score-fill transition-all duration-700 ease-in-out bg-[#490648] h-2 rounded"   data-width="${c.score}%"   style="width: 0%;"> </div>
+
+      <div class="score-pointer transition-all duration-700 ease-in-out" data-position="${c.score}%"></div>
 
       <div class="score-marker" style="left: 35%"></div>
       <div class="score-marker" style="left: 70ww%"></div>
@@ -1352,6 +1352,29 @@
     });
 
     main.innerHTML = html;
+    document.querySelectorAll('.score-fill').forEach(el => {
+  const targetWidth = el.getAttribute('data-width') || '0%';
+  el.style.width = '0%'; // Reset first
+  el.offsetWidth; // Force reflow
+  setTimeout(() => {
+    el.style.width = targetWidth;
+  }, 100);
+});
+
+    // Animate score pointer
+    document.querySelectorAll('.score-pointer').forEach(el => {
+      const targetLeft = el.getAttribute('data-position');
+      el.style.left = '0%'; // Reset first
+      setTimeout(() => {
+        el.style.left = targetLeft;
+      }, 100);
+    });
+    // Enter key to send message
+    document.getElementById('userInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
   }
 
   function toggleBox() {
@@ -1388,12 +1411,6 @@ function hideBox() {
       }
     }
 
-    // Enter key to send message
-    document.getElementById('userInput').addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    });
 
  const sectionData = {
   AMBITION: { 
@@ -1866,7 +1883,7 @@ document.addEventListener('click', () => {
     updateMainContent(1, 0);
      feather.replace();
   });
-
+ 
 
  
 
