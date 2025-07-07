@@ -19,6 +19,11 @@
       color: #490648;
     }
 
+    .active-dropdown .icon{
+      background-color: #490648 !important;
+      color: white;
+    }
+
     .highlight-option {
       background-color: rgba(73, 6, 72, 0.1);
       color: #490648;
@@ -114,6 +119,16 @@
         .trait-icon {
             width: 40px;
             height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(73, 6, 72, 0.1);
+            color: var(--accent-color);
+        }
+        .trait-icon-side-panel {
+            width: 25px;
+            height: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -224,15 +239,16 @@
     }
 
     .tabsection-button {
-        margin-top: 10px;
-      padding: 5px 20px;
-      background: #f0f0f0;
+        margin-bottom: 20px;
+      padding: 10px 20px;
+      background: #ffffff;
       margin-bottom: 0px;
+      font-size: 14px;
     }
 
     .tabsection-button.active {
-      background: #f9fafb;
-      border-top: 5px solid #490648;
+      background: #ffffff;
+      border-bottom: 3px solid #490648;
       color: #490648;
       font-weight: bold;
     }
@@ -391,7 +407,7 @@
 <body class="bg-white ">
 
   <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 h-12 bg-deeppurple text-white px-6 flex justify-between items-center shadow-sm z-20">
+  <!--<header class="fixed top-0 left-0 right-0 h-12 bg-deeppurple text-white px-6 flex justify-between items-center shadow-sm z-20">
     <h1 class="text-lg font-bold">Intellex.ai</h1>
     <div class="flex items-center space-x-4">
       <a href="index.html" class="text-white hover:text-gray-200 text-sm"><i class="fas fa-sign-out-alt mr-1"></i> Logout</a>
@@ -420,13 +436,88 @@
   <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
 </svg>
 </a> 
+  </div>-->
+  <header class="fixed top-0 left-0 right-0 h-[58px] bg-white text-deeppurple px-6 flex justify-between items-center  z-20 mb-[15px] border-b border-b-gray-300 z-200">
+
+        <div class="flex items-center">
+            <h1 class="text-xl font-bold">Intellex.ai</h1>
+        </div>
+       <div class="flex items-center space-x-4">
+  <div class="relative text-left">
+    <details class="group">
+      <summary class="flex items-center cursor-pointer list-none text-white mr-8">
+        <div class="w-8 h-8 rounded-full bg-light-purple flex items-center justify-center">
+          <span class="text-xs font-medium">PM</span>
+        </div>
+        <div class="flex flex-col ms-2 text-left">
+          <span class="text-sm text-black">John Doe</span>
+          <span class="text-xs text-gray-600">Senior Manager</span>
+        </div>
+        <svg class="w-4 h-4 ml-2 text-black" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+
+      <div
+        class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg "
+      >
+        <a
+          href="/reset-password"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          Reset Password
+        </a>
+        <a
+          href="Home.html"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          Logout
+        </a>
+      </div>
+    </details>
   </div>
+</div>
+
+    </header>
+<div class="tabssection fixed z-50 mt-[58px] flex items-center   border-b border-b-gray-300 ">
+         <a href="Home.html" class="bg-white text-accent text-md my-1 px-4  border-accent  rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 ms-5">
+   <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z"/>
+  </svg>
+            Back to Home
+
+</a> 
+<div class="h-11 w-[1px] ms-[90px] bg-gray-300"></div>
+    <div class="flex ms-[40px]">
+ 
+  <div class="tabsection-button flex gap-2 items-center" onclick="showTab()">LEADERSHIP SUMMARY <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+</svg></div>
+
+  <a  id="detailedReportBtn"  onclick="handleDetailedClick(event)"  class="tabsection-button active  text-gray-500 pointer-events-none group relative" >
+    DETAILED RESULTS
+    <span class="tooltiptext absolute left-1/2 top-full mt-2 transform -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 whitespace-nowrap">
+      Visit all sections to unlock
+    </span>
+  </a>
+  
+  <a href="development.html"><div class="tabsection-button text-gray-500" onclick="showTab()">DEVELOPMENT PLAN</div></a>
+
+
+  <div class="tabsection-button text-gray-500" onclick="showTab()">LEARNING PARTNER
+</div>
+
+</div>
+
+</div>
     </div>
   <div class="flex">
   
 
     <!-- Sidebar -->
-    <div class="w-64 h-screen fixed top-[15%] left-0 bg-white border-r border-purple-200 shadow py-4 space-y-3">
+    <div class="w-[253px] fixed top-[20%] left-[20px] h-auto py-[20px] px-[20px] bg-white border border-sm rounded-[15px] shadow-sm z-10 overflow-y-auto">
       
       <h2 class="text-xs text-gray-500 font-semibold tracking-widest mb-4 px-4 pb-2">
         REPORT SECTIONS
@@ -439,7 +530,9 @@
           <div id="dropdownTrigger1" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm active-dropdown"
                onclick="toggleDropdown(1)">
             <div class="flex items-center gap-2">
-               <i data-feather="user" class="h-4 w-4 mr-2"></i>
+              <div class ="trait-icon-side-panel mr-3 icon">
+               <i data-feather="user" class="h-4 w-4"></i>
+                </div>
               <span class="text-sm">Personal Attributes</span>
             </div>
             <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
@@ -463,7 +556,9 @@
           <div id="dropdownTrigger2" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm"
                onclick="toggleDropdown(2)">
             <div class="flex items-center gap-2">
-              <i data-feather="briefcase" class="h-4 w-4 mr-2"></i>
+              <div class ="trait-icon-side-panel mr-3 icon">
+              <i data-feather="briefcase" class="h-4 w-4"></i>
+              </div>
               <span class="text-sm">Work Competencies</span>
             </div>
             <svg id="arrowIcon2" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2"
@@ -483,7 +578,9 @@
           <div id="dropdownTrigger3" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm"
                onclick="toggleDropdown(3)">
             <div class="flex items-center gap-2">
-              <i data-feather="heart" class="h-4 w-4 mr-2"></i>
+              <div class ="trait-icon-side-panel mr-3 icon">
+              <i data-feather="heart" class="h-4 w-4"></i>
+              </div>
               <span class="text-sm">Values & Motives</span>
             </div>
             <svg id="arrowIcon3" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2"
@@ -1111,7 +1208,7 @@
     const main = document.getElementById("mainContent");
 
     if (!content) {
-      main.innerHTML = `<h2 class='text-xl font-bold text-accent mb-4'>Not Found</h2><p class='text-gray-700'>No content available.</p>`;
+      main.innerHTML = `<h3 class='text-xl font-bold text-accent mb-4'>Not Found</h3><p class='text-gray-700'>No content available.</p>`;
       return;
     }
   
@@ -1125,7 +1222,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       </div>
-      <h1 class="text-3xl font-bold accent-color ml-3">${content.title}</h1>
+      <h1 class="text-2xl font-bold accent-color ml-3">${content.title}</h1>
     </div>
 
     <!-- Right: Button -->
@@ -1154,7 +1251,7 @@
                                     </svg>
                                 </div>
                                 <div class="flex gap-2 items-center">
-                                <h2 class="text-xl font-bold">${c.name.toUpperCase()}</h2>
+                                <h3 class="text-xl font-bold">${c.name.toUpperCase()}</h3>
                                 <button class="info-btn text-purple-600 hover:text-purple-800" data-id="${c.name.toUpperCase().replace(/[\s-]+/g, '')}">
   <div class="relative inline-flex items-center info-button group" data-attribute="drive-and-energy">
   <div class="info-icon text-gray-500 transition-transform duration-300">
@@ -1167,7 +1264,7 @@
 </button> </div>
                             </div>
                             
-                            <p class="text-gray-800 mb-6 text-lg font-light">
+                            <p class="text-gray-800 mb-4 text-lg font-light">
                             ${c.description}
                             </p>
                             
