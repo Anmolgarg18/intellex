@@ -56,11 +56,13 @@
             text-align: left;
         }
         .tab-button.active {
-            color: #490648;
-            background-color:rgba(73, 6, 72, 0.15);
-            border-top: 2px solid #490648;
-            border-bottom: 2px solid #490648;
+            color: #ffffff;
+            /* background-color:rgba(73, 6, 72, 0.15); */
+            background-color: #490648;
+            /* border: 2px solid #4C1D95; */
+            
             font-weight: 600;
+            border-radius: 50px;
         }
         .attribute-row {
             transition: all 0.3s ease;
@@ -454,7 +456,7 @@
 
     </header>
 <div class="tabssection fixed z-50 mt-[58px] flex items-center   border-b border-b-gray-300 ">
-         <a href="Home.html" class="bg-white text-accent text-md my-1 px-4  border-accent  rounded hover:bg-light-purple hover:text-white transition whitespace-nowrap flex items-center gap-2 ms-5">
+         <a href="Home.html" class="bg-white text-accent text-md my-1 px-4  border-accent  rounded  transition whitespace-nowrap flex items-center gap-2 ms-5">
    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 16 16">
     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z"/>
   </svg>
@@ -463,7 +465,7 @@
 </svg>
 
 </a> 
-<div class="h-11 w-[1px] ms-[90px] bg-gray-300"></div>
+<div class="h-11 w-[1px] ms-[55px] bg-gray-300"></div>
     <div class="flex ms-[40px]">
  
   <div class="tabsection-button active flex gap-2 items-center" onclick="showTab()">LEADERSHIP SUMMARY <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -491,7 +493,7 @@
         <div class="flex pt-12 h-[calc(100vh-1rem)] overflow-hidden">
 
   <!-- ✅ Fixed Left Sidebar -->
-  <div class="w-[253px] fixed top-[20%] left-[20px] h-auto py-[20px] px-[20px] bg-white border border-sm rounded-[15px] shadow-sm z-10 overflow-y-auto">
+  <div class="w-[253px] fixed top-[17%] left-[15px] h-auto py-[20px] px-[20px] bg-white border border-sm  shadow-sm z-10 overflow-y-auto">
     <h3 class="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider px-4">Report Sections</h3>
     <div class="space-y-2">
       <button class="tab-button active flex items-center relative" data-tab="personal">
@@ -525,12 +527,12 @@
     </div>
   </div>
             <!-- Main Content Area -->
-            <div id="main-content" class="flex-1 ml-[270px] mt-[65px] overflow-y-auto p-6 bg-white max-h-[calc(100vh-3rem)]">
+            <div id="main-content" class="flex-1 ml-[270px] px-[80px] mt-[65px] overflow-y-auto p-6 bg-white max-h-[calc(100vh-3rem)]">
                 <!-- Personal Attributes Section -->
              
                 <div id="personal" class="tab-content active">
                     <div class="mb-8 bg-white p-3 rounded-lg ">
-                        <h2 class="text-2xl font-semibold text-deeppurple section-title">Personal Attributes</h2>
+                        <h2 class="text-2xl font-semibold text-[#6B7280] section-title">Personal Attributes</h2>
                         <p class="text-gray-600 text-sm">Deep insight into an executive’s personality and learning agility that provides a realistic picture of how a person will perform in a given role
 </p>
                     </div>
