@@ -577,7 +577,10 @@
 
   </a>
   
-  <a href="development.html"><div class="tabsection-button active text-gray-500 active" onclick="showTab()">DEVELOPMENT PLAN</div></a>
+ <div class="tabsection-button active text-gray-500 active flex gap-2" onclick="showTab()">DEVELOPMENT PLAN  <a href="Popup3.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+</svg></a></div>
 
 
   <div class="tabsection-button text-gray-500" onclick="showTab()">LEARNING PARTNER
@@ -750,34 +753,64 @@
       title: "Personal Attributes",
       competencies: [
         {
-          name: "Energy and Drive ",
+          name: "Self-Awareness",
           description: "Degree to which a person needs and/or enjoys social interaction Intrinsic motivation, enthusiasm, and persistence in pursuing goals, inspiring others, and overcoming challenges.",
         },
         {
-          name: "Social Acumen",
+          name: "Respect",
           description: "The ability to understand, navigate, and influence interpersonal relationships effectively.",
           score: 68
         },
         {
-          name: "Problem Solving",
+          name: "PCompassion",
           description: "The ability to analyze complex problems, view them from multiple perspectives, assess risk and make decisions",
           score: 78
         },
         {
-          name: "Change Orientation",
+          name: "Entrepreneurial",
           description: "How readily the individual embraces and drives change—both in thought and action.",
           score: 68
         },
         {
-          name: "Risk Taking",
+          name: "Communication",
           description: "Willingness to step outside comfort zones—by taking on new roles or confronting tough issues",
           score: 68
         },
         {
-          name: "Collaborating Learning",
+          name: "Learning Agility",
           description: "The degree to which the person leverages others—through teaming, feedback — to learn fast.",
           score: 68
         },
+         {
+          name: "Collaboration",
+          description: "The degree to which the person leverages others—through teaming, feedback — to learn fast.",
+          score: 68
+        },
+         {
+          name: "Results Driven",
+          description: "The degree to which the person leverages others—through teaming, feedback — to learn fast.",
+          score: 68
+        },
+         {
+          name: "Integrity",
+          description: "The degree to which the person leverages others—through teaming, feedback — to learn fast.",
+          score: 68
+        },
+         {
+          name: "Courage",
+          description: "The degree to which the person leverages others—through teaming, feedback — to learn fast.",
+          score: 68
+        },
+         {
+          name: "Gratitude",
+          description: "The degree to which the person leverages others—through teaming, feedback — to learn fast.",
+          score: 68
+        },
+        {
+          name: "Resilience",
+          description: "The degree to which the person leverages others—through teaming, feedback — to learn fast.",
+          score: 68
+        }
       ]
     },
     '3-0': {
@@ -871,7 +904,7 @@ function updateMainContent(id, index) {
 
       <div class="overflow-hidden rounded-t-xl shadow px-[80px]">
   <div class="bg-white text-[#6B7280] uppercase font-bold text-sm rounded-t-xl">
-    <div class="grid grid-cols-12 gap-4 px-4 py-3">
+    <div class="grid grid-cols-12 gap-4 px-4 py-3 border-b-[3px] border-[#490648] ">
       <div class="col-span-3">Attribute</div>
       <div class="col-span-7 text-center">Your Score</div>
       <div class="col-span-1 text-center">Risk</div>
@@ -880,7 +913,7 @@ function updateMainContent(id, index) {
   </div>
 </div>
 
-        <div class="bg-white text-sm text-gray-800 px-[80px]">`;
+        <div class="bg-white text-sm text-gray-800 px-[80px] ">`;
 
   content.competencies.forEach((c, i) => {
     const score = c.score || 0;
@@ -902,9 +935,9 @@ function updateMainContent(id, index) {
     label = 'High';
   }
     html += `
-      <div class="border-t bg-[#fcf9ff] ">
-        <div class="grid grid-cols-12 gap-4 px-4 py-3 items-start">
-          <div class="col-span-3 font-semibold uppercase">${c.name}</div>
+      <div class="border-b h-[60px] bg-[#fcf9ff] ">
+        <div class="grid grid-cols-12 gap-4 px-4 py-4 items-start">
+          <div class="col-span-3 font-semibold ">${toSmartTitleCase(c.name)}</div>
           <div class="col-span-7">
             <div class="flex flex-col items-center w-[45%] mx-auto">
               <!-- Bar Track -->
@@ -953,7 +986,7 @@ function updateMainContent(id, index) {
         <!-- Expandable Content -->
         <div class="accordion-content-row hidden px-6 pb-4 text-sm text-gray-600">
           <div class="space-y-4">
-            <details class="group border-b pb-2">
+            <details class="group border-b p-2 risk-lowbg">
               <summary class="flex items-center justify-between cursor-pointer font-semibold text-green-700 uppercase">
                 <span class="flex items-center gap-2">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -972,7 +1005,7 @@ function updateMainContent(id, index) {
                 <li>Motivates team members through personal example</li>
               </ul>
             </details>
-            <details class="group border-b pb-2">
+            <details class="group border-b p-2 risk-mdbg">
               <summary class="flex items-center justify-between cursor-pointer font-semibold text-yellow-600 uppercase">
                 <span class="flex items-center gap-2">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1031,6 +1064,20 @@ function updateMainContent(id, index) {
 
 
 
+function toSmartTitleCase(str) {
+  const minorWords = ["and", "or", "in", "of", "the", "a", "an", "but", "on", "at", "to", "from", "by"];
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map((word, index) => {
+      if (index === 0 || !minorWords.includes(word)) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      } else {
+        return word;
+      }
+    })
+    .join(' ');
+}
 
 
 
