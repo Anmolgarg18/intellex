@@ -22,6 +22,11 @@
       color: #490648
     }
 
+    .active-dropdown .icon{
+      background-color: #490648 !important;
+      color: white;
+    }
+
     .highlight-option {
       background-color: rgba(73, 6, 72, 0.1);
       color: #490648;
@@ -467,6 +472,16 @@
             font-size: 0.75rem;
             color: #555;
         }
+        .trait-icon-side-panel {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(73, 6, 72, 0.1);
+            color: var(--accent-color);
+        }
 
   </style>
 
@@ -583,7 +598,8 @@
           <div id="dropdownTrigger1" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm active-dropdown"
              onclick="selectOption(1, 0)"  >
             <div class="flex items-center gap-2">
-           <i data-feather="grid" class="h-4 w-4 mr-2"></i>
+             <div class ="trait-icon-side-panel mr-3 icon">
+           <i data-feather="grid" class="h-4 w-4"></i></div>
               <span class="text-sm">WHAT IS IMPORTANT FOR MY ROLE?</span>
             </div>
             <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
@@ -600,7 +616,8 @@
           <div id="dropdownTrigger2" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm "
              onclick="selectOption(2, 0)"  >
             <div class="flex items-center gap-2">
-               <i data-feather="user" class="h-5 w-5 mr-2"></i>
+              <div class ="trait-icon-side-panel mr-3 icon">
+               <i data-feather="user" class="h-4 w-4"></i></div>
               <span class="text-sm">WHAT ARE ESSENTIAL LEADERSHIP TRAITS?</span>
             </div>
             <svg id="arrowIcon2" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
@@ -617,7 +634,8 @@
           <div id="dropdownTrigger3" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm"
             onclick="selectOption(3, 0)"  >
             <div class="flex items-center gap-2">
-              <i data-feather="briefcase" class="h-4 w-4 mr-2"></i>
+              <div class ="trait-icon-side-panel mr-3 icon">
+              <i data-feather="briefcase" class="h-4 w-4"></i></div>
               <span class="text-sm">Work Competencies</span>
             </div>
             <svg id="arrowIcon3" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"

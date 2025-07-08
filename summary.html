@@ -396,6 +396,16 @@
       color: #490648;
       font-weight: bold;
     }
+    .trait-icon-side-panel {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(73, 6, 72, 0.1);
+            color: var(--accent-color);
+        }
     </style>
 </head>
 <body class="h-full overflow-auto">
@@ -483,17 +493,20 @@
     <h3 class="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider px-4">Report Sections</h3>
     <div class="space-y-2">
       <button class="tab-button active flex items-center relative" data-tab="personal">
-        <i data-feather="user" class="h-4 w-4 mr-2"></i>
+        <div class ="trait-icon-side-panel mr-3 icon">
+        <i data-feather="user" class="h-4 w-4"></i></div>
         Personal Attributes
         <i data-feather="check" class="visited-indicator"></i>
       </button>
       <button class="tab-button flex items-center relative" data-tab="work">
-        <i data-feather="briefcase" class="h-4 w-4 mr-2"></i>
+        <div class ="trait-icon-side-panel mr-3 icon">
+        <i data-feather="briefcase" class="h-4 w-4"></i></div>
         Work Competencies
        <i data-feather="check" class="visited-indicator"></i>
       </button>
       <button class="tab-button flex items-center relative" data-tab="values">
-        <i data-feather="heart" class="h-4 w-4 mr-2"></i>
+        <div class ="trait-icon-side-panel mr-3 icon">
+        <i data-feather="heart" class="h-4 w-4"></i></div>
         Values & Motives
      <i data-feather="check" class="visited-indicator"></i>
       </button>
