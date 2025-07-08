@@ -541,7 +541,9 @@
    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 16 16">
     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z"/>
   </svg>
-            Back to Home
+            Back to Home <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+</svg>
 
 </a> 
 <div class="h-11 w-[1px] ms-[90px] bg-gray-300"></div>
@@ -583,7 +585,8 @@
           <div id="dropdownTrigger1" class="dropdown-trigger px-[12px] py-[16px] mb-[8px] font-semibold  cursor-pointer flex justify-between items-center rounded-sm active-dropdown"
              onclick="selectOption(1, 0)"  >
             <div class="flex items-center gap-2">
-           <i data-feather="grid" class="h-4 w-4 mr-2"></i>
+              <div class="rounded-full bg-gray-600 text-white flex justify-center items-center p-[5px]"> <i data-feather="grid" class="h-4 w-4 "></i></div>
+          
               <span class="text-sm">WHAT IS IMPORTANT FOR MY ROLE?</span>
             </div>
             <svg id="arrowIcon1" class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" stroke-width="2"
@@ -674,17 +677,17 @@
         {
           name: "DRIVE AND ENERGY",
           description: "Deep insight into an executive’s personality and learning agility that provides a realistic picture of how a person will perform in a given role ",
-          score: 75
+          score: 45
         },
         {
           name: "SOCIAL ACUMEN",
           description: "Understanding individual strengths and preferences in making things happen at work ",
-          score: 80
+          score: 90
         },
          {
           name: "PROBLEM SOLVING",
           description: "Understanding individual strengths and preferences in making things happen at work ",
-          score: 80
+          score: 20
         },
          {
           name: "CHANGE ORIENTATION",
@@ -699,27 +702,27 @@
          {
           name: "COLLABORATIVE LEARNING",
           description: "Understanding individual strengths and preferences in making things happen at work ",
-          score: 80
+          score: 45
         },
         {
           name: "EXECUTING",
           description: "Understanding individual strengths and preferences in making things happen at work ",
-          score: 80
+          score: 30
         },
         {
           name: "RELATIONSHIP BUILDING",
           description: "Understanding individual strengths and preferences in making things happen at work ",
-          score: 80
+          score: 100
         },
         {
           name: "INFLUENCING",
           description: "Understanding individual strengths and preferences in making things happen at work ",
-          score: 80
+          score: 40
         },
         {
           name: "STRATEGIC THINKING",
           description: "Understanding individual strengths and preferences in making things happen at work ",
-          score: 80
+          score: 50
         }
       ]
     },
@@ -835,7 +838,7 @@ function updateMainContent(id, index) {
   }
 
   let html = `
-    <div class="main-header px-[70px] mt-[30px] ">
+    <div class="main-header px-[50px] mt-[30px] ">
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center">
           <h1 class="text-3xl font-bold accent-color ml-3">Behavioral Dimensions</h1>
@@ -846,20 +849,38 @@ function updateMainContent(id, index) {
         </div>
       </div>
 
-      <div class="overflow-hidden rounded-t-xl shadow">
-        <div class="bg-[#490648] text-white uppercase font-bold text-sm">
-          <div class="grid grid-cols-12 gap-4 px-4 py-3">
-            <div class="col-span-3">Attribute</div>
-            <div class="col-span-7 text-center">Your Score</div>
-            <div class="col-span-1 text-center">Risk</div>
-            <div class="col-span-1 text-center">Details</div>
-          </div>
-        </div>
-        <div class="bg-white text-sm text-gray-800">`;
+      <div class="overflow-hidden rounded-t-xl shadow px-[80px]">
+  <div class="bg-[#490648] text-white uppercase font-bold text-sm rounded-t-xl">
+    <div class="grid grid-cols-12 gap-4 px-4 py-3">
+      <div class="col-span-3">Attribute</div>
+      <div class="col-span-7 text-center">Your Score</div>
+      <div class="col-span-1 text-center">Risk</div>
+      <div class="col-span-1 text-center">Details</div>
+    </div>
+  </div>
+</div>
+
+        <div class="bg-white text-sm text-gray-800 px-[80px]">`;
 
   content.competencies.forEach((c, i) => {
     const score = c.score || 0;
+  let riskClass = '';
+  let dotClass = '';
+  let label = '';
 
+  if (score >= 70) {
+    riskClass = 'risk-lowbg';
+    dotClass = 'risk-low';
+    label = 'Low';
+  } else if (score >= 33) {
+    riskClass = 'risk-mdbg';
+    dotClass = 'risk-medium';
+    label = 'Medium';
+  } else {
+    riskClass = 'risk-highbg';
+    dotClass = 'risk-high';
+    label = 'High';
+  }
     html += `
       <div class="border-t bg-[#fcf9ff] ">
         <div class="grid grid-cols-12 gap-4 px-4 py-3 items-start">
@@ -884,18 +905,19 @@ function updateMainContent(id, index) {
              <div class="relative w-full mt-1 h-4">
   <span class="absolute left-[5%] text-[9px] text-gray-600">Below Average</span>
   <span class="absolute left-[40%] text-[9px] text-gray-600">Average</span>
-  <span class="absolute left-[75%] text-[9px] text-gray-600">Above Average</span>
+  <span class="absolute left-[75%] text-[9px] text-gray-600 whitespace-nowrap">Above Average</span>
 </div>
   
             </div>
           </div>
 
           <!-- Risk Badge -->
-          <div class="col-span-1 flex items-center justify-center px-[5px]">
-            <div class="flex items-center gap-1 px-2 py-[2px] rounded-full bg-yellow-100">
-              <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
-              <span class="text-[11px] text-yellow-700 font-medium">Medium</span>
-            </div>
+          <div class="col-span-1 flex items-center justify-center ">
+                <div class="flex justify-center items-center gap-1 w-[80px] px-2 py-[2px] rounded-full ${riskClass}">
+      <span class="w-2 h-2 rounded-full ${dotClass}"></span>
+      <span class="text-[11px] text-black font-medium">${label}</span>
+    </div>
+
           </div>
 
           <!-- Expand Button -->
