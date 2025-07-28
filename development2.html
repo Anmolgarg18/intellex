@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attributes Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #490648;
+            --primary-light: #6d1a6c;
+            --primary-lighter: #8f3c8e;
+            --primary-lightest: #b26db1;
+            --risk-high: #ef4444;
+            --risk-medium: #f59e0b;
+            --risk-low: #10b981;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .rating-scale {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            padding: 0 8px;
+            margin: 10px 0;
+        }
+        .rating-scale-bg {
+            height: 12px;
+            width: 100%;
+            background: #e2e8f0;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .rating-scale-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-lightest), var(--primary-color));
+            border-radius: 6px;
+        }
+        .rating-scale-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 2px solid #fff;
+            outline: 1px solid #cbd5e1;
+        }
+        .rating-separator {
+            position: absolute;
+            height: 18px;
+            width: 2px;
+            background-color: #94a3b8;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            box-shadow: 0 0 2px rgba(0,0,0,0.1);
+        }
+        .separator-1 {
+            left: 33.33%;
+        }
+        .separator-2 {
+            left: 66.66%;
+        }
+        .rating-tick {
+            position: absolute;
+            bottom: -2px;
+            width: 1px;
+            height: 4px;
+            background-color: #94a3b8;
+            opacity: 0.7;
+        }
+        .tick-1 { left: 10%; }
+        .tick-2 { left: 20%; }
+        .tick-3 { left: 30%; }
+        .tick-4 { left: 40%; }
+        .tick-5 { left: 50%; }
+        .tick-6 { left: 60%; }
+        .tick-7 { left: 70%; }
+        .tick-8 { left: 80%; }
+        .tick-9 { left: 90%; }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .accordion-content.active {
+            max-height: 2000px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .sub-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .sub-accordion-content.active {
+            max-height: 1000px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .importance-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+            display: inline-block;
+            min-width: 80px;
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .risk-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 70px;
+            background-color: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .risk-badge-high {
+            color: var(--risk-high);
+            border: 1px solid var(--risk-high);
+        }
+        .risk-badge-medium {
+            color: var(--risk-medium);
+            border: 1px solid var(--risk-medium);
+        }
+        .risk-badge-low {
+            color: var(--risk-low);
+            border: 1px solid var(--risk-low);
+        }
+        .risk-circle {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .risk-high {
+            background-color: var(--risk-high);
+        }
+        .risk-medium {
+            background-color: var(--risk-medium);
+        }
+        .risk-low {
+            background-color: var(--risk-low);
+        }
+        .toggle-details {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #f3f4f6;
+            transition: all 0.2s ease;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+        .toggle-details:hover {
+            background-color: #e5e7eb;
+        }
+        .toggle-icon {
+            font-size: 14px;
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            transition: transform 0.2s ease;
+        }
+        .toggle-details.active .toggle-icon {
+            transform: rotate(0deg);
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            background-color: white;
+        }
+        .back-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            margin-bottom: 0;
+            position: relative;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+        .section-header i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .primary-bg {
+            background-color: var(--primary-color);
+        }
+        .primary-text {
+            color: var(--primary-color);
+        }
+        .primary-border {
+            border-color: var(--primary-color);
+        }
+        .primary-hover:hover {
+            background-color: var(--primary-light);
+        }
+        .section-container {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .section-container.hidden {
+            display: none;
+        }
+        .filter-label {
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+        }
+        .custom-select {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .select-selected {
+            background-color: white;
+            border: 1px solid #d1d5db;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+        .select-selected:hover {
+            border-color: var(--primary-color);
+        }
+        .select-selected:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(73, 6, 72, 0.1);
+        }
+        .select-items {
+            position: absolute;
+            background-color: white;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            margin-top: 4px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e5e7eb;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .select-items.show {
+            max-height: 300px;
+            opacity: 1;
+        }
+        .select-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+        .select-item:hover {
+            background-color: #f3f4f6;
+        }
+        .select-item.selected {
+            background-color: #f3f4f6;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+            transform: translateX(-50%) translateY(5px);
+            z-index: 10;
+            pointer-events: none;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1f2937 transparent transparent transparent;
+        }
+        .toggle-details:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .rating-segment-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 8px;
+            font-size: 0.7rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .rating-segment-label {
+            width: 33.33%;
+            text-align: center;
+        }
+        .rating-segment-label:first-child {
+            text-align: left;
+        }
+        .rating-segment-label:last-child {
+            text-align: right;
+        }
+        .category-filter {
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 500;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .attribute-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(73, 6, 72, 0.1);
+            color: var(--primary-color);
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .sub-attribute-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(73, 6, 72, 0.05);
+            color: var(--primary-color);
+            margin-right: 10px;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+        .filter-icon {
+            font-size: 0.9rem;
+        }
+        .attribute-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+        .sub-attribute-container {
+            background-color: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .sub-attribute-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .sub-attribute-header:hover {
+            background-color: #f3f4f6;
+        }
+        .sub-attribute-content {
+            padding: 0 16px;
+            background-color: white;
+            border-top: 1px solid #e5e7eb;
+        }
+        .INDICATORS-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .INDICATORS-card {
+            background-color: white;
+            border-radius: 6px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .INDICATORS-title {
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        .INDICATORS-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .INDICATORS-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+        .INDICATORS-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .sub-attribute-name {
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+        .sub-rating-container {
+            display: grid;
+            grid-template-columns: 8fr 2fr;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+        }
+        .toggle-sub-details {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #f3f4f6;
+            transition: all 0.2s ease;
+            border: 1px solid #e5e7eb;
+        }
+        .chatbot-panel {
+  position: fixed;
+  top: 110px;
+  right: 0;
+  height: 600px;
+  width: 420px;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.chat-header {
+  border-top-left-radius: 8px;
+  background-color: #490648;
+  color: white;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-header .left {
+  display: flex;
+  align-items: center;
+}
+.chat-header .left span {
+  margin-left: 8px;
+}
+.chat-header .close-btn {
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+.chat-header .close-btn:hover {
+  color: #f9edf9;
+  transform: scale(1.2);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  max-width: 75%;
+  border: 1px solid #ccc;
+}
+
+.user-message {
+  align-self: flex-end;
+  background-color: #490648;
+  color: white;
+}
+
+.bot-message {
+  align-self: flex-start;
+  background-color: #f9edf9;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+  align-items: center;
+  padding: 20px;
+}
+
+.chat-input-container {
+  display: flex;
+  width: 400px;
+  height: 40px;
+  border-radius: 25px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.chat-input-text {
+  flex: 1;
+  border: none;
+  padding: 0 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+.send-button {
+  width: 60px;
+  background-color: #4b004f;
+  color: white;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #5d005f;
+}
+
+.image-icon {
+  height: 40px;
+  width: auto;
+}
+.image1-icon {
+  height: 30px;
+  width: auto;
+}
+        .toggle-sub-details:hover {
+            background-color: #e5e7eb;
+        }
+        @media (max-width: 768px) {
+            .INDICATORS-container {
+                grid-template-columns: 1fr;
+            }
+            .sub-rating-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+      <header class="fixed top-0 left-0 right-0 h-[58px] bg-white text-[#490648] px-6 flex justify-between items-center border-b border-b-gray-300 z-20">
+        <div class="flex items-center"><h1 class="text-xl font-bold">Intellex.ai</h1></div>
+        <div class="flex items-center space-x-4">
+            <div class="relative text-left">
+                <details class="group">
+                    <summary class="flex items-center cursor-pointer list-none text-white mr-8">
+                        <div class="w-8 h-8 rounded-full bg-[#490648] flex items-center justify-center"><span class="text-xs font-medium">PM</span></div>
+                        <div class="flex flex-col ms-2 text-left">
+                            <span class="text-sm text-black">John Doe</span>
+                            <span class="text-xs text-gray-600">Senior Manager</span>
+                        </div>
+                        <svg class="w-4 h-4 ml-2 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                    </summary>
+                    <div class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
+                        <a href="/reset-password" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reset Password</a>
+                        <a href="index.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl mt-[50px]">
+        <!-- Back Button -->
+        <div class="mb-6">
+            <a href="Home.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Home</span>
+            </a>
+        </div>
+        
+        <!-- Unified Filter Section - Single Line -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-8 ">
+            <div class="flex flex-wrap items-end gap-4 hidden">
+                <!-- Category Filter -->
+                <div class="flex-grow">
+                    <div class="filter-label">Filter by Category</div>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="category-filter primary-bg text-white primary-hover transition" data-category="all">
+                            <i class="fas fa-layer-group filter-icon"></i>
+                            <span>All Categories</span>
+                        </button>
+                        <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingBusiness">
+                            <i class="fas fa-user filter-icon"></i>
+                            <span>Leading Business</span>
+                        </button>
+                        <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingOthers">
+                            <i class="fas fa-briefcase filter-icon"></i>
+                            <span>Leading Others</span>
+                        </button>
+                        <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingSelf">
+                            <i class="fas fa-crown filter-icon"></i>
+                            <span>Leading Self </span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Importance Filter Dropdown -->
+                <div class="w-48">
+                    <div class="filter-label">Filter by Importance</div>
+                    <div class="custom-select">
+                        <div class="select-selected" id="importance-select">
+                            <span>All Importance</span>
+                            <i class="fas fa-chevron-down text-gray-500"></i>
+                        </div>
+                        <div class="select-items" id="importance-options">
+                            <div class="select-item selected" data-value="all">All Importance</div>
+                            <div class="select-item" data-value="high">High</div>
+                            <div class="select-item" data-value="medium">Medium</div>
+                            <div class="select-item" data-value="low">Low</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="text-[#490648] text-[40px] font-bold">Your Development Plan</h1>
+        </div>
+        <button onclick="toggleBox()" class="fixed top-[110px] right-[60px] z-50 bg-[#490648] hover:bg-[#5c0b5a] text-white px-4 py-4 rounded-[100%] shadow-lg transition">
+<img src="chatbot.png" class="h-[40px] w-auto" alt="">
+</button>
+
+<!-- Chatbot Panel -->
+<div id="chatsection" style="display: none">
+  <div class="chatbot-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="left">
+        <img src="chatbot.png" class="image-icon" alt="Bot Icon" />
+        <span>
+          Intellex Coach.AI<br />
+          <div style="font-size: 14px;">Your personal growth navigator</div>
+        </span>
+      </div>
+      <button class="close-btn" onclick="hideBox()">×</button>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="bot-message message">
+        I'm here to provide deeper insights into your development journey and help you navigate your growth opportunities. Based on the recent feedback and assessments, I've compiled tailored recommendations to accelerate your professional development. What would you like to do today?
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <img src="amplify.png" class="image1-icon" alt="Icon" />
+      <span class="chat-input-container">
+        <input type="text" id="userInput" placeholder="Type your message..." class="chat-input-text" />
+        <button onclick="sendMessage()" title="Send" class="send-button">&#8594;</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+        <!-- Personal Attributes Section -->
+        <div id="LeadingBusiness-section" class="section-container mb-5">
+            <div class="section-header">
+                <i class="fas fa-user"></i>
+                <span>LEADING THE BUSINESS</span>
+            </div>
+            
+            <!-- Attributes List -->
+           <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+    <!-- Header with toggle -->
+    <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('Leading-Business')">
+  
+  <!-- Text: 8 columns -->
+  <div class="col-span-10 text-gray-800">
+  <p id="leading-business-description" class="text-gray-800 "></p>
+  </div>
+
+  <!-- AI Guidance: 2 columns -->
+  <div class="col-span-1 flex justify-start">
+    <button onclick="event.stopPropagation(); openAiGuidance(leadingBusinessRecommendations)" class="flex items-center gap-1 px-2 py-1 bg-white rounded-full border text-sm text-gray-700 hover:bg-gray-200 focus:outline-none whitespace-nowrap">
+      <span class="w-2 h-2 rounded-full bg-green-500"></span>
+      <span>AI Guidance</span>
+    </button>
+  </div>
+
+  <!-- Chevron Icon: 2 columns -->
+  <div class="col-span-1 flex justify-end">
+    <svg id="Leading-Business-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-200 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+
+</div>
+
+    
+    <!-- Attribute Items (Initially Hidden) -->
+    <div id="Leading-Business-attributes-container" class="hidden p-4">
+        
+    </div>
+</div>
+        </div>
+        
+        <!-- LeadingOthers Competencies Section -->
+        <div id="LeadingOthers-section" class="section-container mb-">
+            <div class="section-header">
+                <i class="fas fa-briefcase"></i>
+                <span>Leading Others</span>
+            </div>
+            
+            <!-- Attributes List -->
+            <!-- Attributes List -->
+           <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+    <!-- Header with toggle -->
+ <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('LeadingOthers')">
+  
+  <!-- Text: 8 columns -->
+  <div class="col-span-10 text-gray-800">
+  <p id="LeadingOthers-description" class="text-gray-800 "></p>
+  </div>
+
+  <!-- AI Guidance: 2 columns -->
+  <div class="col-span-1 flex justify-start">
+    <button onclick="event.stopPropagation(); openAiGuidance(leadingOthersRecommendations)" class="flex items-center gap-1 px-2 py-1 bg-white rounded-full border text-sm text-gray-700 hover:bg-gray-200 focus:outline-none whitespace-nowrap">
+      <span class="w-2 h-2 rounded-full bg-green-500"></span>
+      <span>AI Guidance</span>
+    </button>
+  </div>
+
+  <!-- Chevron Icon: 2 columns -->
+  <div class="col-span-1 flex justify-end">
+    <svg id="LeadingOthers-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-200 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+
+</div>
+
+    
+    <!-- Attribute Items (Initially Hidden) -->
+    <div id="LeadingOthers-attributes-container" class="hidden p-4">
+        
+    </div>
+</div>
+        </div>
+        
+        <!-- Leadership Self Section -->
+        <div id="LeadingSelf-section" class="section-container mb-10">
+            <div class="section-header">
+                <i class="fas fa-crown"></i>
+                <span>Leading Self</span>
+            </div>
+            
+            <!-- Attributes List -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+    <!-- Header with toggle -->
+  <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('LeadingSelf')">
+  
+  <!-- Text: 8 columns -->
+  <div class="col-span-10 text-gray-800">
+  <p id="LeadingSelf-description" class="text-gray-800 "></p>
+  </div>
+
+  <!-- AI Guidance: 2 columns -->
+  <div class="col-span-1 flex justify-start">
+    <button onclick="event.stopPropagation(); openAiGuidance(leadingSelfRecommendations)" class="flex items-center gap-1 px-2 py-1 bg-white rounded-full border text-sm text-gray-700 hover:bg-gray-200 focus:outline-none whitespace-nowrap">
+      <span class="w-2 h-2 rounded-full bg-green-500"></span>
+      <span>AI Guidance</span>
+    </button>
+  </div>
+
+  <!-- Chevron Icon: 2 columns -->
+  <div class="col-span-1 flex justify-end">
+    <svg id="LeadingSelf-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-200 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+
+</div>
+
+    
+    <!-- Attribute Items (Initially Hidden) -->
+    <div id="LeadingSelf-attributes-container" class="hidden p-4">
+        
+    </div>
+</div>
+        </div>
+    </div>
+<!-- AI Guidance Modal -->
+<!-- AI Guidance Modal -->
+<div id="aiGuidanceModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full relative p-6">
+
+    <!-- Close Button -->
+    <button onclick="closeAiGuidance()" class="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl font-bold">&times;</button>
+
+    <!-- Heading -->
+    <h2 class="text-xl font-bold text-[#490648] mb-4">Guidance</h2>
+
+    <!-- Scrollable inner body -->
+<!-- Scrollable inner body -->
+<!-- Scrollable inner body -->
+<div class="max-h-[65vh] overflow-y-auto pr-2">
+  <!-- Table Headers -->
+  <div class="grid grid-cols-12 gap-4 mb-3">
+    <div class="col-span-4 text-sm font-semibold text-gray-600 uppercase">Category</div>
+    <div class="col-span-8 text-sm font-semibold text-gray-600 uppercase">Recommended Actions</div>
+  </div>
+
+  <!-- Grid for Category and Recommendations -->
+  <div id="aiGuidanceTable" class="grid grid-cols-12 mb-4 gap-3">
+    <!-- JS will dynamically inject category + recommendations per row -->
+  </div>
+</div>
+
+
+
+    
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+    <script>
+        // Personal Attributes data with icons and sub-attributes
+        const leadingbusiness = [
+            {description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",    },
+            {
+                name: "STRENGTHS TO LEVERAGE",
+                category: "LeadingBusiness",
+                icon: "fa-bolt",
+                subAttributes: [
+                    {
+                        name: "Initiative",
+                        rating: 0.85,
+                        icon: "fa-flag",
+                        behavioralINDICATORS: [
+                            "Proactively identifies opportunities without being prompted",
+                            "Takes action before being asked or required to do so",
+                            "Demonstrates self-starting behavior in new situations",
+                            "Seeks out additional responsibilities beyond assigned tasks",
+                            "Proposes solutions rather than just highlighting problems"
+                        ],
+                        leadershipINDICATORS: [
+                            "Sets a positive example for team members to be proactive",
+                            "Creates a culture of ownership and accountability",
+                            "Anticipates obstacles and addresses them before they become issues",
+                            "Identifies strategic opportunities that others might miss",
+                            "Drives innovation through self-directed exploration"
+                        ]
+                       
+                    },
+                    {
+                        name: "Persistence",
+                        rating: 0.75,
+                        icon: "fa-mountain",
+                        behavioralINDICATORS: [
+                            "Maintains effort despite obstacles or setbacks",
+                            "Demonstrates resilience when facing challenges",
+                            "Consistently follows through on commitments",
+                            "Shows determination in pursuing long-term goals",
+                            "Remains focused during difficult periods"
+                        ],
+                        leadershipINDICATORS: [
+                            "Inspires team members through demonstrated resilience",
+                            "Maintains team morale during challenging projects",
+                            "Ensures important initiatives don't lose momentum",
+                            "Models commitment to organizational goals despite obstacles",
+                            "Creates an environment where perseverance is valued"
+                        ]
+                    },
+                    {
+                        name: "Work Ethic",
+                        rating: 0.9,
+                        icon: "fa-briefcase",
+                        behavioralINDICATORS: [
+                            "Consistently delivers high-quality work",
+                            "Demonstrates strong commitment to meeting deadlines",
+                            "Willingly puts in extra effort when needed",
+                            "Shows attention to detail in all tasks",
+                            "Maintains high standards even for routine work"
+                        ],
+                        leadershipINDICATORS: [
+                            "Sets clear expectations for quality and effort",
+                            "Creates a culture of excellence and accountability",
+                            "Leads by example through visible dedication",
+                            "Recognizes and rewards strong work ethic in others",
+                            "Builds team reputation for reliability and quality"
+                        ]
+                    }
+                    
+                
+                ]
+            },
+            {
+                name: "RISKS TO MINIMIZE",
+                rating: 0.7,
+                importance: "medium",
+                risk: "low",
+                details: "Shows strong ability to navigate social situations and build relationships. Demonstrates good awareness of social dynamics and adapts communication style appropriately. Effectively reads non-verbal cues and responds with empathy and understanding.",
+                category: "LeadingBusiness",
+                icon: "fa-users",
+                subAttributes: [
+                    {
+                        name: "Empathy",
+                        rating: 0.75,
+                        icon: "fa-heart",
+                        behavioralINDICATORS: [
+                            "Demonstrates genuine understanding of others' perspectives",
+                            "Listens attentively to concerns and feelings",
+                            "Recognizes emotional states from verbal and non-verbal cues",
+                            "Responds appropriately to others' emotional needs",
+                            "Considers impact on others when making decisions"
+                        ],
+                        leadershipINDICATORS: [
+                            "Creates psychological safety within the team",
+                            "Builds trust through demonstrating understanding",
+                            "Effectively manages interpersonal conflicts",
+                            "Anticipates how changes will affect team members",
+                            "Develops stronger connections with direct reports"
+                        ]
+                    },
+                    {
+                        name: "Social Awareness",
+                        rating: 0.8,
+                        icon: "fa-eye",
+                        behavioralINDICATORS: [
+                            "Accurately reads group dynamics in meetings",
+                            "Recognizes unspoken tensions or alliances",
+                            "Adapts behavior to different social contexts",
+                            "Notices changes in team atmosphere or morale",
+                            "Understands organizational politics and influence networks"
+                        ],
+                        leadershipINDICATORS: [
+                            "Navigates complex stakeholder relationships effectively",
+                            "Identifies and addresses team dynamics issues early",
+                            "Builds coalitions to support important initiatives",
+                            "Recognizes informal leadership and influence patterns",
+                            "Adapts leadership approach to organizational culture"
+                        ]
+                    },
+                    {
+                        name: "Communication Flexibility",
+                        rating: 0.65,
+                        icon: "fa-comments",
+                        behavioralINDICATORS: [
+                            "Adapts communication style to different audiences",
+                            "Adjusts level of detail based on recipient needs",
+                            "Shifts between formal and informal communication appropriately",
+                            "Uses different channels effectively for different messages",
+                            "Modifies approach when communication isn't effective"
+                        ],
+                        leadershipINDICATORS: [
+                            "Connects effectively with team members of different styles",
+                            "Translates complex concepts for various stakeholders",
+                            "Builds bridges between different functional areas",
+                            "Adapts messaging to address diverse concerns",
+                            "Creates inclusive communication environments"
+                        ]
+                    }
+                    
+                    
+                ]
+            }
+            
+        ];
+
+
+        // Work Competencies data with icons and sub-attributes
+        const leadingothers = [
+        {description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",    },
+        
+        {
+                name: "STRENGTHS TO LEVERAGE",
+                category: "LeadingOthers",
+                icon: "fa-tasks",
+                subAttributes: [
+                    {
+                        name: "Planning & Organization",
+                        rating: 0.75,
+                        icon: "fa-calendar-check",
+                        behavioralINDICATORS: [
+                            "Creates structured plans with clear milestones",
+                            "Allocates resources effectively to activities",
+                            "Anticipates dependencies and potential bottlenecks",
+                            "Establishes realistic timelines for deliverables",
+                            "Maintains organized documentation and tracking systems"
+                        ],
+                        leadershipINDICATORS: [
+                            "Provides clear roadmaps that align team efforts",
+                            "Ensures efficient use of team resources",
+                            "Creates transparency around priorities and progress",
+                            "Balances short-term needs with long-term objectives",
+                            "Establishes effective project management practices"
+                        ]
+                        
+                    },
+                    {
+                        name: "Focus & Prioritization",
+                        rating: 0.65,
+                        icon: "fa-bullseye",
+                        behavioralINDICATORS: [
+                            "Maintains attention on key objectives despite distractions",
+                            "Distinguishes between urgent and important tasks",
+                            "Allocates time according to strategic priorities",
+                            "Avoids unnecessary context-switching between tasks",
+                            "Says no to activities that don't align with priorities"
+                        ],
+                        leadershipINDICATORS: [
+                            "Helps team maintain clarity on what matters most",
+                            "Shields team from distractions and scope creep",
+                            "Aligns team efforts with organizational priorities",
+                            "Models disciplined focus on high-value activities",
+                            "Creates environment where strategic work takes precedence"
+                        ]
+                    },
+                    {
+                        name: "Quality Orientation",
+                        rating: 0.8,
+                        icon: "fa-medal",
+                        behavioralINDICATORS: [
+                            "Sets high standards for work outputs",
+                            "Pays attention to details that impact quality",
+                            "Reviews work thoroughly before delivery",
+                            "Seeks feedback to improve quality continuously",
+                            "Takes pride in producing excellent work"
+                        ],
+                        leadershipINDICATORS: [
+                            "Establishes clear quality standards for the team",
+                            "Creates processes that ensure consistent quality",
+                            "Recognizes and rewards high-quality work",
+                            "Balances quality requirements with time constraints",
+                            "Models commitment to excellence in own work"
+                        ]
+                    }
+                
+                ]
+            },
+            {
+                name: "RISKS TO MINIMIZE",
+                category: "LeadingOthers",
+                icon: "fa-comment-dots",
+                subAttributes: [
+                    {
+                        name: "Persuasive Communication",
+                        rating: 0.55,
+                        icon: "fa-comment",
+                        behavioralINDICATORS: [
+                            "Structures messages to address audience interests",
+                            "Uses evidence and examples to support key points",
+                            "Adapts persuasive approach based on audience",
+                            "Anticipates and addresses potential objections",
+                            "Communicates with appropriate confidence and conviction"
+                        ],
+                        leadershipINDICATORS: [
+                            "Effectively sells vision and direction to team",
+                            "Gains buy-in for necessary changes or initiatives",
+                            "Represents team interests effectively to stakeholders",
+                            "Builds support for ideas across the organization",
+                            "Overcomes resistance through effective communication"
+                        ]
+                    },
+                    {
+                        name: "Stakeholder Management",
+                        rating: 0.45,
+                        icon: "fa-user-friends",
+                        behavioralINDICATORS: [
+                            "Identifies key stakeholders for initiatives",
+                            "Understands different stakeholder interests and concerns",
+                            "Maintains appropriate communication with stakeholders",
+                            "Manages expectations effectively",
+                            "Builds trust through consistent engagement"
+                        ],
+                        leadershipINDICATORS: [
+                            "Navigates complex organizational relationships",
+                            "Secures necessary support for team initiatives",
+                            "Aligns team activities with stakeholder expectations",
+                            "Resolves conflicts between competing stakeholder needs",
+                            "Creates coalition of support for important changes"
+                        ]
+                    },
+                    {
+                        name: "Negotiation",
+                        rating: 0.5,
+                        icon: "fa-handshake",
+                        behavioralINDICATORS: [
+                            "Prepares thoroughly for negotiation situations",
+                            "Identifies areas of mutual benefit and common ground",
+                            "Remains composed during difficult negotiations",
+                            "Listens actively to understand other positions",
+                            "Finds creative solutions to seemingly opposed interests"
+                        ],
+                        leadershipINDICATORS: [
+                            "Secures necessary resources for team success",
+                            "Resolves conflicts between team members effectively",
+                            "Negotiates realistic deadlines and deliverables",
+                            "Builds sustainable agreements with partners",
+                            "Balances advocacy for team with organizational needs"
+                        ]
+                    }
+                ]
+            }
+        ];
+        
+        // Leadership Traits data with icons and sub-attributes
+        const leadingself = [
+            {description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",    },
+            {
+                name: "STRENGTHS TO LEVERAGE",
+                category: "LeadingSelf",
+                icon: "fa-eye",
+                subAttributes: [
+                    {
+                        name: "Strategic Thinking",
+                        rating: 0.85,
+                        icon: "fa-chess",
+                        behavioralINDICATORS: [
+                            "Considers long-term INDICATORS of decisions",
+                            "Identifies emerging trends and opportunities",
+                            "Connects daily activities to broader objectives",
+                            "Anticipates potential obstacles and prepares for them",
+                            "Balances short-term needs with long-term goals"
+                        ],
+                        leadershipINDICATORS: [
+                            "Provides clear direction that aligns team efforts",
+                            "Helps team understand how their work contributes to strategy",
+                            "Makes decisions that position the team for future success",
+                            "Allocates resources based on strategic priorities",
+                            "Anticipates changes that will affect the team's work"
+                        ],
+                        potentialChallenges: [
+                            "May sometimes focus too much on future at expense of present",
+                            "Could struggle to communicate complex strategic thinking",
+                            "Might need to translate strategy into concrete actions better",
+                            "Could benefit from more structured strategic planning processes",
+                            "May need to involve others more in strategic discussions"
+                        ]
+                    },
+                    {
+                        name: "Visioning",
+                        rating: 0.8,
+                        icon: "fa-binoculars",
+                        behavioralINDICATORS: [
+                            "Creates compelling picture of future possibilities",
+                            "Communicates vision in inspiring and memorable ways",
+                            "Connects vision to values and purpose",
+                            "Maintains consistent focus on vision over time",
+                            "Adapts vision appropriately as circumstances change"
+                        ],
+                        leadershipINDICATORS: [
+                            "Inspires team with sense of purpose and direction",
+                            "Creates shared understanding of desired future state",
+                            "Helps team see beyond current limitations",
+                            "Maintains motivation during difficult periods",
+                            "Aligns diverse team members around common vision"
+                        ],
+                        potentialChallenges: [
+                            "May sometimes create visions that are too ambitious",
+                            "Could struggle to balance inspiration with practicality",
+                            "Might need to connect vision more clearly to daily work",
+                            "Could benefit from more concrete metrics for vision progress",
+                            "May need to adapt communication of vision for different audiences"
+                        ]
+                    },
+                    {
+                        name: "Decision Clarity",
+                        rating: 0.75,
+                        icon: "fa-check-circle",
+                        behavioralINDICATORS: [
+                            "Makes decisions with appropriate confidence",
+                            "Communicates decisions clearly and directly",
+                            "Provides context and rationale for decisions",
+                            "Remains consistent in implementing decisions",
+                            "Takes responsibility for outcomes of decisions"
+                        ],
+                        leadershipINDICATORS: [
+                            "Provides team with clear direction and expectations",
+                            "Eliminates confusion about priorities and approach",
+                            "Creates environment of certainty amid ambiguity",
+                            "Builds trust through transparent decision processes",
+                            "Enables team to move forward without unnecessary delays"
+                        ],
+                        potentialChallenges: [
+                            "May sometimes make decisions without sufficient input",
+                            "Could struggle to explain complex decision rationales",
+                            "Might need to improve communication of decision constraints",
+                            "Could benefit from more structured decision frameworks",
+                            "May need to better document important decisions"
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "RISKS TO MINIMIZE",
+                category: "LeadingSelf",
+                icon: "fa-heart",
+                subAttributes: [
+                    {
+                        name: "Self-Awareness",
+                        rating: 0.75,
+                        icon: "fa-user",
+                        behavioralINDICATORS: [
+                            "Recognizes own emotional states and triggers",
+                            "Understands personal strengths and limitations",
+                            "Seeks and responds constructively to feedback",
+                            "Acknowledges impact of own behavior on others",
+                            "Demonstrates appropriate vulnerability"
+                        ],
+                        leadershipINDICATORS: [
+                            "Models authentic leadership through self-knowledge",
+                            "Creates psychologically safe environment through openness",
+                            "Makes decisions with awareness of personal biases",
+                            "Builds trust through appropriate transparency",
+                            "Develops leadership style aligned with authentic self"
+                        ],
+                        potentialChallenges: [
+                            "May sometimes overanalyze own motives and actions",
+                            "Could struggle to maintain appropriate boundaries",
+                            "Might need to balance self-disclosure with privacy",
+                            "Could benefit from more structured reflection practices",
+                            "May need to seek more diverse feedback sources"
+                        ]
+                    },
+                    {
+                        name: "Self-Regulation",
+                        rating: 0.65,
+                        icon: "fa-sliders-h",
+                        behavioralINDICATORS: [
+                            "Maintains composure during stressful situations",
+                            "Responds thoughtfully rather than reacting impulsively",
+                            "Adapts emotional expression to context appropriately",
+                            "Recovers quickly from emotional setbacks",
+                            "Manages personal triggers effectively"
+                        ],
+                        leadershipINDICATORS: [
+                            "Creates stable environment even during uncertainty",
+                            "Models emotional maturity for team members",
+                            "Makes balanced decisions even under pressure",
+                            "Builds trust through consistent emotional presence",
+                            "Maintains team focus during emotionally charged periods"
+                        ],
+                        potentialChallenges: [
+                            "May sometimes suppress emotions excessively",
+                            "Could benefit from more effective stress management techniques",
+                            "Might need to develop strategies for specific triggers",
+                            "Could improve recovery time after intense situations",
+                            "May need to balance control with authentic expression"
+                        ]
+                    },
+                    {
+                        name: "Social Awareness",
+                        rating: 0.8,
+                        icon: "fa-users",
+                        behavioralINDICATORS: [
+                            "Reads others' emotional cues accurately",
+                            "Recognizes group dynamics and undercurrents",
+                            "Demonstrates genuine empathy and understanding",
+                            "Adapts approach based on others' emotional states",
+                            "Notices changes in team climate and morale"
+                        ],
+                        leadershipINDICATORS: [
+                            "Identifies team issues before they become problems",
+                            "Creates inclusive environment for diverse team members",
+                            "Responds appropriately to unspoken concerns",
+                            "Builds strong connections with team members",
+                            "Navigates complex interpersonal dynamics effectively"
+                        ],
+                        potentialChallenges: [
+                            "May sometimes take on others' emotional burdens",
+                            "Could become distracted by interpersonal dynamics",
+                            "Might need to balance empathy with objectivity",
+                            "Could benefit from more structured people management systems",
+                            "May need to set clearer emotional boundaries"
+                        ]
+                    }
+                ]
+            }
+        ];
+const leadingBusinessRecommendations = {
+  title: "Leading Business",
+  categories: [
+    {
+      category: "REFLECTION",
+      recommendations: [
+        "Analyze recent strategic decisions for insight",
+        "Journal lessons from wins and failures"
+      ]
+    },
+    {
+      category: "COACHING",
+      recommendations: [
+        "Seek senior feedback on decision-making style",
+        "Use a coach to refine executive presence"
+      ]
+    },
+    {
+      category: "LEARNING",
+      recommendations: [
+        "Take strategy, finance, or innovation courses",
+        "Study competitive or market dynamics"
+      ]
+    },
+    {
+      category: "EXPOSURE",
+      recommendations: [
+        "Participate in cross-functional business reviews",
+        "Join global or industry task forces"
+      ]
+    },
+    {
+      category: "CHALLENGES",
+      recommendations: [
+        "Lead a high-visibility strategic initiative",
+        "Take charge of a turnaround or launch"
+      ]
+    }
+  ]
+};
+const leadingSelfRecommendations = {
+  title: "Leading Self",
+  categories: [
+    {
+      category: "REFLECTION",
+      recommendations: [
+        "Clarify personal values and leadership purpose",
+        "Track emotional triggers and recovery strategies"
+      ]
+    },
+    {
+      category: "COACHING",
+      recommendations: [
+        "Work with a coach to explore blind spots",
+        "Set development goals and track behavioral change"
+      ]
+    },
+    {
+      category: "LEARNING",
+      recommendations: [
+        "Enroll in emotional intelligence or mindfulness programs",
+        "Take courses on resilience or adaptability"
+      ]
+    },
+    {
+      category: "EXPOSURE",
+      recommendations: [
+        "Take on roles in unfamiliar contexts or geographies",
+        "Observe different leadership styles in action"
+      ]
+    },
+    {
+      category: "CHALLENGES",
+      recommendations: [
+        "Accept a role outside comfort zone",
+        "Deliver under ambiguous or high-pressure conditions"
+      ]
+    }
+  ]
+};
+
+const leadingOthersRecommendations = {
+  
+  categories: [
+    {
+      category: "REFLECTION",
+      recommendations: [
+        "Reflect on recent feedback or team reactions",
+        "Note patterns in team engagement or conflict"
+      ]
+    },
+    {
+      category: "COACHING",
+      recommendations: [
+        "Join peer coaching circles for interpersonal growth",
+        "Engage in mentoring for people development skills"
+      ]
+    },
+    {
+      category: "LEARNING",
+      recommendations: [
+        "Attend leadership or influence training",
+        "Learn conflict resolution and inclusive practices"
+      ]
+    },
+    {
+      category: "EXPOSURE",
+      recommendations: [
+        "Shadow leaders in other functions or regions",
+        "Collaborate with diverse teams on shared projects"
+      ]
+    },
+    {
+      category: "CHALLENGES",
+      recommendations: [
+        "Build and lead a new team or workstream",
+        "Drive a change effort across departments"
+      ]
+    }
+  ]
+};
+        document.getElementById('leading-business-description').innerText = leadingbusiness[0].description;
+        document.getElementById('LeadingOthers-description').innerText = leadingothers[0].description;
+        document.getElementById('LeadingSelf-description').innerText = leadingself[0].description;
+        // Combine all attributes into one array
+        const allAttributes = [...leadingbusiness, ...leadingothers, ...leadingself];
+
+        // Function to render attributes
+        function renderAttributes(container, attributes) {
+            const containerElement = document.getElementById(container);
+            containerElement.innerHTML = '';
+            
+            if (attributes.length === 0) {
+                containerElement.innerHTML = `
+                    <div class="p-8 text-center text-gray-500">
+                        <i class="fas fa-search mb-3 text-2xl"></i>
+                        <p>No attributes match your current filter criteria.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            attributes.forEach((attr, index) => {
+                // Make the bar smaller by using 85% of the actual rating value
+                const ratingWidth = attr.rating * 85;
+                
+                // Risk styling
+                let riskBadgeClass = "risk-badge-low";
+                let riskCircleClass = "risk-low";
+                if (attr.risk === "high") {
+                    riskBadgeClass = "risk-badge-high";
+                    riskCircleClass = "risk-high";
+                } else if (attr.risk === "medium") {
+                    riskBadgeClass = "risk-badge-medium";
+                    riskCircleClass = "risk-medium";
+                }
+                
+                const attributeElement = document.createElement('div');
+                attributeElement.className = 'border-b border-gray-200 last:border-b-0';
+                attributeElement.innerHTML = `
+                    <div class="grid grid-cols-12 p-4 items-center hover:bg-gray-50 transition">
+                        <div class="col-span-10 font-medium text-gray-800 pl-4 flex items-center">
+                            <div class="attribute-icon">
+                                <i class="fas ${attr.icon}"></i>
+                            </div>
+                            <span class="attribute-name">${attr.name}</span>
+                        </div>
+                       
+                       
+                        <div class="col-span-2 text-center px-4 flex justify-between items-center">
+                            <div class="invisible risk-badge ${riskBadgeClass} flex-grow justify-center">
+                                <span class="risk-circle ${riskCircleClass}"></span>
+                                <span class="capitalize"><p>Ai Guidance</p></span>
+                            </div>
+                            <button class="toggle-details ml-2">
+                                <span class="tooltip">Expand to learn more</span>
+                                <div class="toggle-icon">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="accordion-content px-4 bg-gray-50">
+                        
+                        
+                        <!-- Sub-attributes section -->
+                        <div class="sub-attributes-container ">
+                            <h3 class="text-gray-700 font-medium mb-3">Sub-attributes</h3>
+                            ${attr.subAttributes.map(subAttr => {
+                                const subRatingWidth = subAttr.rating * 85;
+                                return `
+                                    <div class="sub-attribute-container mb-3 ">
+                                        <div class="sub-attribute-header" data-toggle="sub-accordion">
+                                            <div class="sub-rating-container">
+                                                <div class="flex items-center">
+                                                    <div class="sub-attribute-icon">
+                                                        <i class="fas ${subAttr.icon}"></i>
+                                                    </div>
+                                                    <span class="sub-attribute-name">${subAttr.name}</span>
+                                                </div>
+                                                <div class="flex justify-end">
+                                                    <button class="toggle-sub-details">
+                                                        <i class="fas fa-chevron-down primary-text text-sm"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sub-accordion-content">
+                                            <div class="sub-attribute-content py-4">
+                                                <div class="INDICATORS-container">
+                                                    <div class="INDICATORS-card">
+                                                        <div class="INDICATORS-title ">
+                                                            <i class="fas fa-user-check text-sm"></i>
+                                                            <span>Behavioral Indicators</span>
+                                                        </div>
+                                                        <ul class="INDICATORS-list">
+                                                            ${subAttr.behavioralINDICATORS.map(item => `<li>${item}</li>`).join('')}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="INDICATORS-card">
+                                                        <div class="INDICATORS-title">
+                                                            <i class="fas fa-crown text-sm"></i>
+                                                            <span>Leadership Indicators</span>
+                                                        </div>
+                                                        <ul class="INDICATORS-list">
+                                                            ${subAttr.leadershipINDICATORS.map(item => `<li>${item}</li>`).join('')}
+                                                        </ul>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                containerElement.appendChild(attributeElement);
+            });
+            
+            // Add event listeners to main toggle buttons
+            containerElement.querySelectorAll('.toggle-details').forEach((btn) => {
+                btn.addEventListener('click', function() {
+                    const content = this.closest('.grid').nextElementSibling;
+                    content.classList.toggle('active');
+                    this.classList.toggle('active');
+                    
+                    // Toggle icon
+                    const iconContainer = this.querySelector('.toggle-icon');
+                    const icon = iconContainer.querySelector('i');
+                    if (content.classList.contains('active')) {
+                        icon.classList.remove('fa-plus');
+                        icon.classList.add('fa-minus');
+                        // Update tooltip text
+                        this.querySelector('.tooltip').textContent = "Collapse details";
+                    } else {
+                        icon.classList.remove('fa-minus');
+                        icon.classList.add('fa-plus');
+                        // Update tooltip text
+                        this.querySelector('.tooltip').textContent = "Expand to learn more";
+                    }
+                });
+            });
+            
+            // Add event listeners to sub-attribute toggle buttons
+            containerElement.querySelectorAll('.sub-attribute-header').forEach((header) => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    content.classList.toggle('active');
+                    
+                    // Toggle icon
+                    const icon = this.querySelector('.toggle-sub-details i');
+                    if (content.classList.contains('active')) {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    } else {
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    }
+                });
+            });
+        }
+        
+        // Filter attributes based on category and importance
+        function filterAttributes(categoryFilter = 'all', importanceFilter = 'all') {
+            // Filter by category
+            let filteredByCategory = allAttributes;
+            if (categoryFilter !== 'all') {
+                filteredByCategory = allAttributes.filter(attr => attr.category === categoryFilter);
+            }
+            
+            // Filter by importance
+            let filteredAttributes = filteredByCategory;
+            if (importanceFilter !== 'all') {
+                filteredAttributes = filteredByCategory.filter(attr => attr.importance === importanceFilter);
+            }
+            
+            // Show/hide sections based on category filter
+            document.querySelectorAll('.section-container').forEach(section => {
+                const sectionId = section.id.split('-')[0]; // Extract 'personal', 'work', or 'leadership'
+                
+                if (categoryFilter === 'all' || categoryFilter === sectionId) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+            
+            // Render filtered attributes in their respective containers
+            if (categoryFilter === 'all' || categoryFilter === 'LeadingBusiness') {
+                const personalFiltered = filteredAttributes.filter(attr => attr.category === 'LeadingBusiness');
+                renderAttributes('Leading-Business-attributes-container', personalFiltered);
+            }
+            
+            if (categoryFilter === 'all' || categoryFilter === 'LeadingOthers') {
+                const workFiltered = filteredAttributes.filter(attr => attr.category === 'LeadingOthers');
+                renderAttributes('LeadingOthers-attributes-container', workFiltered);
+            }
+            
+            if (categoryFilter === 'all' || categoryFilter === 'LeadingSelf') {
+                const leadershipFiltered = filteredAttributes.filter(attr => attr.category === 'LeadingSelf');
+                renderAttributes('LeadingSelf-attributes-container', leadershipFiltered);
+            }
+        }
+        
+        // Initialize with all attributes
+        filterAttributes();
+        
+        // Global variables to track current filters
+        let currentCategoryFilter = 'all';
+        let currentImportanceFilter = 'all';
+        
+        // Add event listeners to category filter buttons
+        document.querySelectorAll('.category-filter').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const categoryValue = this.getAttribute('data-category');
+                currentCategoryFilter = categoryValue;
+                
+                // Update active button styling
+                document.querySelectorAll('.category-filter').forEach(b => {
+                    b.classList.remove('primary-bg', 'text-white');
+                    b.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+                this.classList.add('primary-bg', 'text-white');
+                
+                // Apply filters
+                filterAttributes(currentCategoryFilter, currentImportanceFilter);
+            });
+        });
+        
+        // Custom dropdown functionality
+        const importanceSelect = document.getElementById('importance-select');
+        const importanceOptions = document.getElementById('importance-options');
+        
+        // Toggle dropdown
+        importanceSelect.addEventListener('click', function() {
+            importanceOptions.classList.toggle('show');
+            
+            // Toggle chevron direction
+            const chevron = this.querySelector('i');
+            if (importanceOptions.classList.contains('show')) {
+                chevron.classList.remove('fa-chevron-down');
+                chevron.classList.add('fa-chevron-up');
+            } else {
+                chevron.classList.remove('fa-chevron-up');
+                chevron.classList.add('fa-chevron-down');
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!importanceSelect.contains(event.target)) {
+                importanceOptions.classList.remove('show');
+                const chevron = importanceSelect.querySelector('i');
+                chevron.classList.remove('fa-chevron-up');
+                chevron.classList.add('fa-chevron-down');
+            }
+        });
+        
+        // Select option
+        document.querySelectorAll('.select-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                const text = this.textContent;
+                
+                // Update selected text
+                importanceSelect.querySelector('span').textContent = text;
+                
+                // Update selected item styling
+                document.querySelectorAll('.select-item').forEach(i => {
+                    i.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                
+                // Close dropdown
+                importanceOptions.classList.remove('show');
+                const chevron = importanceSelect.querySelector('i');
+                chevron.classList.remove('fa-chevron-up');
+                chevron.classList.add('fa-chevron-down');
+                
+                // Apply filter
+                currentImportanceFilter = value;
+                filterAttributes(currentCategoryFilter, currentImportanceFilter);
+            });
+        });
+
+        function toggleBox() {
+  document.getElementById("chatsection").style.display = "block";
+}
+function hideBox() {
+  document.getElementById("chatsection").style.display = "none";
+}
+
+function sendMessage() {
+  const input = document.getElementById('userInput');
+  const msg = input.value.trim();
+  const chatMessages = document.getElementById('chatMessages');
+
+  if (msg !== "") {
+    const userMsg = document.createElement('div');
+    userMsg.className = 'user-message message';
+    userMsg.textContent = msg;
+    chatMessages.appendChild(userMsg);
+
+    setTimeout(() => {
+      const botMsg = document.createElement('div');
+      botMsg.className = 'bot-message message';
+      botMsg.textContent = "Thank you for your reply";
+      chatMessages.appendChild(botMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 500);
+
+    input.value = "";
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+}
+
+document.getElementById('userInput').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    sendMessage();
+  }
+});
+function toggleAttributes(sectionID) {
+    const container = document.getElementById(`${sectionID}-attributes-container`);
+    const icon = document.getElementById(`${sectionID}-toggle-icon`);
+    const isHidden = container.classList.contains("hidden");
+
+    container.classList.toggle("hidden");
+    icon.classList.toggle("rotate-180");
+
+    if (isHidden) {
+        // Open all accordion sections inside the container
+        const toggleButtons = container.querySelectorAll('.toggle-details');
+        toggleButtons.forEach((btn) => {
+            const content = btn.closest('.grid').nextElementSibling;
+            if (!content.classList.contains('active')) {
+                content.classList.add('active');
+                btn.classList.add('active');
+
+                // Swap icon
+                const iconContainer = btn.querySelector('.toggle-icon i');
+                iconContainer.classList.remove('fa-plus');
+                iconContainer.classList.add('fa-minus');
+
+                // Update tooltip
+                const tooltip = btn.querySelector('.tooltip');
+                if (tooltip) tooltip.textContent = "Collapse details";
+            }
+        });
+    }
+}
+
+let additionalPointsCount = 0;
+
+function openAiGuidance(data) {
+  const container = document.getElementById("aiGuidanceTable");
+  container.innerHTML = ""; // Clear previous content
+
+  data.categories.forEach((cat, index) => {
+    // Loop over each recommendation
+    cat.recommendations.forEach((rec, recIdx) => {
+      // Left column: category name (only for the first recommendation row)
+      const categoryCell = document.createElement("div");
+      categoryCell.className = "col-span-4 text-xs font-bold text-[#490648] uppercase";
+      categoryCell.textContent = recIdx === 0 ? cat.category : "";
+      container.appendChild(categoryCell);
+
+      // Right column: recommendation
+      const recItem = document.createElement("div");
+      recItem.className = "col-span-8 flex items-start gap-2";
+      recItem.innerHTML = `
+        <input type="checkbox" class="mt-1 accent-[#490648]">
+        <span class="text-sm text-gray-700">${rec}</span>
+      `;
+      container.appendChild(recItem);
+    });
+
+    // Empty left cell
+    const emptyLeft = document.createElement("div");
+    emptyLeft.className = "col-span-4";
+    container.appendChild(emptyLeft);
+
+    // Right column: wrapper for new points + input field
+    const rightWrapper = document.createElement("div");
+rightWrapper.className = "col-span-8 space-t-2";
+rightWrapper.id = `rec-list-${index}`;
+
+// "Add More +" link
+const addMoreLink = document.createElement("button");
+addMoreLink.className = "text-[#490648] text-sm font-medium hover:underline";
+addMoreLink.textContent = "Add More +";
+addMoreLink.onclick = () => {
+  inputRow.classList.remove("hidden");
+  addMoreLink.classList.add("hidden");
+};
+
+// Input + button row (initially hidden)
+const inputRow = document.createElement("div");
+inputRow.className = "flex gap-2 hidden";
+inputRow.innerHTML = `
+  <input type="text" id="input-${index}" placeholder="Add another point..." 
+    class="flex-1 border border-gray-300 rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#490648]">
+  <button id="btn-${index}" onclick="addPointToCategory(${index})" 
+    class="bg-[#490648] text-white px-4 py-1 rounded text-sm hover:bg-[#6d1a6c]">
+    Add
+  </button>
+`;
+
+rightWrapper.appendChild(addMoreLink);
+rightWrapper.appendChild(inputRow);
+container.appendChild(rightWrapper);
+    const separator = document.createElement("div");
+    separator.className = "col-span-12 border-t border-gray-300 my-4";
+    container.appendChild(separator);
+
+    additionalPointsCountByCategory[index] = 0;
+  });
+
+  document.getElementById("aiGuidanceModal").classList.remove("hidden");
+}
+
+
+
+
+
+
+let additionalPointsCountByCategory = {};
+
+function addPointToCategory(index) {
+  const input = document.getElementById(`input-${index}`);
+  const btn = document.getElementById(`btn-${index}`);
+  const value = input.value.trim();
+
+  if (!value) return;
+
+  if (!additionalPointsCountByCategory[index]) {
+    additionalPointsCountByCategory[index] = 0;
+  }
+
+  if (additionalPointsCountByCategory[index] >= 2) {
+    input.disabled = true;
+    btn.disabled = true;
+    
+    return;
+  }
+
+  const container = document.getElementById(`rec-list-${index}`);
+
+  // Create new point element
+  const newPoint = document.createElement("div");
+ newPoint.className = "col-span-8 flex items-start gap-2 mb-2";
+  newPoint.innerHTML = `
+    <input type="checkbox" class="mt-1 accent-[#490648]">
+    <span class="text-sm text-gray-700">${value}</span>
+  `;
+
+  // Insert the new point above the input row (last child)
+  container.insertBefore(newPoint, container.lastElementChild);
+
+  input.value = "";
+  additionalPointsCountByCategory[index]++;
+
+  if (additionalPointsCountByCategory[index] >= 2) {
+    input.disabled = true;
+    btn.disabled = true;
+  }
+}
+
+
+
+
+
+  function closeAiGuidance() {
+    document.getElementById("aiGuidanceModal").classList.add("hidden");
+  }
+
+
+
+
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963cbc9a06c08adc',t:'MTc1MzI5MDA1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
