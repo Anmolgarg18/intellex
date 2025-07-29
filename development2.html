@@ -663,7 +663,7 @@
         </div>
         
         <!-- Unified Filter Section - Single Line -->
-        <div class="bg-white rounded-lg shadow-md p-4 mb-8 ">
+        <div class="bg-white rounded-lg shadow-md p-4 mb-8 hidden">
             <div class="flex flex-wrap items-end gap-4 hidden">
                 <!-- Category Filter -->
                 <div class="flex-grow">
@@ -705,8 +705,9 @@
                     </div>
                 </div>
             </div>
-            <h1 class="text-[#490648] text-[40px] font-bold">Your Development Plan</h1>
+           
         </div>
+         <h1 class="text-[#490648] text-[26px] font-bold">Your Development Guidance</h1>
         <button onclick="toggleBox()" class="fixed top-[110px] right-[60px] z-50 bg-[#490648] hover:bg-[#5c0b5a] text-white px-4 py-4 rounded-[100%] shadow-lg transition">
 <img src="chatbot.png" class="h-[40px] w-auto" alt="">
 </button>
@@ -759,9 +760,8 @@
   </div>
 
   <!-- AI Guidance: 2 columns -->
-  <div class="col-span-1 flex justify-start">
-    <button onclick="event.stopPropagation(); openAiGuidance(leadingBusinessRecommendations)" class="flex items-center gap-1 px-2 py-1 bg-white rounded-full border text-sm text-gray-700 hover:bg-gray-200 focus:outline-none whitespace-nowrap">
-      <span class="w-2 h-2 rounded-full bg-green-500"></span>
+  <div class="col-span-1 flex justify-start ">
+    <button onclick="event.stopPropagation(); openAiGuidance(leadingBusinessRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
       <span>AI Guidance</span>
     </button>
   </div>
@@ -803,8 +803,8 @@
 
   <!-- AI Guidance: 2 columns -->
   <div class="col-span-1 flex justify-start">
-    <button onclick="event.stopPropagation(); openAiGuidance(leadingOthersRecommendations)" class="flex items-center gap-1 px-2 py-1 bg-white rounded-full border text-sm text-gray-700 hover:bg-gray-200 focus:outline-none whitespace-nowrap">
-      <span class="w-2 h-2 rounded-full bg-green-500"></span>
+    <button onclick="event.stopPropagation(); openAiGuidance(leadingOthersRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
+     
       <span>AI Guidance</span>
     </button>
   </div>
@@ -845,8 +845,8 @@
 
   <!-- AI Guidance: 2 columns -->
   <div class="col-span-1 flex justify-start">
-    <button onclick="event.stopPropagation(); openAiGuidance(leadingSelfRecommendations)" class="flex items-center gap-1 px-2 py-1 bg-white rounded-full border text-sm text-gray-700 hover:bg-gray-200 focus:outline-none whitespace-nowrap">
-      <span class="w-2 h-2 rounded-full bg-green-500"></span>
+    <button onclick="event.stopPropagation(); openAiGuidance(leadingSelfRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
+      
       <span>AI Guidance</span>
     </button>
   </div>
@@ -877,7 +877,7 @@
     <button onclick="closeAiGuidance()" class="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl font-bold">&times;</button>
 
     <!-- Heading -->
-    <h2 class="text-xl font-bold text-[#490648] mb-4">Guidance</h2>
+    <h2 class="text-xl font-bold text-[#490648] mb-4">Your Development Guidance</h2>
 
     <!-- Scrollable inner body -->
 <!-- Scrollable inner body -->
@@ -893,6 +893,13 @@
   <div id="aiGuidanceTable" class="grid grid-cols-12 mb-4 gap-3">
     <!-- JS will dynamically inject category + recommendations per row -->
   </div>
+ <div class="flex justify-center mt-4">
+  <button onclick="closeAiGuidance()" class="px-4 py-2 bg-[#490648] text-white rounded-lg hover:bg-[#5c0b5a] transition">
+  Save
+</button>
+
+</div>
+
 </div>
 
 
@@ -911,7 +918,7 @@
     <script>
         // Personal Attributes data with icons and sub-attributes
         const leadingbusiness = [
-            {description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",    },
+            {description: "To lead a business effectively, focus on setting a clear vision and aligning your team with strategic goals. Encourage innovation, agility, and data-driven decisions to stay ahead of market trends. Build a strong organizational culture based on trust, transparency, and accountability. Invest in developing talent and empowering teams to take ownership. Maintain customer-centricity and continually adapt to evolving needs. Monitor performance regularly and pivot when necessary for sustainable growth.",    },
             {
                 name: "STRENGTHS TO LEVERAGE",
                 category: "LeadingBusiness",
@@ -1055,7 +1062,7 @@
 
         // Work Competencies data with icons and sub-attributes
         const leadingothers = [
-        {description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",    },
+        {description: "To lead others effectively, build strong relationships through empathy, active listening, and clear communication. Set expectations and lead by example to inspire trust and respect. Foster collaboration by encouraging diverse perspectives and inclusive decision-making. Provide regular feedback and support growth through coaching and mentoring. Recognize achievements to boost motivation and engagement. Cultivate a positive team culture where individuals feel valued and empowered.",    },
         
         {
                 name: "STRENGTHS TO LEVERAGE",
@@ -1191,7 +1198,7 @@
         
         // Leadership Traits data with icons and sub-attributes
         const leadingself = [
-            {description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",    },
+            {description: "Leading self starts with self-awareness—understand your strengths, values, and areas for growth. Practice discipline and take accountability for your actions and decisions. Set personal and professional goals, and stay committed to continuous learning. Manage your time, energy, and emotions effectively, especially under pressure. Stay open to feedback and adapt with resilience. Lead with integrity, curiosity, and a growth mindset to inspire others by example.",    },
             {
                 name: "STRENGTHS TO LEVERAGE",
                 category: "LeadingSelf",
@@ -1550,7 +1557,7 @@ const leadingOthersRecommendations = {
                         
                         <!-- Sub-attributes section -->
                         <div class="sub-attributes-container ">
-                            <h3 class="text-gray-700 font-medium mb-3">Sub-attributes</h3>
+                          <!--  <h3 class="text-gray-700 font-medium mb-3">Sub-attributes</h3>-->
                             ${attr.subAttributes.map(subAttr => {
                                 const subRatingWidth = subAttr.rating * 85;
                                 return `
