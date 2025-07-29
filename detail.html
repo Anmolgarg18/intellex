@@ -772,31 +772,28 @@ function openSidePanel(ideatils) {
 </button>
 
 <!-- Chatbot Panel -->
-<div id="chatsection" style="display: none">
-  <div class="chatbot-panel" id="chatPanel">
-    <div class="chat-header">
-      <div class="left">
-        <img src="chatbot.png" class="image-icon" alt="Bot Icon" />
-        <span>
-          Intellex Coach.AI<br />
-          <div style="font-size: 14px;">Your personal growth navigator</div>
-        </span>
+<div id="chatsection" class="fixed right-0 top-[50px] h-[calc(100vh-50px)] flex flex-col items-end z-50 hidden">
+  <div id="chatPanel" class="flex flex-col h-full w-[350px] max-w-full bg-white rounded-l-xl shadow-2xl">
+    <!-- Header -->
+    <div class="flex items-center px-4 py-3 border-b rounded-tl-xl bg-[#490648]">
+      <img src="chatbot.png" alt="Bot Icon" class="w-10 h-10 rounded-lg mr-3" />
+      <div>
+        <span class="font-semibold text-white">Insights Partner</span><br />
+        <span class="text-[#d9a8ee] text-xs">Your personal growth navigator</span>
       </div>
-      <button class="close-btn" onclick="hideBox()">×</button>
+      <button onclick="hideBox()" class="ml-auto text-2xl text-white hover:text-[#d9a8ee]">&times;</button>
     </div>
-
-    <div class="chat-messages" id="chatMessages">
-      <div class="bot-message message">
-        I'm here to provide deeper insights into your development journey and help you navigate your growth opportunities. Based on the recent feedback and assessments, I've compiled tailored recommendations to accelerate your professional development. What would you like to do today?
-      </div>
-    </div>
-
-    <div class="chat-input">
-      <img src="amplify.png" class="image1-icon" alt="Icon" />
-      <span class="chat-input-container">
-        <input type="text" id="userInput" placeholder="Type your message..." class="chat-input-text" />
-        <button onclick="sendMessage()" title="Send" class="send-button">&#8594;</button>
-      </span>
+    <!-- Chat Messages -->
+    <div id="chatMessages" class="flex-1 px-4 py-3 overflow-y-auto space-y-2 bg-gray-50"></div>
+    <!-- Chat Input -->
+    <div class="flex items-center px-4 py-3 border-t bg-white rounded-bl-xl">
+      <img src="amplify.png" alt="Icon" class="w-7 h-7 mr-2" />
+      <input type="text" id="userInput" placeholder="Type your message..." 
+             class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-base focus:outline-none focus:border-[#490648] transition" />
+      <button onclick="sendMessage()" 
+              class="ml-2 bg-[#490648] text-white rounded-full px-5 py-2 hover:bg-[#35033a] transition text-xl">
+        &#8594;
+      </button>
     </div>
   </div>
 </div>
@@ -3034,39 +3031,155 @@ const separatorsHTML = Array.from({ length: segmentLabels.length - 1 }, (_, i) =
         function toggleBox() {
   document.getElementById("chatsection").style.display = "block";
 }
-function hideBox() {
-  document.getElementById("chatsection").style.display = "none";
-}
-
-function sendMessage() {
-  const input = document.getElementById('userInput');
-  const msg = input.value.trim();
-  const chatMessages = document.getElementById('chatMessages');
-
-  if (msg !== "") {
-    const userMsg = document.createElement('div');
-    userMsg.className = 'user-message message';
-    userMsg.textContent = msg;
-    chatMessages.appendChild(userMsg);
-
-    setTimeout(() => {
-      const botMsg = document.createElement('div');
-      botMsg.className = 'bot-message message';
-      botMsg.textContent = "Thank you for your reply";
-      chatMessages.appendChild(botMsg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 500);
-
-    input.value = "";
+function addMessage(content, from = 'bot') {
+    const chatMessages = document.getElementById('chatMessages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = from === 'bot'
+      ? 'bot-message bg-gray-200 text-gray-900 rounded-xl p-4 w-fit max-w-[80%]'
+      : 'user-message bg-[#490648] text-white rounded-xl p-3 ml-auto w-fit max-w-[80%]';
+    msgDiv.textContent = content;
+    chatMessages.appendChild(msgDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
-}
 
-document.getElementById('userInput').addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    sendMessage();
+  // Utility to add a list of clickable option buttons
+  function addOptions(options) {
+    const chatMessages = document.getElementById('chatMessages');
+    const optionsDiv = document.createElement('div');
+    optionsDiv.className = "option-buttons mt-4 flex flex-col gap-3";
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = "option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition";
+      btn.innerHTML = `<span class="mr-2">${opt.icon}</span> ${opt.label}`;
+      btn.onclick = opt.onClick;
+      optionsDiv.appendChild(btn);
+    });
+    chatMessages.appendChild(optionsDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
   }
-});
+
+  // Initial greeting and options
+  function initialBotMessage() {
+    addMessage("Hello! I’m your Insights Partner, here to help you get the most from your detailed report. How can I assist you today?");
+    addOptions([
+      {
+        icon: "1️⃣",
+        label: "Tell me more about the personality tests",
+        onClick: () => {
+          addMessage("Tell me more about the personality tests", "user");
+          document.querySelector('.option-buttons').remove();
+          setTimeout(showPersonalityTests, 300);
+        }
+      },
+      {
+        icon: "2️⃣",
+        label: "Help me understand my scores",
+        onClick: () => {
+          addMessage("Help me understand my scores", "user");
+          document.querySelector('.option-buttons').remove();
+          setTimeout(showEnergyAndDrive, 300);
+        }
+      },
+      {
+        icon: "3️⃣",
+        label: "Share additional insights and recommendations",
+        onClick: () => {
+          addMessage("Share additional insights and recommendations", "user");
+          document.querySelector('.option-buttons').remove();
+          setTimeout(() => {
+            addMessage("Here are some additional insights and recommendations tailored for your development. (Add your logic here!)");
+          }, 300);
+        }
+      },
+      {
+        icon: "4️⃣",
+        label: "I have a different question",
+        onClick: () => {
+          addMessage("I have a different question", "user");
+          document.querySelector('.option-buttons').remove();
+          setTimeout(() => {
+            addMessage("Please type your question below and I'll do my best to assist!");
+          }, 300);
+        }
+      },
+    ]);
+  }
+
+  // Follow-up for option 1
+  function showPersonalityTests() {
+    addMessage("Which personality test would you like to learn more about?");
+    addOptions([
+      {
+        icon: "1.",
+        label: "Hogan Assessment",
+        onClick: () => {
+          addMessage("Hogan Assessment", "user");
+          document.querySelector('.option-buttons').remove();
+          setTimeout(() => {
+            addMessage("The Hogan Assessment evaluates your personality characteristics and how they influence workplace performance.");
+          }, 300);
+        }
+      },
+      {
+        icon: "2.",
+        label: "Burke Assessment",
+        onClick: () => {
+          addMessage("Burke Assessment", "user");
+          document.querySelector('.option-buttons').remove();
+          setTimeout(() => {
+            addMessage("The Burke Assessment measures adaptability and learning agility in professional contexts.");
+          }, 300);
+        }
+      },
+      {
+        icon: "3.",
+        label: "Clifton Assessment",
+        onClick: () => {
+          addMessage("Clifton Assessment", "user");
+          document.querySelector('.option-buttons').remove();
+          setTimeout(() => {
+            addMessage("The Clifton Assessment identifies your strengths to help maximize your potential.");
+          }, 300);
+        }
+      }
+    ]);
+  }
+
+  // Follow-up for option 2
+  function showEnergyAndDrive() {
+    addMessage("Looks like you’re viewing the Energy and Drive section of your report.\n\nEnergy and Drive reflects your motivation, ambition, and enthusiasm for pursuing goals. Higher scores often indicate a proactive approach, willingness to take initiative, and resilience in the face of challenges. Lower scores may suggest a preference for steady, consistent effort and a more measured approach to new opportunities.\n\nLet me know if you’d like to learn more about any other attribute from your report.");
+  }
+
+  // User sends message via text input
+  function sendMessage(msgFromButton) {
+    const input = document.getElementById('userInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const msg = msgFromButton ? msgFromButton.trim() : input.value.trim();
+    if (msg !== "") {
+      addMessage(msg, "user");
+      // Remove options if present (for custom questions)
+      const optionButtons = document.querySelector('.option-buttons');
+      if (optionButtons) optionButtons.remove();
+      setTimeout(() => {
+        addMessage("Thank you for your reply");
+      }, 500);
+      if (!msgFromButton) input.value = "";
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  }
+
+  // Hide panel (for demo)
+  function hideBox() {
+    document.getElementById('chatsection').style.display = 'none';
+  }
+
+  // Initialize on page load
+  window.onload = function() {
+    initialBotMessage();
+    document.getElementById('userInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+  };
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963cbc9a06c08adc',t:'MTc1MzI5MDA1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

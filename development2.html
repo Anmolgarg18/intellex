@@ -617,6 +617,8 @@
   height: 30px;
   width: auto;
 }
+
+  
         .toggle-sub-details:hover {
             background-color: #e5e7eb;
         }
@@ -713,34 +715,56 @@
 </button>
 
 <!-- Chatbot Panel -->
-<div id="chatsection" style="display: none">
-  <div class="chatbot-panel" id="chatPanel">
-    <div class="chat-header">
-      <div class="left">
-        <img src="chatbot.png" class="image-icon" alt="Bot Icon" />
-        <span>
-          Intellex Coach.AI<br />
-          <div style="font-size: 14px;">Your personal growth navigator</div>
-        </span>
+<div id="chatsection" class="fixed right-0 top-[50px] h-[calc(100vh-50px)] flex flex-col items-end z-50">
+  <div id="chatPanel" class="flex flex-col h-full w-[350px] max-w-full bg-white rounded-l-xl shadow-2xl">
+    <!-- Header -->
+    <div class="flex items-center px-4 py-3 border-b rounded-tl-xl bg-[#490648]">
+      <img src="chatbot.png" alt="Bot Icon" class="w-10 h-10 rounded-lg mr-3" />
+      <div>
+        <span class="font-semibold text-white">Insights Partner</span><br />
+        <span class="text-xs" style="color:#d9a8ee;">Your personal growth navigator</span>
       </div>
-      <button class="close-btn" onclick="hideBox()">×</button>
+      <button onclick="hideBox()" class="ml-auto text-2xl text-white hover:text-[#d9a8ee]">&times;</button>
     </div>
-
-    <div class="chat-messages" id="chatMessages">
-      <div class="bot-message message">
-        I'm here to provide deeper insights into your development journey and help you navigate your growth opportunities. Based on the recent feedback and assessments, I've compiled tailored recommendations to accelerate your professional development. What would you like to do today?
+    <!-- Chat Messages -->
+    <div id="chatMessages" class="flex-1 px-4 py-3 overflow-y-auto space-y-2 bg-gray-50">
+      <div class="bot-message bg-gray-200 rounded-xl p-4 text-gray-900">
+        Hello! I’m your Insights Partner, here to provide you with detailed development recommendations and guidance.<br><br>
+        Let me know where you’d like to start:
+        <div class="option-buttons mt-4 flex flex-col gap-3">
+          <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition"
+                  onclick="sendMessage('Science behind the recommendations')">
+            <span class="mr-2">1️⃣</span> Science behind the recommendations
+          </button>
+          <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition"
+                  onclick="sendMessage('Learn more about strengths and risks to minimize')">
+            <span class="mr-2">2️⃣</span> Learn more about strengths and risks to minimize
+          </button>
+          <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition"
+                  onclick="sendMessage('Details about my development plan')">
+            <span class="mr-2">3️⃣</span> Details about my development plan
+          </button>
+          <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition"
+                  onclick="sendMessage('Other questions')">
+            <span class="mr-2">4️⃣</span> Other questions
+          </button>
+        </div>
       </div>
     </div>
-
-    <div class="chat-input">
-      <img src="amplify.png" class="image1-icon" alt="Icon" />
-      <span class="chat-input-container">
-        <input type="text" id="userInput" placeholder="Type your message..." class="chat-input-text" />
-        <button onclick="sendMessage()" title="Send" class="send-button">&#8594;</button>
-      </span>
+    <!-- Chat Input -->
+    <div class="flex items-center px-4 py-3 border-t bg-white rounded-bl-xl">
+      <img src="amplify.png" alt="Icon" class="w-7 h-7 mr-2" />
+      <input type="text" id="userInput" placeholder="Type your message..." 
+             class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-base focus:outline-none focus:border-[#490648] transition" />
+      <button onclick="sendMessage()" 
+              class="ml-2 bg-[#490648] text-white rounded-full px-5 py-2 hover:bg-[#35033a] transition text-xl">
+        &#8594;
+      </button>
     </div>
   </div>
 </div>
+
+
 
         <!-- Personal Attributes Section -->
         <div id="LeadingBusiness-section" class="section-container mb-5">
@@ -1782,33 +1806,39 @@ const leadingOthersRecommendations = {
         function toggleBox() {
   document.getElementById("chatsection").style.display = "block";
 }
-function hideBox() {
-  document.getElementById("chatsection").style.display = "none";
-}
-
-function sendMessage() {
+function sendMessage(msgFromButton) {
   const input = document.getElementById('userInput');
-  const msg = input.value.trim();
   const chatMessages = document.getElementById('chatMessages');
+  const msg = msgFromButton ? msgFromButton.trim() : input.value.trim();
 
   if (msg !== "") {
+    // Add user message
     const userMsg = document.createElement('div');
-    userMsg.className = 'user-message message';
+    userMsg.className = 'user-message bg-[#490648] text-white rounded-xl p-3 ml-auto w-fit max-w-[80%]';
     userMsg.textContent = msg;
     chatMessages.appendChild(userMsg);
 
+    // Remove option buttons after a selection
+    const optionButtons = document.querySelector('.option-buttons');
+    if (optionButtons) optionButtons.remove();
+
+    // Placeholder: Bot reply
     setTimeout(() => {
       const botMsg = document.createElement('div');
-      botMsg.className = 'bot-message message';
+      botMsg.className = 'bot-message bg-gray-200 text-gray-900 rounded-xl p-3 w-fit max-w-[80%]';
       botMsg.textContent = "Thank you for your reply";
       chatMessages.appendChild(botMsg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }, 500);
 
-    input.value = "";
+    if (!msgFromButton) input.value = "";
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 }
+function hideBox() {
+  document.getElementById('chatsection').style.display = 'none';
+}
+
 
 document.getElementById('userInput').addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
