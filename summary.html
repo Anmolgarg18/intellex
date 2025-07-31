@@ -365,11 +365,20 @@
                             </div>
                             <div class="rating-segment-labels"><div class="rating-segment-label">Below Average</div><div class="rating-segment-label">Average</div><div class="rating-segment-label">Above Average</div></div>
                         </div>
-                        <div class="col-span-2 text-center px-4 flex justify-between items-center">
-                            <div class="risk-badge ${riskBadgeClass} flex-grow justify-center"><span class="risk-circle ${riskCircleClass}"></span><span class="capitalize">${attr.risk}</span></div>
-                            <button class="toggle-details ml-2"><span class="tooltip">Expand to learn more</span><i class="fas fa-plus primary-text"></i></button>
-
-                        </div>
+                        ${containerId !== 'leadership-attributes-container' ? `<div class="col-span-1 text-center flex  items-center justify-center">` : '<div class="col-span-1 text-center flex  items-center justify-center invisible">'}
+                            <div class="risk-badge ${riskBadgeClass} ms-2  flex items-center justify-center">
+                                <span class="risk-circle ${riskCircleClass}"></span>
+                                <span class="capitalize">${attr.risk}</span>
+                            </div>
+                          </div>
+                          <div class="col-span-1 flex justify-center ms-2">
+                            <button class="toggle-details ">
+                                <span class="tooltip">Expand to learn more</span>
+                                <div class="toggle-icon">
+                                    <i class="fas fa-plus text-[#490648]"></i>
+                                </div>
+                            </button>
+                            </div>
                     </div>
                     <div class="accordion-content px-4 bg-gray-50"><div class="bg-white rounded-md shadow-sm border-l-4 primary-border p-4"><p class="text-gray-600">${attr.details}</p></div></div>`;
                 container.appendChild(item);
@@ -377,19 +386,37 @@
 
             // accordion toggle
             container.querySelectorAll('.toggle-details').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const content = this.closest('.grid').nextElementSibling;
-                    content.classList.toggle('active');
-                    const icon = this.querySelector('i');
-                    if (content.classList.contains('active')) {
-                        icon.classList.replace('fa-plus', 'fa-minus');
-                        this.querySelector('.tooltip').textContent = "Collapse details";
-                    } else {
-                        icon.classList.replace('fa-minus', 'fa-plus');
-                        this.querySelector('.tooltip').textContent = "Expand to learn more";
-                    }
-                });
-            });
+    btn.addEventListener('click', function() {
+        const thisContent = this.closest('.grid').nextElementSibling;
+        const thisIcon = this.querySelector('i');
+        // GLOBAL: Close all .accordion-content.active everywhere
+        document.querySelectorAll('.accordion-content.active').forEach(openContent => {
+            if (openContent !== thisContent) {
+                openContent.classList.remove('active');
+                // Reset the icon and tooltip for the corresponding button
+                const openBtn = openContent.previousElementSibling.querySelector('.toggle-details');
+                if (openBtn) {
+                    const icon = openBtn.querySelector('i');
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                    openBtn.querySelector('.tooltip').textContent = "Expand to learn more";
+                }
+            }
+        });
+
+        // Then toggle the clicked one
+        const isNowActive = !thisContent.classList.contains('active');
+        thisContent.classList.toggle('active', isNowActive);
+        if (isNowActive) {
+            thisIcon.classList.replace('fa-plus', 'fa-minus');
+            this.querySelector('.tooltip').textContent = "Collapse details";
+        } else {
+            thisIcon.classList.replace('fa-minus', 'fa-plus');
+            this.querySelector('.tooltip').textContent = "Expand to learn more";
+        }
+    });
+});
+
         }
 
         function renderSections(category = 'all', importance = 'all') {
@@ -412,7 +439,8 @@
                             <div class="col-span-3 font-medium text-gray-700 pl-4">${sec.itemLabel} </div>
                             <div class="col-span-2 font-medium text-gray-700 text-center">Importance</div>
                             <div class="col-span-5 font-medium text-gray-700 text-center">Your Rating</div>
-                            <div class="col-span-2 font-medium text-gray-700 text-center">Potential Risk</div>
+                           ${sec.id !== 'leadership' ? `<div class="col-span-2 font-medium text-gray-700 text-start">Potential Risk</div>` : ''}
+
                         </div>
                         <div id="${sec.id}-attributes-container"></div>
                     </div>`;

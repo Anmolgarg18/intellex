@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attributes Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Attributes Dashboard</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <style>
         :root {
             --primary-color: #490648;
             --primary-light: #6d1a6c;
@@ -630,316 +630,293 @@
                 grid-template-columns: 1fr;
             }
         }
-    </style>
-</head>
-<body>
-      <header class="fixed top-0 left-0 right-0 h-[58px] bg-white text-[#490648] px-6 flex justify-between items-center border-b border-b-gray-300 z-20">
-        <div class="flex items-center"><h1 class="text-xl font-bold">Intellex.ai</h1></div>
-        <div class="flex items-center space-x-4">
-            <div class="relative text-left">
-                <details class="group">
-                    <summary class="flex items-center cursor-pointer list-none text-white mr-8">
-                        <div class="w-8 h-8 rounded-full bg-[#490648] flex items-center justify-center"><span class="text-xs font-medium">PM</span></div>
-                        <div class="flex flex-col ms-2 text-left">
-                            <span class="text-sm text-black">John Doe</span>
-                            <span class="text-xs text-gray-600">Senior Manager</span>
-                        </div>
-                        <svg class="w-4 h-4 ml-2 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                    </summary>
-                    <div class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
-                        <a href="/reset-password" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reset Password</a>
-                        <a href="index.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
-                    </div>
-                </details>
+        </style>
+    </head>
+    <body>
+        <header class="fixed top-0 left-0 right-0 h-[58px] bg-white text-[#490648] px-6 flex justify-between items-center border-b border-b-gray-300 z-20">
+            <div class="flex items-center">
+                <h1 class="text-xl font-bold">Intellex.ai</h1>
             </div>
-        </div>
-    </header>
-
-    <div class="container mx-auto px-4 py-8 max-w-6xl mt-[50px]">
-        <!-- Back Button -->
-        <div class="mb-6">
-            <a href="Home.html" class="back-button">
-                <i class="fas fa-arrow-left"></i>
-                <span>Back to Home</span>
-            </a>
-        </div>
-        
-        <!-- Unified Filter Section - Single Line -->
-        <div class="bg-white rounded-lg shadow-md p-4 mb-8 hidden">
-            <div class="flex flex-wrap items-end gap-4 hidden">
-                <!-- Category Filter -->
-                <div class="flex-grow">
-                    <div class="filter-label">Filter by Category</div>
-                    <div class="flex flex-wrap gap-2">
-                        <button class="category-filter primary-bg text-white primary-hover transition" data-category="all">
-                            <i class="fas fa-layer-group filter-icon"></i>
-                            <span>All Categories</span>
-                        </button>
-                        <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingBusiness">
-                            <i class="fas fa-user filter-icon"></i>
-                            <span>Leading Business</span>
-                        </button>
-                        <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingOthers">
-                            <i class="fas fa-briefcase filter-icon"></i>
-                            <span>Leading Others</span>
-                        </button>
-                        <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingSelf">
-                            <i class="fas fa-crown filter-icon"></i>
-                            <span>Leading Self </span>
+            <div class="flex items-center space-x-4">
+                <div class="relative text-left">
+                    <details class="group">
+                        <summary class="flex items-center cursor-pointer list-none text-white mr-8">
+                            <div class="w-8 h-8 rounded-full bg-[#490648] flex items-center justify-center">
+                                <span class="text-xs font-medium">PM</span>
+                            </div>
+                            <div class="flex flex-col ms-2 text-left">
+                                <span class="text-sm text-black">John Doe</span>
+                                <span class="text-xs text-gray-600">Senior Manager</span>
+                            </div>
+                            <svg
+                                class="w-4 h-4 ml-2 text-black"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </summary>
+                        <div class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
+                            <a href="/reset-password" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reset Password</a>
+                            <a href="index.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </header>
+        <div class="container mx-auto px-4 py-8 max-w-6xl mt-[50px]">
+            <!-- Back Button -->
+            <div class="mb-6">
+                <a href="Home.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </a>
+            </div>
+            <!-- Unified Filter Section - Single Line -->
+            <div class="bg-white rounded-lg shadow-md p-4 mb-8 hidden">
+                <div class="flex flex-wrap items-end gap-4 hidden">
+                    <!-- Category Filter -->
+                    <div class="flex-grow">
+                        <div class="filter-label">Filter by Category</div>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="category-filter primary-bg text-white primary-hover transition" data-category="all">
+                                <i class="fas fa-layer-group filter-icon"></i>
+                                <span>All Categories</span>
+                            </button>
+                            <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingBusiness">
+                                <i class="fas fa-user filter-icon"></i>
+                                <span>Leading Business</span>
+                            </button>
+                            <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingOthers">
+                                <i class="fas fa-briefcase filter-icon"></i>
+                                <span>Leading Others</span>
+                            </button>
+                            <button class="category-filter bg-gray-200 text-gray-700 hover:bg-gray-300 transition" data-category="LeadingSelf">
+                                <i class="fas fa-crown filter-icon"></i>
+                                <span>Leading Self</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Importance Filter Dropdown -->
+                    <div class="w-48">
+                        <div class="filter-label">Filter by Importance</div>
+                        <div class="custom-select">
+                            <div class="select-selected" id="importance-select">
+                                <span>All Importance</span>
+                                <i class="fas fa-chevron-down text-gray-500"></i>
+                            </div>
+                            <div class="select-items" id="importance-options">
+                                <div class="select-item selected" data-value="all">All Importance</div>
+                                <div class="select-item" data-value="high">High</div>
+                                <div class="select-item" data-value="medium">Medium</div>
+                                <div class="select-item" data-value="low">Low</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="text-[#490648] text-[26px] font-bold">Your Development Guidance</h1>
+            <button onclick="toggleBox()" class="fixed top-[110px] right-[60px] z-50 bg-[#490648] hover:bg-[#5c0b5a] text-white px-4 py-4 rounded-[100%] shadow-lg transition">
+                <img src="chatbot.png" class="h-[40px] w-auto" alt="">
+            </button>
+            <!-- Chatbot Panel -->
+            <div id="chatsection" class="fixed right-0 top-[50px] h-[calc(100vh-50px)] flex flex-col items-end z-50">
+                <div id="chatPanel" class="flex flex-col h-full w-[350px] max-w-full bg-white rounded-l-xl shadow-2xl">
+                    <!-- Header -->
+                    <div class="flex items-center px-4 py-3 border-b rounded-tl-xl bg-[#490648]">
+                        <img src="chatbot.png" alt="Bot Icon" class="w-10 h-10 rounded-lg mr-3">
+                        <div>
+                            <span class="font-semibold text-white">Insights Partner</span>
+                            <br>
+                            <span class="text-xs" style="color:#d9a8ee;">Your personal growth navigator</span>
+                        </div>
+                        <button onclick="hideBox()" class="ml-auto text-2xl text-white hover:text-[#d9a8ee]">&times;</button>
+                    </div>
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="flex-1 px-4 py-3 overflow-y-auto space-y-2 bg-gray-50">
+                        <div class="bot-message bg-gray-200 rounded-xl p-4 text-gray-900">
+                            Hello! I’m your Insights Partner, here to provide you with detailed development recommendations and guidance.
+                            <br>
+                            <br>
+                            Let me know where you’d like to start:
+                            <div class="option-buttons mt-4 flex flex-col gap-3">
+                                <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition" onclick="sendMessage('Science behind the recommendations')">
+                                    <span class="mr-2">1️⃣</span>
+                                    Science behind the recommendations
+                                </button>
+                                <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition" onclick="sendMessage('Learn more about strengths and risks to minimize')">
+                                    <span class="mr-2">2️⃣</span>
+                                    Learn more about strengths and risks to minimize
+                                </button>
+                                <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition" onclick="sendMessage('Details about my development plan')">
+                                    <span class="mr-2">3️⃣</span>
+                                    Details about my development plan
+                                </button>
+                                <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition" onclick="sendMessage('Other questions')">
+                                    <span class="mr-2">4️⃣</span>
+                                    Other questions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Chat Input -->
+                    <div class="flex items-center px-4 py-3 border-t bg-white rounded-bl-xl">
+                        <img src="amplify.png" alt="Icon" class="w-7 h-7 mr-2">
+                        <input
+                            type="text"
+                            id="userInput"
+                            placeholder="Type your message..."
+                            class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-base focus:outline-none focus:border-[#490648] transition"
+                        >
+                        <button onclick="sendMessage()" class="ml-2 bg-[#490648] text-white rounded-full px-5 py-2 hover:bg-[#35033a] transition text-xl">
+                            &#8594;
                         </button>
                     </div>
                 </div>
-                
-                <!-- Importance Filter Dropdown -->
-                <div class="w-48">
-                    <div class="filter-label">Filter by Importance</div>
-                    <div class="custom-select">
-                        <div class="select-selected" id="importance-select">
-                            <span>All Importance</span>
-                            <i class="fas fa-chevron-down text-gray-500"></i>
+            </div>
+            <!-- Leading The Business Section -->
+            <div id="LeadingBusiness-section" class="section-container mb-5">
+                <div class="grid grid-cols-12 items-center px-1">
+                    <div class="section-header col-span-11">
+                        <i class="fas fa-user"></i>
+                        <span>Leading The Business</span>
+                    </div>
+                    <div class="col-span-1 flex justify-start ">
+                        <button onclick="event.stopPropagation(); openAiGuidance(leadingBusinessRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
+                            <span>AI Guidance</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Attributes List -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <!-- Header with toggle -->
+                    <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('Leading-Business')">
+                        <!-- Text: 8 columns -->
+                        <div class="col-span-11 text-gray-800">
+                            <p id="leading-business-description" class="text-gray-800 "></p>
                         </div>
-                        <div class="select-items" id="importance-options">
-                            <div class="select-item selected" data-value="all">All Importance</div>
-                            <div class="select-item" data-value="high">High</div>
-                            <div class="select-item" data-value="medium">Medium</div>
-                            <div class="select-item" data-value="low">Low</div>
+                        <!-- AI Guidance: 2 columns -->
+                        <!-- Chevron Icon: 2 columns -->
+                        <div class="col-span-1 flex justify-center ms-2">
+                            <button class="toggle-details ">
+                                <span class="tooltip">Expand to learn more</span>
+                                <div class="toggle-icon">
+                                    <i id="Leading-Business-attributes-container-icon" class="fas fa-plus"></i>
+                                </div>
+                            </button>
                         </div>
+                    </div>
+                    <!-- Attribute Items (Initially Hidden) -->
+                    <div id="Leading-Business-attributes-container" class="hidden p-4"></div>
+                </div>
+            </div>
+            <!-- LeadingOthers Competencies Section -->
+            <div id="LeadingOthers-section" class="section-container mb-10">
+                <div class="grid grid-cols-12 items-center ">
+                    <div class="section-header col-span-11">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Leading Others</span>
+                    </div>
+                    <div class="col-span-1 flex justify-start ">
+                        <button onclick="event.stopPropagation(); openAiGuidance(leadingOthersRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
+                            <span>AI Guidance</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Attributes List -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <!-- Header with toggle -->
+                    <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('LeadingOthers')">
+                        <!-- Text: 8 columns -->
+                        <div class="col-span-11 text-gray-800">
+                            <p id="LeadingOthers-description" class="text-gray-800 "></p>
+                        </div>
+                        <!-- AI Guidance: 2 columns -->
+                        <!-- Chevron Icon: 2 columns -->
+                        <div class="col-span-1 flex justify-center ms-2">
+                            <button class="toggle-details ">
+                                <span class="tooltip">Expand to learn more</span>
+                                <div class="toggle-icon">
+                                    <i id="LeadingOthers-attributes-container-icon" class="fas fa-plus"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Attribute Items (Initially Hidden) -->
+                    <div id="LeadingOthers-attributes-container" class="hidden p-4"></div>
+                </div>
+            </div>
+            <!-- Leadership Self Section -->
+            <div id="LeadingSelf-section" class="section-container mb-10  ">
+                <div class="grid grid-cols-12 items-center ">
+                    <div class="section-header col-span-11">
+                        <i class="fas fa-crown"></i>
+                        <span>Leading Self</span>
+                    </div>
+                    <!-- AI Guidance: 2 columns -->
+                    <div class="col-span-1 flex justify-start ">
+                        <button onclick="event.stopPropagation(); openAiGuidance(leadingSelfRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
+                            <span>AI Guidance</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Attributes List -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <!-- Header with toggle -->
+                    <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('LeadingSelf')">
+                        <!-- Text: 8 columns -->
+                        <div class="col-span-11 text-gray-800">
+                            <p id="LeadingSelf-description" class="text-gray-800 "></p>
+                        </div>
+                        <!-- Chevron Icon: 2 columns -->
+                        <div class="col-span-1 flex justify-center ms-2">
+                            <button class="toggle-details ">
+                                <span class="tooltip">Expand to learn more</span>
+                                <div class="toggle-icon">
+                                    <i id="LeadingSelf-attributes-container-icon" class="fas fa-plus"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Attribute Items (Initially Hidden) -->
+                    <div id="LeadingSelf-attributes-container" class="hidden p-4"></div>
+                </div>
+            </div>
+        </div>
+        <!-- AI Guidance Modal -->
+        <!-- AI Guidance Modal -->
+        <div id="aiGuidanceModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full relative p-6">
+                <!-- Close Button -->
+                <button onclick="closeAiGuidance()" class="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl font-bold">&times;</button>
+                <!-- Heading -->
+                <h2 class="text-xl font-bold text-[#490648] mb-4">Your Development Guidance</h2>
+                <!-- Scrollable inner body -->
+                <!-- Scrollable inner body -->
+                <!-- Scrollable inner body -->
+                <div class="max-h-[65vh] overflow-y-auto pr-2">
+                    <!-- Table Headers -->
+                    <div class="grid grid-cols-12 gap-4 mb-3">
+                        <div class="col-span-4 text-sm font-semibold text-gray-600 uppercase">Category</div>
+                        <div class="col-span-8 text-sm font-semibold text-gray-600 uppercase">Recommended Actions</div>
+                    </div>
+                    <!-- Grid for Category and Recommendations -->
+                    <div id="aiGuidanceTable" class="grid grid-cols-12 mb-4 gap-3">
+                        <!-- JS will dynamically inject category + recommendations per row --></div>
+                    <div class="flex justify-center mt-4">
+                        <button onclick="closeAiGuidance()" class="px-4 py-2 bg-[#490648] text-white rounded-lg hover:bg-[#5c0b5a] transition">
+                            Save
+                        </button>
                     </div>
                 </div>
             </div>
-           
-        </div>
-         <h1 class="text-[#490648] text-[26px] font-bold">Your Development Guidance</h1>
-        <button onclick="toggleBox()" class="fixed top-[110px] right-[60px] z-50 bg-[#490648] hover:bg-[#5c0b5a] text-white px-4 py-4 rounded-[100%] shadow-lg transition">
-<img src="chatbot.png" class="h-[40px] w-auto" alt="">
-</button>
-
-<!-- Chatbot Panel -->
-<div id="chatsection" class="fixed right-0 top-[50px] h-[calc(100vh-50px)] flex flex-col items-end z-50">
-  <div id="chatPanel" class="flex flex-col h-full w-[350px] max-w-full bg-white rounded-l-xl shadow-2xl">
-    <!-- Header -->
-    <div class="flex items-center px-4 py-3 border-b rounded-tl-xl bg-[#490648]">
-      <img src="chatbot.png" alt="Bot Icon" class="w-10 h-10 rounded-lg mr-3" />
-      <div>
-        <span class="font-semibold text-white">Insights Partner</span><br />
-        <span class="text-xs" style="color:#d9a8ee;">Your personal growth navigator</span>
-      </div>
-      <button onclick="hideBox()" class="ml-auto text-2xl text-white hover:text-[#d9a8ee]">&times;</button>
-    </div>
-    <!-- Chat Messages -->
-    <div id="chatMessages" class="flex-1 px-4 py-3 overflow-y-auto space-y-2 bg-gray-50">
-      <div class="bot-message bg-gray-200 rounded-xl p-4 text-gray-900">
-        Hello! I’m your Insights Partner, here to provide you with detailed development recommendations and guidance.<br><br>
-        Let me know where you’d like to start:
-        <div class="option-buttons mt-4 flex flex-col gap-3">
-          <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition"
-                  onclick="sendMessage('Science behind the recommendations')">
-            <span class="mr-2">1️⃣</span> Science behind the recommendations
-          </button>
-          <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition"
-                  onclick="sendMessage('Learn more about strengths and risks to minimize')">
-            <span class="mr-2">2️⃣</span> Learn more about strengths and risks to minimize
-          </button>
-          <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition"
-                  onclick="sendMessage('Details about my development plan')">
-            <span class="mr-2">3️⃣</span> Details about my development plan
-          </button>
-          <button class="option-btn border border-[#490648] text-[#490648] rounded-xl px-4 py-2 text-left hover:bg-[#490648]/10 transition"
-                  onclick="sendMessage('Other questions')">
-            <span class="mr-2">4️⃣</span> Other questions
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- Chat Input -->
-    <div class="flex items-center px-4 py-3 border-t bg-white rounded-bl-xl">
-      <img src="amplify.png" alt="Icon" class="w-7 h-7 mr-2" />
-      <input type="text" id="userInput" placeholder="Type your message..." 
-             class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-base focus:outline-none focus:border-[#490648] transition" />
-      <button onclick="sendMessage()" 
-              class="ml-2 bg-[#490648] text-white rounded-full px-5 py-2 hover:bg-[#35033a] transition text-xl">
-        &#8594;
-      </button>
-    </div>
-  </div>
-</div>
-
-
-
-        <!-- Personal Attributes Section -->
-        <div id="LeadingBusiness-section" class="section-container mb-5">
-            <div class="section-header">
-                <i class="fas fa-user"></i>
-                <span>LEADING THE BUSINESS</span>
-            </div>
-            
-            <!-- Attributes List -->
-           <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-    <!-- Header with toggle -->
-    <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('Leading-Business')">
-  
-  <!-- Text: 8 columns -->
-  <div class="col-span-10 text-gray-800">
-  <p id="leading-business-description" class="text-gray-800 "></p>
-  </div>
-
-  <!-- AI Guidance: 2 columns -->
-  <div class="col-span-1 flex justify-start ">
-    <button onclick="event.stopPropagation(); openAiGuidance(leadingBusinessRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
-      <span>AI Guidance</span>
-    </button>
-  </div>
-
-  <!-- Chevron Icon: 2 columns -->
-  <div class="col-span-1 flex justify-end">
-    <svg id="Leading-Business-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-200 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </div>
-
-</div>
-
-    
-    <!-- Attribute Items (Initially Hidden) -->
-    <div id="Leading-Business-attributes-container" class="hidden p-4">
-        
-    </div>
-</div>
-        </div>
-        
-        <!-- LeadingOthers Competencies Section -->
-        <div id="LeadingOthers-section" class="section-container mb-">
-            <div class="section-header">
-                <i class="fas fa-briefcase"></i>
-                <span>Leading Others</span>
-            </div>
-            
-            <!-- Attributes List -->
-            <!-- Attributes List -->
-           <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-    <!-- Header with toggle -->
- <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('LeadingOthers')">
-  
-  <!-- Text: 8 columns -->
-  <div class="col-span-10 text-gray-800">
-  <p id="LeadingOthers-description" class="text-gray-800 "></p>
-  </div>
-
-  <!-- AI Guidance: 2 columns -->
-  <div class="col-span-1 flex justify-start">
-    <button onclick="event.stopPropagation(); openAiGuidance(leadingOthersRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
-     
-      <span>AI Guidance</span>
-    </button>
-  </div>
-
-  <!-- Chevron Icon: 2 columns -->
-  <div class="col-span-1 flex justify-end">
-    <svg id="LeadingOthers-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-200 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </div>
-
-</div>
-
-    
-    <!-- Attribute Items (Initially Hidden) -->
-    <div id="LeadingOthers-attributes-container" class="hidden p-4">
-        
-    </div>
-</div>
-        </div>
-        
-        <!-- Leadership Self Section -->
-        <div id="LeadingSelf-section" class="section-container mb-10">
-            <div class="section-header">
-                <i class="fas fa-crown"></i>
-                <span>Leading Self</span>
-            </div>
-            
-            <!-- Attributes List -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-    <!-- Header with toggle -->
-  <div class="grid grid-cols-12 items-center gap-4 bg-gray-100 p-4 border-b border-gray-200 cursor-pointer" onclick="toggleAttributes('LeadingSelf')">
-  
-  <!-- Text: 8 columns -->
-  <div class="col-span-10 text-gray-800">
-  <p id="LeadingSelf-description" class="text-gray-800 "></p>
-  </div>
-
-  <!-- AI Guidance: 2 columns -->
-  <div class="col-span-1 flex justify-start">
-    <button onclick="event.stopPropagation(); openAiGuidance(leadingSelfRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
-      
-      <span>AI Guidance</span>
-    </button>
-  </div>
-
-  <!-- Chevron Icon: 2 columns -->
-  <div class="col-span-1 flex justify-end">
-    <svg id="LeadingSelf-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-200 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </div>
-
-</div>
-
-    
-    <!-- Attribute Items (Initially Hidden) -->
-    <div id="LeadingSelf-attributes-container" class="hidden p-4">
-        
-    </div>
-</div>
         </div>
     </div>
-<!-- AI Guidance Modal -->
-<!-- AI Guidance Modal -->
-<div id="aiGuidanceModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-  <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full relative p-6">
-
-    <!-- Close Button -->
-    <button onclick="closeAiGuidance()" class="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl font-bold">&times;</button>
-
-    <!-- Heading -->
-    <h2 class="text-xl font-bold text-[#490648] mb-4">Your Development Guidance</h2>
-
-    <!-- Scrollable inner body -->
-<!-- Scrollable inner body -->
-<!-- Scrollable inner body -->
-<div class="max-h-[65vh] overflow-y-auto pr-2">
-  <!-- Table Headers -->
-  <div class="grid grid-cols-12 gap-4 mb-3">
-    <div class="col-span-4 text-sm font-semibold text-gray-600 uppercase">Category</div>
-    <div class="col-span-8 text-sm font-semibold text-gray-600 uppercase">Recommended Actions</div>
-  </div>
-
-  <!-- Grid for Category and Recommendations -->
-  <div id="aiGuidanceTable" class="grid grid-cols-12 mb-4 gap-3">
-    <!-- JS will dynamically inject category + recommendations per row -->
-  </div>
- <div class="flex justify-center mt-4">
-  <button onclick="closeAiGuidance()" class="px-4 py-2 bg-[#490648] text-white rounded-lg hover:bg-[#5c0b5a] transition">
-  Save
-</button>
-
 </div>
-
 </div>
-
-
-
-    
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-
-
-    <script>
+<script>
         // Personal Attributes data with icons and sub-attributes
         const leadingbusiness = [
             {description: "To lead a business effectively, focus on setting a clear vision and aligning your team with strategic goals. Encourage innovation, agility, and data-driven decisions to stay ahead of market trends. Build a strong organizational culture based on trust, transparency, and accountability. Invest in developing talent and empowering teams to take ownership. Maintain customer-centricity and continually adapt to evolving needs. Monitor performance regularly and pivot when necessary for sustainable growth.",    },
@@ -1661,22 +1638,38 @@ const leadingOthersRecommendations = {
             });
             
             // Add event listeners to sub-attribute toggle buttons
-            containerElement.querySelectorAll('.sub-attribute-header').forEach((header) => {
-                header.addEventListener('click', function() {
-                    const content = this.nextElementSibling;
-                    content.classList.toggle('active');
-                    
-                    // Toggle icon
-                    const icon = this.querySelector('.toggle-sub-details i');
-                    if (content.classList.contains('active')) {
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    } else {
+         containerElement.querySelectorAll('.sub-attribute-header').forEach((header) => {
+    header.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+
+        // CLOSE ALL OTHER SUB-ACCORDIONS
+        document.querySelectorAll('.sub-accordion-content.active').forEach(openContent => {
+            if (openContent !== content) {
+                openContent.classList.remove('active');
+                const openHeader = openContent.previousElementSibling;
+                if (openHeader) {
+                    const icon = openHeader.querySelector('.toggle-sub-details i');
+                    if (icon) {
                         icon.classList.remove('fa-chevron-up');
                         icon.classList.add('fa-chevron-down');
                     }
-                });
-            });
+                }
+            }
+        });
+
+        // TOGGLE CURRENT SUB-ACCORDION
+        content.classList.toggle('active');
+        const icon = this.querySelector('.toggle-sub-details i');
+        if (content.classList.contains('active')) {
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        } else {
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+    });
+});
+
         }
         
         // Filter attributes based on category and importance
@@ -1847,13 +1840,31 @@ document.getElementById('userInput').addEventListener('keypress', function (e) {
 });
 function toggleAttributes(sectionID) {
     const container = document.getElementById(`${sectionID}-attributes-container`);
-    const icon = document.getElementById(`${sectionID}-toggle-icon`);
+    const icon = document.getElementById(`${sectionID}-attributes-container-icon`);
     const isHidden = container.classList.contains("hidden");
 
+    // --- NEW: Close all other section containers first ---
+    document.querySelectorAll('[id$="-attributes-container"]').forEach(otherContainer => {
+        if (otherContainer !== container && !otherContainer.classList.contains('hidden')) {
+            otherContainer.classList.add('hidden');
+            // Reset icon for the closed section
+            const otherIconId = otherContainer.id.replace('-attributes-container', '-attributes-container-icon');
+            const otherIcon = document.getElementById(otherIconId);
+            if (otherIcon) {
+                otherIcon.classList.remove('fa-minus');
+                otherIcon.classList.add('fa-plus');
+            }
+        }
+    });
+
+    // Toggle this section as usual
     container.classList.toggle("hidden");
-    icon.classList.toggle("rotate-180");
 
     if (isHidden) {
+        // Just opened → change main icon to minus
+        icon.classList.remove('fa-plus');
+        icon.classList.add('fa-minus');
+
         // Open all accordion sections inside the container
         const toggleButtons = container.querySelectorAll('.toggle-details');
         toggleButtons.forEach((btn) => {
@@ -1862,7 +1873,7 @@ function toggleAttributes(sectionID) {
                 content.classList.add('active');
                 btn.classList.add('active');
 
-                // Swap icon
+                // Swap icon inside each toggle
                 const iconContainer = btn.querySelector('.toggle-icon i');
                 iconContainer.classList.remove('fa-plus');
                 iconContainer.classList.add('fa-minus');
@@ -1872,8 +1883,13 @@ function toggleAttributes(sectionID) {
                 if (tooltip) tooltip.textContent = "Collapse details";
             }
         });
+    } else {
+        // Just closed → change main icon to plus
+        icon.classList.remove('fa-minus');
+        icon.classList.add('fa-plus');
     }
 }
+
 
 let additionalPointsCount = 0;
 
@@ -1998,10 +2014,7 @@ function addPointToCategory(index) {
   function closeAiGuidance() {
     document.getElementById("aiGuidanceModal").classList.add("hidden");
   }
-
-
-
-
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963cbc9a06c08adc',t:'MTc1MzI5MDA1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963cbc9a06c08adc',t:'MTc1MzI5MDA1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>
