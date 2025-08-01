@@ -919,11 +919,7 @@ li:before {
                         <i class="fas fa-user"></i>
                         <span>Leading The Business</span>
                     </div>
-                    <div class="col-span-1 flex justify-start ">
-                        <button onclick="event.stopPropagation(); openAiGuidance(leadingBusinessRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
-                            <span>AI Guidance</span>
-                        </button>
-                    </div>
+                    
                 </div>
                 <!-- Attributes List -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
@@ -933,7 +929,7 @@ li:before {
                         <div class="col-span-11 text-gray-800">
                             <p id="leading-business-description" class="text-gray-800 "></p>
                         </div>
-                        <!-- AI Guidance: 2 columns -->
+                       
                         <!-- Chevron Icon: 2 columns -->
                         <div class="col-span-1 flex justify-center ms-2">
                             <button class="toggle-details ">
@@ -945,8 +941,13 @@ li:before {
                         </div>
                     </div>
                     <!-- Attribute Items (Initially Hidden) -->
-                    <div id="Leading-Business-attributes-container" class="hidden p-4"></div>
+                    <div id="Leading-Business-attributes-container" class="hidden p-4">
+                    <!-- AI Guidance: 2 columns -->
+                    
+                    </div>
+                    
                 </div>
+               
             </div>
             <!-- LeadingOthers Competencies Section -->
             <div id="LeadingOthers-section" class="section-container mb-10">
@@ -955,11 +956,7 @@ li:before {
                         <i class="fas fa-briefcase"></i>
                         <span>Leading Others</span>
                     </div>
-                    <div class="col-span-1 flex justify-start ">
-                        <button onclick="event.stopPropagation(); openAiGuidance(leadingOthersRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
-                            <span>AI Guidance</span>
-                        </button>
-                    </div>
+                    
                 </div>
                 <!-- Attributes List -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
@@ -990,13 +987,7 @@ li:before {
                     <div class="section-header col-span-11">
                         <i class="fas fa-crown"></i>
                         <span>Leading Self</span>
-                    </div>
-                    <!-- AI Guidance: 2 columns -->
-                    <div class="col-span-1 flex justify-start ">
-                        <button onclick="event.stopPropagation(); openAiGuidance(leadingSelfRecommendations)" class="flex items-center gap-1 px-4 py-2 bg-[#490648] rounded-full  text-sm text-white  focus:outline-none whitespace-nowrap">
-                            <span>AI Guidance</span>
-                        </button>
-                    </div>
+                    </div> 
                 </div>
                 <!-- Attributes List -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
@@ -1729,12 +1720,35 @@ const leadingOthersRecommendations = {
                                     </div>
                                 `;
                             }).join('')}
+                         
                         </div>
+                           
                     </div>
+                    
                 `;
                 
                 containerElement.appendChild(attributeElement);
             });
+            // ...inside renderAttributes function, after the attributes.forEach loop...
+
+// Add AI Guidance button at the end of the attributes list
+let aiGuidanceData = null;
+if (container === 'Leading-Business-attributes-container') {
+    aiGuidanceData = leadingBusinessRecommendations;
+} else if (container === 'LeadingOthers-attributes-container') {
+    aiGuidanceData = leadingOthersRecommendations;
+} else if (container === 'LeadingSelf-attributes-container') {
+    aiGuidanceData = leadingSelfRecommendations;
+}
+if (aiGuidanceData) {
+    const aiBtn = document.createElement('button');
+    aiBtn.className = "flex items-center gap-1 mx-auto my-2 px-4 py-2 bg-[#490648] rounded-full text-sm text-white focus:outline-none whitespace-nowrap";
+    aiBtn.innerHTML = `<span>AI Guidance</span>`;
+    aiBtn.onclick = function() {
+        openAiGuidance(aiGuidanceData);
+    };
+    containerElement.appendChild(aiBtn);
+}
             
             // Add event listeners to main toggle buttons
             containerElement.querySelectorAll('.toggle-details').forEach((btn) => {

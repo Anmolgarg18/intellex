@@ -2476,22 +2476,41 @@ function renderworkAttributes(container, attributes) {
         { title: 'Next 5 Competencies', list: next5 }
     ];
 
-    allSections.forEach(section => {
-        // Heading
-        const sectionHeader = document.createElement('h3');
-        sectionHeader.className = 'text-xl font-bold text-gray-700 bg-[#f0f4f8] p-4';
-        sectionHeader.textContent = section.title;
+    allSections.forEach((section, sectionIdx) => {
+        const sectionContentId = `section-content-${sectionIdx}`;
+        const isOpenByDefault = sectionIdx === 0; // Top 5 open, Next 5 closed
+
+        const iconClass = isOpenByDefault ? 'fa-minus' : 'fa-plus';
+        const contentClass = isOpenByDefault
+            ? 'section-content transition-all duration-300'
+            : 'section-content hidden transition-all duration-300';
+
+        // Section Header
+        const sectionHeader = document.createElement('div');
+        sectionHeader.className = 'grid grid-cols-12 items-center bg-[#f0f4f8] p-4';
+        sectionHeader.innerHTML = `
+            <h3 class="col-span-11 justify-center text-xl font-bold text-gray-700">${section.title}</h3>
+            <div class="col-span-1 flex justify-center">
+                <button onclick="toggleSectionContent('${sectionContentId}', this)" 
+                        class="toggle-section-btn border rounded-full w-8 h-8 flex items-center justify-center">
+                    <i class="fas ${iconClass} text-[#490648]"></i>
+                </button>
+            </div>
+        `;
         containerElement.appendChild(sectionHeader);
 
-        if (section.list.length === 0) {
-            const emptyDiv = document.createElement('div');
-            emptyDiv.className = 'text-gray-500 italic px-4 pb-4';
-            emptyDiv.textContent = 'No attributes available in this section.';
-            containerElement.appendChild(emptyDiv);
-        } else {
-            section.list.forEach((attr,attrIndex) => {
-                const ratingWidth = attr.rating * 85;
+        // Section Content (default open/closed)
+        const sectionContent = document.createElement('div');
+        sectionContent.id = sectionContentId;
+        sectionContent.className = contentClass;
 
+        if (section.list.length === 0) {
+            sectionContent.innerHTML = `
+                <div class="text-gray-500 italic px-4 pb-4">No attributes available in this section.</div>
+            `;
+        } else {
+            section.list.forEach((attr, attrIndex) => {
+                const ratingWidth = attr.rating * 85;
                 let riskBadgeClass = "risk-badge-low";
                 let riskCircleClass = "risk-low";
                 if (attr.risk === "high") {
@@ -2501,115 +2520,56 @@ function renderworkAttributes(container, attributes) {
                     riskBadgeClass = "risk-badge-medium";
                     riskCircleClass = "risk-medium";
                 }
-
                 const attributeElement = document.createElement('div');
                 attributeElement.className = 'border-b border-gray-200 last:border-b-0';
                 attributeElement.innerHTML = `
                     <div class="grid grid-cols-12 p-4 items-center hover:bg-gray-50 transition">
                         <div class="col-span-3 font-medium text-gray-800 pl-4 flex items-center">
                             <div class="attribute-icon"><i class="fas ${attr.icon}"></i></div>
-                            <span class="attribute-name mr-2">${attr.subAttributesname}</span>
-                             <i onclick="openworkInfoPanel(this)" class="fas fa-info-circle text-[#490648]" data-type="sub" data-sub-name="${attr.subAttributesname}"></i>
+                            <span class="attribute-name mr-2">${attr.subAttributesname || attr.name}</span>
+                            <i onclick="openworkInfoPanel(this)" class="fas fa-info-circle text-[#490648]" data-type="sub" data-sub-name="${attr.subAttributesname || attr.name}"></i>
                         </div>
                         <div class="col-span-2 text-center px-2">
                             <span class="importance-badge capitalize">${attr.name}</span>
-                           
-
-
                         </div>
-                        <div class="col-span-5 px-6 flex flex-col items-center">
-                           <!-- <div class="rating-scale w-full">
-                                <div class="rating-scale-bg">
-                                    <div class="rating-scale-fill" style="width: ${ratingWidth}%"></div>
-                                    <div class="rating-tick tick-1"></div>
-                                    <div class="rating-tick tick-2"></div>
-                                    <div class="rating-tick tick-3"></div>
-                                    <div class="rating-tick tick-4"></div>
-                                    <div class="rating-tick tick-5"></div>
-                                    <div class="rating-tick tick-6"></div>
-                                    <div class="rating-tick tick-7"></div>
-                                    <div class="rating-tick tick-8"></div>
-                                    <div class="rating-tick tick-9"></div>
-                                </div>
-                                <div class="rating-separator separator-1"></div>
-                                <div class="rating-separator separator-2"></div>
-                                <div class="rating-scale-marker" style="left: ${ratingWidth}%"></div>
-                            </div>
-                            <div class="rating-segment-labels">
-                                <div class="rating-segment-label">Below Average</div>
-                                <div class="rating-segment-label">Average</div>
-                                <div class="rating-segment-label">Above Average</div>
-                            </div>-->
-                        </div>
+                        <div class="col-span-5 px-6 flex flex-col items-center"></div>
                         <div class="col-span-1 text-center px-4 flex justify-between items-center relative">
-    <div class="invisible w-full absolute">
-        <div class="risk-badge ${riskBadgeClass} flex-grow justify-center">
-            <span class="risk-circle ${riskCircleClass}"></span>
-            <span class="capitalize">${attr.risk}</span>
-        </div>
-    </div>
-    </div>
-    <div class="col-span-1 flex justify-center ms-2">
-                            <button class="toggle-details ">
-                                
-                                <div class="toggle-icon">
-                                    <button class="bg-white rounded-full px-6 text-sm py-1 text-[#490648] border border-[#490648]" onclick="openImplications(${attrIndex},null,'workCompetencies','${attr.details ? attr.details.replace(/'/g, "\\'") : ''}')">View</button>
-
+                            <div class="invisible w-full absolute">
+                                <div class="risk-badge ${riskBadgeClass} flex-grow justify-center">
+                                    <span class="risk-circle ${riskCircleClass}"></span>
+                                    <span class="capitalize">${attr.risk || ''}</span>
                                 </div>
-                            </button>
                             </div>
+                        </div>
+                        <div class="col-span-1 flex justify-center ms-2">
+                            <button class="bg-white rounded-full px-6 text-sm py-1 text-[#490648] border border-[#490648]"
+                                onclick="openImplications(${attrIndex}, null, 'workCompetencies', '${attr.details ? attr.details.replace(/'/g, "\\'") : ''}')">View</button>
+                        </div>
                     </div>
-                    
                 `;
-                containerElement.appendChild(attributeElement);
+                sectionContent.appendChild(attributeElement);
             });
         }
+        containerElement.appendChild(sectionContent);
     });
+}
 
-    // Toggle expand/collapse functionality
-  containerElement.querySelectorAll('.toggle-details').forEach((btn) => {
-    btn.addEventListener('click', function () {
-        const content = this.closest('.grid').nextElementSibling;
-
-        // --- START OF NEW CODE ---
-        // Close all other open accordions globally
-        document.querySelectorAll('.accordion-content.active').forEach(openContent => {
-            if (openContent !== content) {
-                openContent.classList.remove('active');
-                const openBtn = openContent.previousElementSibling.querySelector('.toggle-details');
-                if (openBtn) {
-                    openBtn.classList.remove('active');
-                    const openIcon = openBtn.querySelector('.toggle-icon i');
-                    const openTooltip = openBtn.querySelector('.tooltip');
-                    if (openIcon) {
-                        openIcon.classList.remove('fa-minus');
-                        openIcon.classList.add('fa-plus');
-                    }
-                    if (openTooltip) {
-                        
-                    }
-                }
-            }
-        });
-        // --- END OF NEW CODE ---
-
-        content.classList.toggle('active');
-        this.classList.toggle('active');
-
-        const icon = this.querySelector('.toggle-icon i');
-        const tooltip = this.querySelector('.tooltip');
-        if (content.classList.contains('active')) {
-            icon.classList.remove('fa-plus');
-            icon.classList.add('fa-minus');
-            
-        } else {
+// This function must be in the global scope for inline onclick to work!
+function toggleSectionContent(contentId, btn) {
+    const content = document.getElementById(contentId);
+    if (!content) return;
+    content.classList.toggle('hidden');
+    // Change icon accordingly
+    const icon = btn.querySelector('i');
+    if (icon) {
+        if (content.classList.contains('hidden')) {
             icon.classList.remove('fa-minus');
             icon.classList.add('fa-plus');
-           
+        } else {
+            icon.classList.remove('fa-plus');
+            icon.classList.add('fa-minus');
         }
-    });
-});
-
+    }
 }
 
 
@@ -2684,12 +2644,11 @@ function renderleaadershipttributes(container, attributes) {
                         <div class="col-span-1 text-center px-4 flex justify-center items-center">
                             </div>
                            <div class="col-span-1 flex justify-center ms-2">
-                            <button class="toggle-details ">
+                           
                                 
-                                <div class="toggle-icon">
+                              
                                    <button class="bg-white rounded-full px-6 text-sm py-1 text-[#490648] border border-[#490648]" onclick="openImplications(${index},null,'leadershipTraits','${attr.details ? attr.details.replace(/'/g, "\\'") : ''}')">View</button>
-                                </div>
-                            </button>
+                            
                             </div>
                     </div>
                     <div class="accordion-content px-4 bg-gray-50">
