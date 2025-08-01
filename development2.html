@@ -617,7 +617,143 @@
   height: 30px;
   width: auto;
 }
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  padding: 20px;
+}
+.modal-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
 
+.modal-container {
+  background: #fff;
+  border-radius: 18px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(73, 6, 72, 0.15);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.4s, opacity 0.4s;
+}
+.modal-overlay.visible .modal-container {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px; right: 15px;
+  background: #490648;
+  color: #fff;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(73, 6, 72, 0.25);
+  transition: background 0.2s, transform 0.2s;
+  z-index: 10;
+}
+.close-button:hover {
+  background: #5a0759;
+  transform: scale(1.1);
+}
+
+.cards-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  flex: 1;
+  box-shadow: 0 4px 12px rgba(73, 6, 72, 0.08);
+  border: 1px solid rgba(73, 6, 72, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(73, 6, 72, 0.08);
+}
+.card-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  background-color: #f9f6fa;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 10px;
+}
+.card-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #490648;
+}
+.card-title {
+  color: #490648;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+li {
+  color: #2D2D2D;
+  font-size: 14px;
+  padding-left: 1.25rem;
+  position: relative;
+  margin-bottom: 0.6rem;
+  line-height: 1.4;
+}
+li:last-child {
+  margin-bottom: 0;
+}
+li:before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.5rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #490648;
+}
+
+        @media (max-width: 768px) {
+            .implications-container {
+                grid-template-columns: 1fr;
+            }
+            .sub-rating-container {
+                grid-template-columns: 1fr;
+            }
+        }
   
         .toggle-sub-details:hover {
             background-color: #e5e7eb;
@@ -913,9 +1049,20 @@
                 </div>
             </div>
         </div>
+        <!-- popup for implications -->
+ <div id="implicationModalOverlay" class="modal-overlay">
+            <div class="modal-container">
+                <div class="close-button" onclick="closeImplications()">✕</div>
+                <div class="cards-container" id="implicationCardsContainer"></div>
+            </div>
+        </div>
     </div>
 </div>
+
+
 </div>
+ 
+       
 <script>
         // Personal Attributes data with icons and sub-attributes
         const leadingbusiness = [
@@ -1502,7 +1649,7 @@ const leadingOthersRecommendations = {
         function renderAttributes(container, attributes) {
             const containerElement = document.getElementById(container);
             containerElement.innerHTML = '';
-            
+            console.log('Rendering attributes:', container);
             if (attributes.length === 0) {
                 containerElement.innerHTML = `
                     <div class="p-8 text-center text-gray-500">
@@ -1559,7 +1706,7 @@ const leadingOthersRecommendations = {
                         <!-- Sub-attributes section -->
                         <div class="sub-attributes-container ">
                           <!--  <h3 class="text-gray-700 font-medium mb-3">Sub-attributes</h3>-->
-                            ${attr.subAttributes.map(subAttr => {
+                            ${attr.subAttributes.map((subAttr,subAttrIndex) => {
                                 const subRatingWidth = subAttr.rating * 85;
                                 return `
                                     <div class="sub-attribute-container mb-3 ">
@@ -1573,36 +1720,12 @@ const leadingOthersRecommendations = {
                                                 </div>
                                                 <div class="flex justify-end">
                                                     <button class="toggle-sub-details">
-                                                        <i class="fas fa-chevron-down primary-text text-sm"></i>
+                                                       <button class="bg-white rounded-full px-6 text-sm py-1 text-[#490648] border border-[#490648]" onclick="openImplications(${index}, ${subAttrIndex},'${container}')">View</button>
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="sub-accordion-content">
-                                            <div class="sub-attribute-content py-4">
-                                                <div class="INDICATORS-container">
-                                                    <div class="INDICATORS-card">
-                                                        <div class="INDICATORS-title ">
-                                                            <i class="fas fa-user-check text-sm"></i>
-                                                            <span>Behavioral Indicators</span>
-                                                        </div>
-                                                        <ul class="INDICATORS-list">
-                                                            ${subAttr.behavioralINDICATORS.map(item => `<li>${item}</li>`).join('')}
-                                                        </ul>
-                                                    </div>
-                                                    <div class="INDICATORS-card">
-                                                        <div class="INDICATORS-title">
-                                                            <i class="fas fa-crown text-sm"></i>
-                                                            <span>Leadership Indicators</span>
-                                                        </div>
-                                                        <ul class="INDICATORS-list">
-                                                            ${subAttr.leadershipINDICATORS.map(item => `<li>${item}</li>`).join('')}
-                                                        </ul>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 `;
                             }).join('')}
@@ -1670,7 +1793,69 @@ const leadingOthersRecommendations = {
     });
 });
 
-        }
+        } function closeImplications() {
+  document.getElementById('implicationModalOverlay').classList.remove('visible');
+  document.body.style.overflow = 'auto';
+}
+
+  function openImplications(attrIndex, subAttrIndex,arrayName) {
+          let arr;
+          let data;
+          console.log('Opening implications for index:', attrIndex, 'subIndex:', subAttrIndex, 'arrayName:', arrayName);
+  // Lookup the array by its name string
+  if (arrayName === 'Leading-Business-attributes-container') {
+    arr = leadingbusiness;
+     data = arr[attrIndex+1].subAttributes[subAttrIndex];
+     console.log("data is ",data)
+  }
+  else if (arrayName === 'LeadingOthers-attributes-container') {
+    arr = leadingothers;
+    data = arr[attrIndex+1].subAttributes[subAttrIndex];
+    console.log("data is ",data)
+  } else if (arrayName === 'LeadingSelf-attributes-container') {
+    arr = leadingself;
+    data = arr[attrIndex+1].subAttributes[subAttrIndex];
+    console.log("data is ",data)
+  } else {
+    console.error('Unknown array name:', arrayName);
+    return;
+  } 
+ 
+ console.log('Opening implications for:', data);
+
+  if (!data) return; // Safety check
+
+
+  // Fill the modal cards dynamically
+  document.getElementById('implicationCardsContainer').innerHTML = `
+
+  <div class='flex'>
+    <div class="card flex-1 flex flex-col">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.5 2c-5.621 0-10.211 4.443-10.475 10h-3.025l5 6.625 5-6.625h-2.975c.257-3.351 3.06-6 6.475-6 3.584 0 6.5 2.916 6.5 6.5s-2.916 6.5-6.5 6.5c-1.863 0-3.542-.793-4.728-2.053l-2.427 3.216c1.877 1.754 4.389 2.837 7.155 2.837 5.79 0 10.5-4.71 10.5-10.5s-4.71-10.5-10.5-10.5z"/></svg>
+        </div>
+        <h2 class="card-title">Behavioral Implications</h2>
+      </div>
+      <ul>${(data.behavioralINDICATORS || []).map(item => `<li>${item}</li>`).join('')}</ul>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+        </div>
+        <h2 class="card-title">Leadership Implications</h2>
+      </div>
+      <ul>${(data.leadershipINDICATORS || []).map(item => `<li>${item}</li>`).join('')}</ul>
+    </div>
+  </div>
+  </div>
+  `;
+
+  // Show the modal
+  document.getElementById('implicationModalOverlay').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
         
         // Filter attributes based on category and importance
         function filterAttributes(categoryFilter = 'all', importanceFilter = 'all') {

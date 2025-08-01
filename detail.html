@@ -2489,7 +2489,7 @@ function renderworkAttributes(container, attributes) {
             emptyDiv.textContent = 'No attributes available in this section.';
             containerElement.appendChild(emptyDiv);
         } else {
-            section.list.forEach(attr => {
+            section.list.forEach((attr,attrIndex) => {
                 const ratingWidth = attr.rating * 85;
 
                 let riskBadgeClass = "risk-badge-low";
@@ -2553,47 +2553,13 @@ function renderworkAttributes(container, attributes) {
                             <button class="toggle-details ">
                                 
                                 <div class="toggle-icon">
-                                    <i class="fas fa-plus"></i>
+                                    <button class="bg-white rounded-full px-6 text-sm py-1 text-[#490648] border border-[#490648]" onclick="openImplications(${attrIndex},null,'workCompetencies','${attr.details ? attr.details.replace(/'/g, "\\'") : ''}')">View</button>
+
                                 </div>
                             </button>
                             </div>
-
-
                     </div>
-                    <div class="accordion-content px-4 bg-gray-50">
-                        <div class="bg-white rounded-md shadow-sm border-l-4 primary-border p-4 mb-4">
-                            <p class="text-gray-600">${attr.details}</p>
-                        </div>
-                        <div class="implications-container">
-                            <div class="implications-card">
-                                <div class="implications-title">
-                                    <i class="fas fa-user-check text-sm"></i>
-                                    <span>Behavioral Implications</span>
-                                </div>
-                                <ul class="implications-list">
-                                    ${attr.behavioralImplications.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>
-                            <div class="implications-card">
-                                <div class="implications-title">
-                                    <i class="fas fa-crown text-sm"></i>
-                                    <span>Leadership Implications</span>
-                                </div>
-                                <ul class="implications-list">
-                                    ${attr.leadershipImplications.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>
-                            <div class="implications-card">
-                                <div class="implications-title">
-                                    <i class="fas fa-exclamation-triangle text-sm"></i>
-                                    <span>Potential Challenges</span>
-                                </div>
-                                <ul class="implications-list">
-                                    ${attr.potentialChallenges.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    
                 `;
                 containerElement.appendChild(attributeElement);
             });
@@ -2721,7 +2687,7 @@ function renderleaadershipttributes(container, attributes) {
                             <button class="toggle-details ">
                                 
                                 <div class="toggle-icon">
-                                    <i class="fas fa-plus"></i>
+                                   <button class="bg-white rounded-full px-6 text-sm py-1 text-[#490648] border border-[#490648]" onclick="openImplications(${index},null,'leadershipTraits','${attr.details ? attr.details.replace(/'/g, "\\'") : ''}')">View</button>
                                 </div>
                             </button>
                             </div>
@@ -2974,7 +2940,7 @@ const separatorsHTML = separatorPercents
   </div>
 
           <div class="flex justify-end">
-           <button class="bg-white rounded-full px-6 text-sm py-1 text-[#490648] border border-[#490648]" onclick="openImplications(${index}, ${subAttrIndex})">View</button>
+           <button class="bg-white rounded-full px-6 text-sm py-1 text-[#490648] border border-[#490648]" onclick="openImplications(${index}, ${subAttrIndex},'personalAttributes',null)">View</button>
 
           </div>
         </div>
@@ -3083,15 +3049,42 @@ const separatorsHTML = separatorPercents
   document.body.style.overflow = 'auto';
 }
 
-        function openImplications(attrIndex, subAttrIndex) {
- const data = personalAttributes[attrIndex].subAttributes[subAttrIndex];
+  function openImplications(attrIndex, subAttrIndex,arrayName,details) {
+          let arr;
+          let data;
+  // Lookup the array by its name string
+  if (arrayName === 'personalAttributes') {
+    arr = personalAttributes;
+     data = arr[attrIndex].subAttributes[subAttrIndex];
+  } else if (arrayName === 'workCompetencies') {
+    arr = workCompetencies;
+     data = arr[attrIndex];
+  }
+  else if (arrayName === 'leadershipTraits') {
+    arr = leadershipTraits;
+     data = arr[attrIndex];
+  }
+ 
  console.log('Opening implications for:', data);
 
   if (!data) return; // Safety check
+  let detailsHtml = '';
+  if (details) {
+    detailsHtml = `
+      <div class="bg-white rounded-md shadow-sm border-l-4 primary-border p-4 mb-4">
+        <p class="text-gray-600">${details}</p>
+      </div>
+    `;
+  }
 
   // Fill the modal cards dynamically
   document.getElementById('implicationCardsContainer').innerHTML = `
-    <div class="card">
+  <div class="flex>">
+    <div>
+  ${detailsHtml}
+  </div>
+  <div class='flex'>
+    <div class="card flex-1 flex flex-col">
       <div class="card-header">
         <div class="card-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.5 2c-5.621 0-10.211 4.443-10.475 10h-3.025l5 6.625 5-6.625h-2.975c.257-3.351 3.06-6 6.475-6 3.584 0 6.5 2.916 6.5 6.5s-2.916 6.5-6.5 6.5c-1.863 0-3.542-.793-4.728-2.053l-2.427 3.216c1.877 1.754 4.389 2.837 7.155 2.837 5.79 0 10.5-4.71 10.5-10.5s-4.71-10.5-10.5-10.5z"/></svg>
@@ -3118,6 +3111,8 @@ const separatorsHTML = separatorPercents
       </div>
       <ul>${(data.potentialChallenges || []).map(item => `<li>${item}</li>`).join('')}</ul>
     </div>
+  </div>
+  </div>
   `;
 
   // Show the modal
